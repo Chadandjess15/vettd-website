@@ -558,7 +558,7 @@
       <p class="card-sub">Tell us your situation and we'll identify the right agent for your needs — typically within the hour.</p>
       <iframe
         src="https://api.leadconnectorhq.com/widget/form/mzhO7t3ILpBqZv0eHot2"
-        style="width:100%;height:974px;border:none;border-radius:8px"
+        style="width:100%;height:974px;border:none;border-radius:8px;transition:height 0.3s ease;"
         id="inline-mzhO7t3ILpBqZv0eHot2"
         data-layout="{'id':'INLINE'}"
         data-trigger-type="alwaysShow"
@@ -574,6 +574,23 @@
         title="Vettd Lead Capture">
       </iframe>
       <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+      <script>
+        window.addEventListener('message', function(e) {
+          if (e.data && e.data.type === 'form_submitted') {
+            var iframe = document.getElementById('inline-mzhO7t3ILpBqZv0eHot2');
+            if (iframe) { iframe.style.height = '200px'; }
+          }
+          if (e.data && typeof e.data === 'string') {
+            try {
+              var data = JSON.parse(e.data);
+              if (data.type === 'form_submitted' || data.event === 'form_submitted') {
+                var iframe = document.getElementById('inline-mzhO7t3ILpBqZv0eHot2');
+                if (iframe) { iframe.style.height = '200px'; }
+              }
+            } catch(err) {}
+          }
+        });
+      </script>
       <p class="form-trust" style="margin-top:14px">
         🔒 Free &amp; confidential
         <span>·</span>
