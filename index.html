@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vettd — Know Before You Hire</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #111827;
+    --slate: #1E2D3D;
+    --teal: #0F766E;
+    --teal-light: #14B8A8;
+    --teal-glow: rgba(15,118,110,0.12);
+    --cream: #F9F7F4;
+    --white: #FFFFFF;
+    --muted: #6B7280;
+    --border: #E8E3DC;
+    --gold: #B45309;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    padding: 18px 56px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(17,24,39,0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem; font-weight: 700;
+    color: var(--white); letter-spacing: 0.04em;
+  }
+  .logo span {
+    color: var(--teal-light);
+  }
+  .nav-badge {
+    font-size: 0.7rem; font-weight: 500;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    border: 1px solid rgba(255,255,255,0.12);
+    padding: 4px 10px; border-radius: 20px;
+    margin-left: 12px; vertical-align: middle;
+  }
+  .nav-right { display: flex; align-items: center; gap: 24px; }
+  .nav-link {
+    color: rgba(255,255,255,0.55); font-size: 0.88rem;
+    text-decoration: none; transition: color 0.2s;
+  }
+  .nav-link:hover { color: var(--white); }
+  .nav-cta {
+    background: var(--teal);
+    color: var(--white);
+    font-weight: 600; font-size: 0.85rem;
+    padding: 10px 24px; border-radius: 6px;
+    text-decoration: none; letter-spacing: 0.02em;
+    transition: all 0.2s;
+    border: 1px solid rgba(20,184,166,0.3);
+  }
+  .nav-cta:hover {
+    background: var(--teal-light);
+    transform: translateY(-1px);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: var(--ink);
+    display: flex; align-items: center;
+    position: relative; overflow: hidden;
+    padding: 130px 56px 100px;
+  }
+
+  /* Animated background grid */
+  .hero-grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(15,118,110,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(15,118,110,0.06) 1px, transparent 1px);
+    background-size: 60px 60px;
+    animation: gridShift 20s linear infinite;
+  }
+  @keyframes gridShift {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(60px); }
+  }
+
+  .hero-glow {
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(15,118,110,0.18) 0%, transparent 70%);
+    top: -100px; right: -100px;
+    pointer-events: none;
+  }
+  .hero-glow-2 {
+    position: absolute;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(15,118,110,0.1) 0%, transparent 70%);
+    bottom: -50px; left: 30%;
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    max-width: 1200px; margin: 0 auto; width: 100%;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+    position: relative; z-index: 2;
+  }
+
+  .hero-content { animation: fadeUp 0.8s ease both; }
+
+  .hero-stamp {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(15,118,110,0.15);
+    border: 1px solid rgba(20,184,166,0.25);
+    border-radius: 20px; padding: 6px 14px;
+    margin-bottom: 28px;
+  }
+  .stamp-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--teal-light);
+    animation: pulse 2s ease infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+  .stamp-text {
+    font-size: 0.72rem; font-weight: 500;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--teal-light);
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 5.5vw, 5rem);
+    font-weight: 700; line-height: 1.0;
+    color: var(--white); margin-bottom: 24px;
+    letter-spacing: -0.01em;
+  }
+  .hero h1 em {
+    color: var(--teal-light);
+    font-style: italic;
+  }
+  .hero h1 .line-break { display: block; }
+
+  .hero-sub {
+    font-size: 1.05rem; font-weight: 300; line-height: 1.75;
+    color: rgba(255,255,255,0.62);
+    margin-bottom: 44px; max-width: 460px;
+  }
+
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+  .btn-primary {
+    background: var(--teal);
+    color: var(--white);
+    font-weight: 600; font-size: 0.95rem;
+    padding: 15px 36px; border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.25s;
+    box-shadow: 0 0 0 0 rgba(15,118,110,0.4);
+    border: 1px solid rgba(20,184,166,0.3);
+    font-family: 'Outfit', sans-serif;
+  }
+  .btn-primary:hover {
+    background: var(--teal-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(15,118,110,0.35);
+  }
+  .btn-ghost {
+    color: rgba(255,255,255,0.55); font-size: 0.88rem;
+    text-decoration: none; display: flex; align-items: center; gap: 6px;
+    transition: color 0.2s;
+  }
+  .btn-ghost:hover { color: var(--white); }
+
+  /* Hero Card */
+  .hero-card {
+    background: var(--white);
+    border-radius: 16px; padding: 44px 40px;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05);
+    animation: fadeUp 0.8s ease 0.15s both;
+    position: relative;
+  }
+  .hero-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--teal), var(--teal-light));
+    border-radius: 16px 16px 0 0;
+  }
+
+  .card-eyebrow {
+    font-size: 0.7rem; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--teal); margin-bottom: 10px;
+  }
+  .card-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.65rem; font-weight: 700;
+    color: var(--ink); margin-bottom: 6px; line-height: 1.2;
+  }
+  .card-sub {
+    font-size: 0.85rem; color: var(--muted);
+    margin-bottom: 28px; line-height: 1.6;
+  }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+  .form-group { margin-bottom: 12px; }
+  .form-group label {
+    display: block; font-size: 0.72rem;
+    font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--ink);
+    margin-bottom: 6px; opacity: 0.7;
+  }
+  .form-group input, .form-group select {
+    width: 100%; padding: 12px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px; font-size: 0.92rem;
+    font-family: 'Outfit', sans-serif;
+    color: var(--ink); background: var(--cream);
+    transition: all 0.2s; outline: none;
+    -webkit-appearance: none;
+  }
+  .form-group input:focus, .form-group select:focus {
+    border-color: var(--teal);
+    background: var(--white);
+    box-shadow: 0 0 0 3px rgba(15,118,110,0.08);
+  }
+  .form-submit {
+    width: 100%; padding: 14px;
+    background: var(--ink); color: var(--white);
+    border: none; border-radius: 8px;
+    font-size: 0.95rem; font-weight: 600;
+    font-family: 'Outfit', sans-serif;
+    cursor: pointer; margin-top: 6px;
+    transition: all 0.2s; letter-spacing: 0.01em;
+  }
+  .form-submit:hover {
+    background: var(--slate);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(17,24,39,0.2);
+  }
+  .form-trust {
+    text-align: center; margin-top: 14px;
+    font-size: 0.75rem; color: var(--muted);
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+  }
+  .form-trust .teal { color: var(--teal); font-weight: 500; }
+
+  /* ── TRUST BAR ── */
+  .trust-bar {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 22px 56px;
+  }
+  .trust-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center;
+    justify-content: center; gap: 52px; flex-wrap: wrap;
+  }
+  .trust-item {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.82rem; font-weight: 500; color: var(--muted);
+  }
+  .trust-icon { color: var(--teal); font-size: 0.9rem; }
+
+  /* ── SECTIONS ── */
+  .section { padding: 110px 56px; }
+  .section-inner { max-width: 1200px; margin: 0 auto; }
+  .section-tag {
+    font-size: 0.7rem; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--teal); margin-bottom: 14px;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 3.5vw, 3.2rem);
+    font-weight: 700; line-height: 1.1;
+    color: var(--ink); margin-bottom: 18px;
+  }
+  .section-sub {
+    font-size: 1rem; color: var(--muted);
+    line-height: 1.75; max-width: 520px;
+    margin-bottom: 64px; font-weight: 300;
+  }
+
+  /* ── HOW IT WORKS ── */
+  .how-bg { background: var(--cream); }
+  .steps {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 2px; background: var(--border);
+    border-radius: 16px; overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .step {
+    background: var(--white);
+    padding: 44px 36px;
+    position: relative;
+    transition: background 0.2s;
+  }
+  .step:hover { background: #FAFAF8; }
+  .step-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4rem; font-weight: 700;
+    color: var(--teal); opacity: 0.15;
+    line-height: 1; margin-bottom: 20px;
+    display: block;
+  }
+  .step-icon {
+    width: 44px; height: 44px;
+    background: var(--teal-glow);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; margin-bottom: 18px;
+  }
+  .step h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; font-weight: 700;
+    color: var(--ink); margin-bottom: 10px;
+  }
+  .step p { font-size: 0.88rem; color: var(--muted); line-height: 1.65; font-weight: 300; }
+
+  /* ── PROOF ── */
+  .proof-section { background: var(--slate); }
+  .proof-section .section-title { color: var(--white); }
+  .proof-section .section-sub { color: rgba(255,255,255,0.5); }
+  .proof-section .section-tag { color: var(--teal-light); }
+
+  .testimonials {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  }
+  .testimonial {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 36px 30px;
+    position: relative; overflow: hidden;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .testimonial:hover {
+    border-color: rgba(20,184,166,0.3);
+    background: rgba(15,118,110,0.06);
+  }
+  .testimonial::before {
+    content: '"';
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 8rem; font-weight: 700;
+    color: var(--teal); opacity: 0.08;
+    position: absolute; top: -20px; left: 20px;
+    line-height: 1;
+  }
+  .stars { color: var(--teal-light); font-size: 0.85rem; margin-bottom: 16px; }
+  .testimonial p {
+    font-size: 0.9rem; color: rgba(255,255,255,0.75);
+    line-height: 1.75; margin-bottom: 24px;
+    font-weight: 300; font-style: italic;
+    position: relative; z-index: 1;
+  }
+  .testimonial-author { font-size: 0.8rem; font-weight: 600; color: var(--teal-light); }
+  .testimonial-location { font-size: 0.75rem; color: rgba(255,255,255,0.35); margin-top: 2px; }
+
+  /* ── WHY VETTD ── */
+  .why-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: start;
+  }
+  .why-list { list-style: none; }
+  .why-item {
+    display: flex; gap: 18px;
+    padding: 24px 0; border-bottom: 1px solid var(--border);
+  }
+  .why-item:first-child { padding-top: 0; }
+  .why-item:last-child { border-bottom: none; }
+  .why-icon-wrap {
+    width: 42px; height: 42px; flex-shrink: 0;
+    background: var(--teal-glow);
+    border-radius: 10px;
+    display: flex; align-items: center;
+    justify-content: center; font-size: 1.1rem;
+    border: 1px solid rgba(15,118,110,0.15);
+  }
+  .why-text h4 { font-weight: 600; font-size: 0.95rem; color: var(--ink); margin-bottom: 5px; }
+  .why-text p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; font-weight: 300; }
+
+  .stats-panel {
+    background: var(--ink);
+    border-radius: 16px; padding: 52px 44px;
+    position: relative; overflow: hidden;
+  }
+  .stats-panel::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(15,118,110,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(15,118,110,0.06) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .stat-item {
+    position: relative; z-index: 1;
+    padding: 28px 0; border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .stat-item:first-child { padding-top: 0; }
+  .stat-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem; font-weight: 700;
+    color: var(--teal-light); line-height: 1; margin-bottom: 6px;
+  }
+  .stat-label { font-size: 0.85rem; color: rgba(255,255,255,0.5); font-weight: 300; line-height: 1.5; }
+
+  /* ── VETTD BADGE SECTION ── */
+  .badge-section {
+    background: linear-gradient(135deg, var(--teal) 0%, #065f56 100%);
+    padding: 80px 56px; text-align: center;
+  }
+  .vettd-badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 8px; padding: 12px 24px;
+    margin-bottom: 28px;
+  }
+  .badge-check { font-size: 1.1rem; }
+  .badge-text {
+    font-size: 0.8rem; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: rgba(255,255,255,0.9);
+  }
+  .badge-section h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    font-weight: 700; color: var(--white);
+    margin-bottom: 14px; line-height: 1.2;
+  }
+  .badge-section p {
+    font-size: 0.95rem; color: rgba(255,255,255,0.7);
+    max-width: 480px; margin: 0 auto 36px;
+    line-height: 1.7; font-weight: 300;
+  }
+
+  /* ── CTA ── */
+  .cta-section { background: var(--cream); text-align: center; }
+  .cta-inner { max-width: 640px; margin: 0 auto; }
+  .cta-section .section-title { color: var(--ink); margin-bottom: 16px; }
+  .cta-section p {
+    font-size: 1rem; color: var(--muted);
+    margin-bottom: 40px; line-height: 1.7; font-weight: 300;
+  }
+  .cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .btn-dark {
+    background: var(--ink); color: var(--white);
+    font-weight: 600; font-size: 0.95rem;
+    padding: 15px 36px; border-radius: 6px;
+    text-decoration: none; transition: all 0.2s;
+    font-family: 'Outfit', sans-serif;
+  }
+  .btn-dark:hover { background: var(--slate); transform: translateY(-2px); }
+  .btn-outline {
+    background: transparent; color: var(--ink);
+    font-weight: 500; font-size: 0.95rem;
+    padding: 15px 36px; border-radius: 6px;
+    text-decoration: none; border: 1.5px solid var(--border);
+    transition: all 0.2s; font-family: 'Outfit', sans-serif;
+  }
+  .btn-outline:hover { border-color: var(--teal); color: var(--teal); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    padding: 44px 56px;
+    display: flex; align-items: center;
+    justify-content: space-between; flex-wrap: wrap; gap: 16px;
+  }
+  footer .logo { font-size: 1.4rem; }
+  footer p { font-size: 0.78rem; color: rgba(255,255,255,0.3); }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a {
+    font-size: 0.78rem; color: rgba(255,255,255,0.3);
+    text-decoration: none; transition: color 0.2s;
+  }
+  .footer-links a:hover { color: rgba(255,255,255,0.7); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 960px) {
+    nav { padding: 16px 24px; }
+    .nav-badge { display: none; }
+    .hero { padding: 100px 24px 60px; }
+    .hero-inner, .steps, .testimonials, .why-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .section { padding: 70px 24px; }
+    .trust-bar { padding: 20px 24px; }
+    .trust-inner { gap: 20px; }
+    .badge-section, .cta-section { padding: 70px 24px; }
+    footer { padding: 32px 24px; flex-direction: column; text-align: center; }
+    .footer-links { justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div>
+    <span class="logo">Vett<span>d</span></span>
+    <span class="nav-badge">Agent Matching</span>
+  </div>
+  <div class="nav-right">
+    <a href="#how" class="nav-link">How It Works</a>
+    <a href="#why" class="nav-link">Why Vettd</a>
+    <a href="#match" class="nav-cta">Get Matched Free</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow-2"></div>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-stamp">
+        <div class="stamp-dot"></div>
+        <span class="stamp-text">Licensed · Verified · Matched</span>
+      </div>
+      <h1>
+        <span class="line-break">Don't just find</span>
+        <span class="line-break">an agent.</span>
+        <em>Know</em> your agent.
+      </h1>
+      <p class="hero-sub">Vettd matches homeowners, buyers, and investors with rigorously screened real estate professionals — based on your specific situation, market, and goals. Free. Fast. No pressure.</p>
+      <div class="hero-actions">
+        <a href="#match" class="btn-primary">Get My Free Match →</a>
+        <a href="#how" class="btn-ghost">See how it works ↓</a>
+      </div>
+    </div>
+
+    <div class="hero-card" id="match">
+      <p class="card-eyebrow">Free Agent Match</p>
+      <p class="card-headline">Find your Vettd agent</p>
+      <p class="card-sub">Tell us your situation and we'll identify the right agent for your needs — typically within the hour.</p>
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" placeholder="First name">
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" placeholder="Last name">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input type="tel" placeholder="(555) 000-0000">
+      </div>
+      <div class="form-group">
+        <label>Property ZIP Code</label>
+        <input type="text" placeholder="Enter ZIP code">
+      </div>
+      <div class="form-group">
+        <label>What Do You Need?</label>
+        <select>
+          <option value="">Select your situation...</option>
+          <option>Sell my home</option>
+          <option>Buy a home</option>
+          <option>Sell & buy</option>
+          <option>Real estate investment</option>
+          <option>Just exploring my options</option>
+        </select>
+      </div>
+      <button class="form-submit">Match Me With a Vettd Agent →</button>
+      <p class="form-trust">
+        🔒 Free &amp; confidential
+        <span>·</span>
+        <span class="teal">Response within 1 hour</span>
+        <span>·</span>
+        No obligation
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-inner">
+    <div class="trust-item"><span class="trust-icon">✓</span> Licensed Professional Oversight</div>
+    <div class="trust-item"><span class="trust-icon">✓</span> Every Agent is Screened & Verified</div>
+    <div class="trust-item"><span class="trust-icon">✓</span> Zero Cost to You</div>
+    <div class="trust-item"><span class="trust-icon">✓</span> Matched in Under 1 Hour</div>
+    <div class="trust-item"><span class="trust-icon">✓</span> No Obligation. Ever.</div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="section how-bg" id="how">
+  <div class="section-inner">
+    <p class="section-tag">The Process</p>
+    <h2 class="section-title">Three steps to your<br>Vettd match</h2>
+    <p class="section-sub">We've built a process that removes the guesswork from one of the most important decisions in your transaction.</p>
+    <div class="steps">
+      <div class="step">
+        <span class="step-number">01</span>
+        <div class="step-icon">📋</div>
+        <h3>Tell Us Your Situation</h3>
+        <p>Answer a few quick questions about your property, timeline, and goals. Takes less than 60 seconds — no account needed.</p>
+      </div>
+      <div class="step">
+        <span class="step-number">02</span>
+        <div class="step-icon">🔍</div>
+        <h3>We Vet & Match</h3>
+        <p>Our licensed team identifies agents with the verified track record, local expertise, and proven strategy for your exact situation — not just whoever's available.</p>
+      </div>
+      <div class="step">
+        <span class="step-number">03</span>
+        <div class="step-icon">🤝</div>
+        <h3>Connect With Confidence</h3>
+        <p>We make a direct introduction. You know exactly who you're talking to, what they've done, and why they're the right fit for you.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section proof-section">
+  <div class="section-inner">
+    <p class="section-tag">Real Results</p>
+    <h2 class="section-title" style="color:white">What people say<br>after being Vettd</h2>
+    <p class="section-sub">The proof is in the outcomes.</p>
+    <div class="testimonials">
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <p>"I'd been putting off selling for two years because I didn't know who to trust. Vettd matched me with someone who specialized in my exact neighborhood. We closed 18 days after listing — $14,000 over asking."</p>
+        <div class="testimonial-author">Sandra M.</div>
+        <div class="testimonial-location">Phoenix, AZ</div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <p>"What I appreciated most was that they actually listened. I wasn't just handed a random name — they matched me with an agent who had closed three deals on my exact street. The difference was immediately obvious."</p>
+        <div class="testimonial-author">James T.</div>
+        <div class="testimonial-location">Dallas, TX</div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <p>"As an investor I've worked with a lot of agents. The one Vettd connected me with understood deal flow, off-market comps, and investor math. First time that's happened through a free matching service."</p>
+        <div class="testimonial-author">Marcus R.</div>
+        <div class="testimonial-location">Atlanta, GA</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY VETTD -->
+<section class="section" id="why">
+  <div class="section-inner">
+    <div class="why-grid">
+      <div>
+        <p class="section-tag">Why Vettd</p>
+        <h2 class="section-title">The agent you pick<br>changes everything</h2>
+        <p class="section-sub">Your timeline. Your final number. Your stress level. We exist to make sure you get it right — before you sign anything.</p>
+        <ul class="why-list">
+          <li class="why-item">
+            <div class="why-icon-wrap">🎯</div>
+            <div class="why-text">
+              <h4>Situation-Specific Matching</h4>
+              <p>We match based on your actual needs — not who pays us the most or who has capacity this week.</p>
+            </div>
+          </li>
+          <li class="why-item">
+            <div class="why-icon-wrap">✅</div>
+            <div class="why-text">
+              <h4>Every Agent is Truly Vettd</h4>
+              <p>Track record verified. Local expertise confirmed. No rookies, no random referrals.</p>
+            </div>
+          </li>
+          <li class="why-item">
+            <div class="why-icon-wrap">⚖️</div>
+            <div class="why-text">
+              <h4>Licensed Professional Oversight</h4>
+              <p>Every match is reviewed by a licensed real estate professional who knows your market inside out.</p>
+            </div>
+          </li>
+          <li class="why-item">
+            <div class="why-icon-wrap">🆓</div>
+            <div class="why-text">
+              <h4>Free. No Hidden Anything.</h4>
+              <p>Vettd is completely free to homeowners, buyers, and investors. No fees, no catches, no pressure.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="stats-panel">
+        <div class="stat-item">
+          <div class="stat-num">$23K</div>
+          <div class="stat-label">Average additional proceeds when sellers use a matched vs. randomly chosen agent</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">&lt;1hr</div>
+          <div class="stat-label">Average time from submission to first agent introduction</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">94%</div>
+          <div class="stat-label">Of Vettd clients say they would recommend their matched agent to a friend or family member</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Free to every homeowner, buyer, and investor — always</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VETTD BADGE -->
+<div class="badge-section">
+  <div class="vettd-badge">
+    <span class="badge-check">✓</span>
+    <span class="badge-text">Vettd Certified Agent Network</span>
+  </div>
+  <h2>Only the agents who earn it<br>make it into our network.</h2>
+  <p>We don't accept every agent who applies. Our screening process evaluates track record, local market knowledge, client reviews, and transaction history — so you only meet agents who've already proven themselves.</p>
+  <a href="#match" class="btn-primary" style="display:inline-block">See If There's a Vettd Agent In Your Area →</a>
+</div>
+
+<!-- CTA -->
+<section class="section cta-section">
+  <div class="section-inner">
+    <div class="cta-inner">
+      <p class="section-tag" style="text-align:center">Get Started</p>
+      <h2 class="section-title">Don't guess.<br>Get Vettd.</h2>
+      <p>It's free, it takes 60 seconds, and it could be the single most important step you take before your next real estate transaction.</p>
+      <div class="cta-actions">
+        <a href="#match" class="btn-dark">Get My Free Match →</a>
+        <a href="#how" class="btn-outline">Learn How It Works</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="logo">Vett<span style="color:var(--teal-light)">d</span></span>
+  <p>© 2025 Vettd. Licensed Real Estate Referral & Matching Service. All rights reserved.</p>
+  <div class="footer-links">
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+    <a href="#">Contact</a>
+  </div>
+</footer>
+
+</body>
+</html>
