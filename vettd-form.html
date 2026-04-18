@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vettd — Get Your Free Match</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #111827;
+    --slate: #1E2D3D;
+    --teal: #0F766E;
+    --teal-light: #14B8A8;
+    --teal-glow: rgba(15,118,110,0.12);
+    --cream: #F9F7F4;
+    --white: #FFFFFF;
+    --muted: #6B7280;
+    --border: #E8E3DC;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--ink);
+    color: var(--ink);
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    padding: 40px 20px;
+    position: relative; overflow-x: hidden;
+  }
+
+  .bg-grid {
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(rgba(15,118,110,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(15,118,110,0.06) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+  .bg-glow {
+    position: fixed; width: 600px; height: 600px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(15,118,110,0.15) 0%, transparent 70%);
+    top: -100px; right: -100px; pointer-events: none;
+  }
+
+  /* CARD */
+  .form-card {
+    background: var(--white);
+    border-radius: 20px; width: 100%; max-width: 580px;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+    position: relative; z-index: 2;
+    overflow: hidden;
+  }
+  .card-top-bar {
+    height: 4px;
+    background: linear-gradient(90deg, var(--teal), var(--teal-light));
+  }
+  .card-inner { padding: 44px 48px; }
+
+  /* PROGRESS */
+  .progress-wrap {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 32px;
+  }
+  .progress-bar {
+    flex: 1; height: 4px; background: #EDE8E0;
+    border-radius: 2px; margin-right: 12px; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; background: var(--teal);
+    border-radius: 2px; transition: width 0.4s ease;
+    width: 50%;
+  }
+  .progress-label {
+    font-size: 0.72rem; font-weight: 500;
+    color: var(--muted); white-space: nowrap;
+    letter-spacing: 0.04em;
+  }
+
+  /* STEP HEADER */
+  .step-eyebrow {
+    font-size: 0.68rem; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--teal); margin-bottom: 8px;
+  }
+  .step-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.7rem; font-weight: 700;
+    color: var(--ink); margin-bottom: 6px; line-height: 1.2;
+  }
+  .step-sub {
+    font-size: 0.85rem; color: var(--muted);
+    margin-bottom: 28px; line-height: 1.6; font-weight: 300;
+  }
+
+  /* FORM ELEMENTS */
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+  .field-group { margin-bottom: 14px; }
+  .field-group label {
+    display: block; font-size: 0.72rem; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--ink); margin-bottom: 6px; opacity: 0.7;
+  }
+  .field-group input,
+  .field-group select {
+    width: 100%; padding: 12px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px; font-size: 0.92rem;
+    font-family: 'Outfit', sans-serif;
+    color: var(--ink); background: var(--cream);
+    transition: all 0.2s; outline: none;
+    -webkit-appearance: none; appearance: none;
+  }
+  .field-group input:focus,
+  .field-group select:focus {
+    border-color: var(--teal);
+    background: var(--white);
+    box-shadow: 0 0 0 3px rgba(15,118,110,0.08);
+  }
+
+  /* YES/NO BUTTONS */
+  .yn-group { display: flex; gap: 10px; }
+  .yn-btn {
+    flex: 1; padding: 11px; border-radius: 8px;
+    border: 1.5px solid var(--border);
+    background: var(--cream); color: var(--muted);
+    font-family: 'Outfit', sans-serif; font-size: 0.9rem;
+    font-weight: 500; cursor: pointer; transition: all 0.2s;
+    text-align: center;
+  }
+  .yn-btn:hover { border-color: var(--teal); color: var(--teal); }
+  .yn-btn.selected {
+    background: var(--teal); border-color: var(--teal);
+    color: var(--white);
+  }
+
+  /* MULTI-SELECT CHIPS */
+  .chips-group { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    padding: 8px 14px; border-radius: 20px;
+    border: 1.5px solid var(--border);
+    background: var(--cream); color: var(--muted);
+    font-family: 'Outfit', sans-serif; font-size: 0.82rem;
+    font-weight: 500; cursor: pointer; transition: all 0.2s;
+  }
+  .chip:hover { border-color: var(--teal); color: var(--teal); }
+  .chip.selected {
+    background: var(--teal-glow); border-color: var(--teal);
+    color: var(--teal); font-weight: 600;
+  }
+
+  /* SITUATION CARDS */
+  .situation-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 10px; margin-bottom: 14px;
+  }
+  .sit-card {
+    padding: 16px 14px; border-radius: 10px;
+    border: 1.5px solid var(--border);
+    background: var(--cream); cursor: pointer;
+    transition: all 0.2s; text-align: left;
+  }
+  .sit-card:hover { border-color: var(--teal); }
+  .sit-card.selected {
+    border-color: var(--teal);
+    background: var(--teal-glow);
+  }
+  .sit-icon { font-size: 1.3rem; margin-bottom: 6px; display: block; }
+  .sit-label {
+    font-size: 0.85rem; font-weight: 600; color: var(--ink);
+    display: block; line-height: 1.3;
+  }
+  .sit-desc {
+    font-size: 0.75rem; color: var(--muted);
+    margin-top: 2px; font-weight: 300;
+  }
+
+  /* CONSENT */
+  .consent-block { margin-bottom: 14px; }
+  .consent-item {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 10px 0; border-bottom: 1px solid var(--border);
+  }
+  .consent-item:last-child { border-bottom: none; }
+  .consent-item input[type="checkbox"] {
+    width: 16px; height: 16px; flex-shrink: 0;
+    margin-top: 2px; accent-color: var(--teal);
+    cursor: pointer;
+  }
+  .consent-text {
+    font-size: 0.75rem; color: var(--muted);
+    line-height: 1.55; font-weight: 300;
+  }
+  .consent-text strong { font-weight: 600; color: var(--ink); }
+
+  /* BUTTONS */
+  .btn-next {
+    width: 100%; padding: 14px;
+    background: var(--ink); color: var(--white);
+    border: none; border-radius: 8px;
+    font-size: 0.95rem; font-weight: 600;
+    font-family: 'Outfit', sans-serif;
+    cursor: pointer; margin-top: 8px;
+    transition: all 0.2s; letter-spacing: 0.01em;
+  }
+  .btn-next:hover {
+    background: var(--slate);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(17,24,39,0.2);
+  }
+  .btn-next.teal-btn {
+    background: var(--teal);
+    box-shadow: 0 4px 20px rgba(15,118,110,0.25);
+  }
+  .btn-next.teal-btn:hover {
+    background: var(--teal-light);
+    box-shadow: 0 8px 28px rgba(15,118,110,0.35);
+  }
+  .btn-back {
+    background: none; border: none; cursor: pointer;
+    font-size: 0.82rem; color: var(--muted);
+    font-family: 'Outfit', sans-serif;
+    padding: 10px 0; display: block;
+    margin: 8px auto 0; transition: color 0.2s;
+  }
+  .btn-back:hover { color: var(--ink); }
+
+  .form-trust {
+    text-align: center; margin-top: 14px;
+    font-size: 0.75rem; color: var(--muted);
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+  }
+  .form-trust .teal { color: var(--teal); font-weight: 500; }
+
+  /* STEPS */
+  .step { display: none; }
+  .step.active {
+    display: block;
+    animation: fadeIn 0.3s ease both;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateX(12px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .divider {
+    border: none; border-top: 1px solid var(--border);
+    margin: 20px 0;
+  }
+
+  .section-label {
+    font-size: 0.68rem; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--teal); margin-bottom: 12px; margin-top: 20px;
+  }
+
+  @media (max-width: 520px) {
+    .card-inner { padding: 32px 24px; }
+    .field-row { grid-template-columns: 1fr; }
+    .situation-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-glow"></div>
+
+<div class="form-card">
+  <div class="card-top-bar"></div>
+  <div class="card-inner">
+
+    <!-- PROGRESS BAR -->
+    <div class="progress-wrap">
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <span class="progress-label" id="progressLabel">Step 1 of 2</span>
+    </div>
+
+    <!-- ═══════════════════════════
+         STEP 1 — BASIC INFO
+    ═══════════════════════════ -->
+    <div class="step active" id="step1">
+      <p class="step-eyebrow">Free Agent Match</p>
+      <h2 class="step-title">Find your Vettd agent</h2>
+      <p class="step-sub">Tell us the basics and we'll identify the right specialist for your situation — typically within the hour.</p>
+
+      <div class="field-row">
+        <div class="field-group">
+          <label>First Name *</label>
+          <input type="text" id="firstName" placeholder="First name">
+        </div>
+        <div class="field-group">
+          <label>Last Name *</label>
+          <input type="text" id="lastName" placeholder="Last name">
+        </div>
+      </div>
+      <div class="field-group">
+        <label>Phone Number *</label>
+        <input type="tel" id="phone" placeholder="(555) 000-0000">
+      </div>
+      <div class="field-group">
+        <label>Email Address *</label>
+        <input type="email" id="email" placeholder="your@email.com">
+      </div>
+      <div class="field-group">
+        <label>What Are You Looking To Do? *</label>
+        <div class="situation-grid" id="situationGrid">
+          <div class="sit-card" onclick="selectSituation('sell')">
+            <span class="sit-icon">🏠</span>
+            <span class="sit-label">Sell My Home</span>
+            <span class="sit-desc">List and sell a property</span>
+          </div>
+          <div class="sit-card" onclick="selectSituation('buy')">
+            <span class="sit-icon">🔑</span>
+            <span class="sit-label">Buy a Home</span>
+            <span class="sit-desc">Find and purchase a home</span>
+          </div>
+          <div class="sit-card" onclick="selectSituation('sellbuy')">
+            <span class="sit-icon">🔄</span>
+            <span class="sit-label">Sell & Buy</span>
+            <span class="sit-desc">Sell current, buy new</span>
+          </div>
+          <div class="sit-card" onclick="selectSituation('invest_res')">
+            <span class="sit-icon">🏘️</span>
+            <span class="sit-label">Residential Investment</span>
+            <span class="sit-desc">SFR or small multi-family</span>
+          </div>
+          <div class="sit-card" onclick="selectSituation('invest_com')">
+            <span class="sit-icon">🏢</span>
+            <span class="sit-label">Commercial Investment</span>
+            <span class="sit-desc">Commercial real estate</span>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-next" onclick="goToStep2()">Continue →</button>
+      <p class="form-trust">
+        🔒 Free &amp; confidential
+        <span>·</span>
+        <span class="teal">No obligation</span>
+        <span>·</span>
+        Takes 60 seconds
+      </p>
+    </div>
+
+    <!-- ═══════════════════════════
+         STEP 2A — SELLER
+    ═══════════════════════════ -->
+    <div class="step" id="step2_sell">
+      <p class="step-eyebrow">Seller Details</p>
+      <h2 class="step-title">Tell us about your home</h2>
+      <p class="step-sub">The more we know, the better we can match you with the right specialist.</p>
+
+      <div class="field-group">
+        <label>Property Address</label>
+        <input type="text" id="sellAddress" placeholder="123 Main St, City, TX">
+      </div>
+      <div class="field-row">
+        <div class="field-group">
+          <label>Timeline to Sell</label>
+          <select id="sellTimeline">
+            <option value="">Select timeline...</option>
+            <option>ASAP — I need to move quickly</option>
+            <option>Within 1–3 months</option>
+            <option>Within 3–6 months</option>
+            <option>6–12 months</option>
+            <option>Just exploring for now</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label>Estimated Home Value</label>
+          <select id="sellValue">
+            <option value="">Select range...</option>
+            <option>Under $200,000</option>
+            <option>$200,000 – $350,000</option>
+            <option>$350,000 – $500,000</option>
+            <option>$500,000 – $750,000</option>
+            <option>$750,000 – $1,000,000</option>
+            <option>$1,000,000 – $1,500,000</option>
+            <option>$1,500,000+</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label>Any Special Circumstances? (Select all that apply)</label>
+        <div class="chips-group" id="sellCircumstances">
+          <div class="chip" onclick="toggleChip(this)">None</div>
+          <div class="chip" onclick="toggleChip(this)">Needs repairs</div>
+          <div class="chip" onclick="toggleChip(this)">Need to sell quickly</div>
+          <div class="chip" onclick="toggleChip(this)">Probate / Estate sale</div>
+          <div class="chip" onclick="toggleChip(this)">Divorce</div>
+          <div class="chip" onclick="toggleChip(this)">Behind on payments</div>
+          <div class="chip" onclick="toggleChip(this)">Tenant occupied</div>
+          <div class="chip" onclick="toggleChip(this)">New construction / Builder</div>
+          <div class="chip" onclick="toggleChip(this)">Other</div>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label>Have You Already Spoken With an Agent?</label>
+        <div class="yn-group">
+          <button class="yn-btn" onclick="selectYN(this, 'sellHasAgent', 'Yes')">Yes</button>
+          <button class="yn-btn" onclick="selectYN(this, 'sellHasAgent', 'No')">No</button>
+        </div>
+        <input type="hidden" id="sellHasAgent">
+      </div>
+
+      <hr class="divider">
+      <div class="consent-block">
+        <div class="consent-item">
+          <input type="checkbox" id="consent1_sell" required>
+          <span class="consent-text">By checking this box, I consent to receive non-marketing text messages from <strong>Vettd</strong> about real estate agent matching and follow-up communications. Message frequency varies. Message & data rates may apply. Text HELP for assistance, reply STOP to opt out.</span>
+        </div>
+        <div class="consent-item">
+          <input type="checkbox" id="consent2_sell">
+          <span class="consent-text">By checking this box, I consent to receive marketing and promotional messages from <strong>Vettd</strong> including market updates, tips, and special offers. Frequency may vary. Message & data rates may apply. Reply STOP to opt out.</span>
+        </div>
+      </div>
+
+      <button class="btn-next teal-btn" onclick="submitForm('sell')">Get My Vettd Match →</button>
+      <button class="btn-back" onclick="goBack()">← Back</button>
+    </div>
+
+    <!-- ═══════════════════════════
+         STEP 2B — BUYER
+    ═══════════════════════════ -->
+    <div class="step" id="step2_buy">
+      <p class="step-eyebrow">Buyer Details</p>
+      <h2 class="step-title">Tell us what you're looking for</h2>
+      <p class="step-sub">Help us find the agent who knows your target market best.</p>
+
+      <div class="field-group">
+        <label>What City or Area Are You Looking In?</label>
+        <input type="text" id="buyArea" placeholder="e.g. Dallas, Southlake, Frisco...">
+      </div>
+      <div class="field-group">
+        <label>Specific Neighborhood or School District? (Optional)</label>
+        <input type="text" id="buyNeighborhood" placeholder="e.g. Carroll ISD, Highland Park...">
+      </div>
+      <div class="field-row">
+        <div class="field-group">
+          <label>Budget Range</label>
+          <select id="buyBudget">
+            <option value="">Select range...</option>
+            <option>Under $200,000</option>
+            <option>$200,000 – $350,000</option>
+            <option>$350,000 – $500,000</option>
+            <option>$500,000 – $750,000</option>
+            <option>$750,000 – $1,000,000</option>
+            <option>$1,000,000 – $1,500,000</option>
+            <option>$1,500,000+</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label>Timeline to Buy</label>
+          <select id="buyTimeline">
+            <option value="">Select timeline...</option>
+            <option>ASAP — actively searching</option>
+            <option>Within 1–3 months</option>
+            <option>Within 3–6 months</option>
+            <option>6–12 months</option>
+            <option>Just exploring for now</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label>Have You Been Pre-Approved by a Lender?</label>
+        <div class="yn-group">
+          <button class="yn-btn" onclick="selectYN(this, 'buyPreApproved', 'Yes')">Yes</button>
+          <button class="yn-btn" onclick="selectYN(this, 'buyPreApproved', 'No — I\'d like a Vettd lender')">No — Connect me with a Vettd lender</button>
+          <button class="yn-btn" onclick="selectYN(this, 'buyPreApproved', 'No — not yet')">No — not yet</button>
+        </div>
+        <input type="hidden" id="buyPreApproved">
+      </div>
+
+      <div class="field-group">
+        <label>Is This Your First Home Purchase?</label>
+        <div class="yn-group">
+          <button class="yn-btn" onclick="selectYN(this, 'buyFirstTime', 'Yes')">Yes</button>
+          <button class="yn-btn" onclick="selectYN(this, 'buyFirstTime', 'No')">No</button>
+        </div>
+        <input type="hidden" id="buyFirstTime">
+      </div>
+
+      <hr class="divider">
+      <div class="consent-block">
+        <div class="consent-item">
+          <input type="checkbox" id="consent1_buy" required>
+          <span class="consent-text">By checking this box, I consent to receive non-marketing text messages from <strong>Vettd</strong> about real estate agent matching and follow-up communications. Message frequency varies. Message & data rates may apply. Text HELP for assistance, reply STOP to opt out.</span>
+        </div>
+        <div class="consent-item">
+          <input type="checkbox" id="consent2_buy">
+          <span class="consent-text">By checking this box, I consent to receive marketing and promotional messages from <strong>Vettd</strong> including market updates, tips, and special offers. Frequency may vary. Message & data rates may apply. Reply STOP to opt out.</span>
+        </div>
+      </div>
+
+      <button class="btn-next teal-btn" onclick="submitForm('buy')">Get My Vettd Match →</button>
+      <button class="btn-back" onclick="goBack()">← Back</button>
+    </div>
+
+    <!-- ═══════════════════════════
+         STEP 2C — SELL & BUY
+    ═══════════════════════════ -->
+    <div class="step" id="step2_sellbuy">
+      <p class="step-eyebrow">Sell & Buy Details</p>
+      <h2 class="step-title">Tell us about both sides</h2>
+      <p class="step-sub">We'll match you with an agent who can expertly handle both transactions.</p>
+
+      <p class="section-label">Selling</p>
+      <div class="field-group">
+        <label>Property Address You're Selling</label>
+        <input type="text" id="sbSellAddress" placeholder="123 Main St, City, TX">
+      </div>
+      <div class="field-row">
+        <div class="field-group">
+          <label>Timeline</label>
+          <select id="sbSellTimeline">
+            <option value="">Select timeline...</option>
+            <option>ASAP — I need to move quickly</option>
+            <option>Within 1–3 months</option>
+            <option>Within 3–6 months</option>
+            <option>6–12 months</option>
+            <option>Just exploring for now</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label>Estimated Home Value</label>
+          <select id="sbSellValue">
+            <option value="">Select range...</option>
+            <option>Under $200,000</option>
+            <option>$200,000 – $350,000</option>
+            <option>$350,000 – $500,000</option>
+            <option>$500,000 – $750,000</option>
+            <option>$750,000 – $1,000,000</option>
+            <option>$1,000,000 – $1,500,000</option>
+            <option>$1,500,000+</option>
+          </select>
+        </div>
+      </div>
+      <div class="field-group">
+        <label>Any Special Circumstances? (Select all that apply)</label>
+        <div class="chips-group" id="sbCircumstances">
+          <div class="chip" onclick="toggleChip(this)">None</div>
+          <div class="chip" onclick="toggleChip(this)">Needs repairs</div>
+          <div class="chip" onclick="toggleChip(this)">Need to sell quickly</div>
+          <div class="chip" onclick="toggleChip(this)">Probate / Estate sale</div>
+          <div class="chip" onclick="toggleChip(this)">Divorce</div>
+          <div class="chip" onclick="toggleChip(this)">Tenant occupied</div>
+          <div class="chip" onclick="toggleChip(this)">Other</div>
+        </div>
+      </div>
+
+      <p class="section-label">Buying</p>
+      <div class="field-group">
+        <label>What Area Are You Buying In?</label>
+        <input type="text" id="sbBuyArea" placeholder="e.g. Dallas, Southlake, Frisco...">
+      </div>
+      <div class="field-row">
+        <div class="field-group">
+          <label>Budget Range</label>
+          <select id="sbBuyBudget">
+            <option value="">Select range...</option>
+            <option>Under $200,000</option>
+            <option>$200,000 – $350,000</option>
+            <option>$350,000 – $500,000</option>
+            <option>$500,000 – $750,000</option>
+            <option>$750,000 – $1,000,000</option>
+            <option>$1,000,000 – $1,500,000</option>
+            <option>$1,500,000+</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label>Which is More Urgent?</label>
+          <select id="sbUrgency">
+            <option value="">Select...</option>
+            <option>Sell first, then buy</option>
+            <option>Buy first, then sell</option>
+            <option>Both at the same time</option>
+            <option>Not sure yet</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label>Pre-Approved by a Lender?</label>
+        <div class="yn-group">
+          <button class="yn-btn" onclick="selectYN(this, 'sbPreApproved', 'Yes')">Yes</button>
+          <button class="yn-btn" onclick="selectYN(this, 'sbPreApproved', 'No — connect me with a Vettd lender')">Connect me with a lender</button>
+          <button class="yn-btn" onclick="selectYN(this, 'sbPreApproved', 'No')">No</button>
+        </div>
+        <input type="hidden" id="sbPreApproved">
+      </div>
+
+      <hr class="divider">
+      <div class="consent-block">
+        <div class="consent-item">
+          <input type="checkbox" id="consent1_sb" required>
+          <span class="consent-text">By checking this box, I consent to receive non-marketing text messages from <strong>Vettd</strong> about real estate agent matching and follow-up communications. Message frequency varies. Message & data rates may apply. Text HELP for assistance, reply STOP to opt out.</span>
+        </div>
+        <div class="consent-item">
+          <input type="checkbox" id="consent2_sb">
+          <span class="consent-text">By checking this box, I consent to receive marketing and promotional messages from <strong>Vettd</strong> including market updates, tips, and special offers. Frequency may vary. Message & data rates may apply. Reply STOP to opt out.</span>
+        </div>
+      </div>
+
+      <button class="btn-next teal-btn" onclick="submitForm('sellbuy')">Get My Vettd Match →</button>
+      <button class="btn-back" onclick="goBack()">← Back</button>
+    </div>
+
+    <!-- ═══════════════════════════
+         STEP 2D — RESIDENTIAL INVESTOR
+    ═══════════════════════════ -->
+    <div class="step" id="step2_invest_res">
+      <p class="step-eyebrow">Residential Investor</p>
+      <h2 class="step-title">Tell us about your investment goals</h2>
+      <p class="step-sub">Our Vettd investor agents are investors themselves — they understand the numbers.</p>
+
+      <div class="field-group">
+        <label>What Area Are You Targeting?</label>
+        <input type="text" id="resArea" placeholder="e.g. Dallas-Fort Worth, Austin...">
+      </div>
+
+      <div class="field-group">
+        <label>Property Type</label>
+        <div class="yn-group">
+          <button class="yn-btn" onclick="selectYN(this, 'resPropertyType', 'Single Family')">Single Family</button>
+          <button class="yn-btn" onclick="selectYN(this, 'resPropertyType', 'Small Multi-Family (2–4 units)')">Small Multi-Family (2–4 units)</button>
+          <button class="yn-btn" onclick="selectYN(this, 'resPropertyType', 'Both')">Both</button>
+        </div>
+        <input type="hidden" id="resPropertyType">
+      </div>
+
+      <div class="field-group">
+        <label>Investment Strategy</label>
+        <div class="chips-group">
+          <div class="chip" onclick="toggleChipSingle(this, 'resStrategy')">Long-term rental</div>
+          <div class="chip" onclick="toggleChipSingle(this, 'resStrategy')">Short-term rental (Airbnb)</div>
+          <div class="chip" onclick="toggleChipSingle(this, 'resStrategy')">Fix &amp; flip</div>
+          <div class="chip" onclick="toggleChipSingle(this, 'resStrategy')">BRRRR strategy</div>
+          <div class="chip" onclick="toggleChipSingle(this, 'resStrategy')">Not sure yet</div>
+        </div>
+        <input type="hidden" id="resStrategy">
+      </div>
+
+      <div class="field-row">
+        <div class="field-group">
+          <label>Budget Range</label>
+          <select id="resBudget">
+            <option value="">Select range...</option>
+            <option>Under $100,000</option>
+            <option>$100,000 – $200,000</option>
+            <option>$200,000 – $350,000</option>
+            <option>$350,000 – $500,000</option>
+            <option>$500,000 – $750,000</option>
+            <option>$750,000+</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label>Timeline</label>
+          <select id="resTimeline">
+            <option value="">Select timeline...</option>
+            <option>Actively looking now</option>
+            <option>Within 1–3 months</option>
+            <option>Within 3–6 months</option>
+            <option>6–12 months</option>
+            <option>Just researching</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label>Investment Experience</label>
+        <select id="resExperience">
+          <option value="">Select...</option>
+          <option>First-time investor</option>
+          <option>I own 1 investment property</option>
+          <option>I own 2–5 investment properties</option>
+          <option>I own 6–10 investment properties</option>
+          <option>I own 10+ investment properties</option>
+        </select>
+      </div>
+
+      <hr class="divider">
+      <div class="consent-block">
+        <div class="consent-item">
+          <input type="checkbox" id="consent1_res" required>
+          <span class="consent-text">By checking this box, I consent to receive non-marketing text messages from <strong>Vettd</strong> about real estate agent matching and follow-up communications. Message frequency varies. Message & data rates may apply. Text HELP for assistance, reply STOP to opt out.</span>
+        </div>
+        <div class="consent-item">
+          <input type="checkbox" id="consent2_res">
+          <span class="consent-text">By checking this box, I consent to receive marketing and promotional messages from <strong>Vettd</strong> including market updates, tips, and special offers. Frequency may vary. Message & data rates may apply. Reply STOP to opt out.</span>
+        </div>
+      </div>
+
+      <button class="btn-next teal-btn" onclick="submitForm('invest_res')">Get My Vettd Match →</button>
+      <button class="btn-back" onclick="goBack()">← Back</button>
+    </div>
+
+    <!-- ═══════════════════════════
+         STEP 2E — COMMERCIAL INVESTOR
+    ═══════════════════════════ -->
+    <div class="step" id="step2_invest_com">
+      <p class="step-eyebrow">Commercial Investor</p>
+      <h2 class="step-title">Tell us about your commercial goals</h2>
+      <p class="step-sub">We'll match you with a Vettd commercial specialist who understands your asset class.</p>
+
+      <div class="field-group">
+        <label>Target Market / Area</label>
+        <input type="text" id="comArea" placeholder="e.g. Dallas-Fort Worth, Houston...">
+      </div>
+
+      <div class="field-group">
+        <label>Type of Commercial Investment (Select all that apply)</label>
+        <div class="chips-group" id="comType">
+          <div class="chip" onclick="toggleChip(this)">Multifamily (5+ units)</div>
+          <div class="chip" onclick="toggleChip(this)">Retail / NNN Lease</div>
+          <div class="chip" onclick="toggleChip(this)">Industrial</div>
+          <div class="chip" onclick="toggleChip(this)">Office</div>
+          <div class="chip" onclick="toggleChip(this)">Mixed Use</div>
+          <div class="chip" onclick="toggleChip(this)">Self Storage</div>
+          <div class="chip" onclick="toggleChip(this)">Mobile Home Park</div>
+          <div class="chip" onclick="toggleChip(this)">Other</div>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field-group">
+          <label>Target Purchase Price</label>
+          <select id="comBudget">
+            <option value="">Select range...</option>
+            <option>Under $500,000</option>
+            <option>$500,000 – $1,000,000</option>
+            <option>$1,000,000 – $2,500,000</option>
+            <option>$2,500,000 – $5,000,000</option>
+            <option>$5,000,000 – $10,000,000</option>
+            <option>$10,000,000+</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label>Timeline</label>
+          <select id="comTimeline">
+            <option value="">Select range...</option>
+            <option>Actively under contract / searching</option>
+            <option>Within 1–3 months</option>
+            <option>Within 3–6 months</option>
+            <option>Within 6–12 months</option>
+            <option>1–2 years out</option>
+            <option>Just researching</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label>Commercial Real Estate Experience</label>
+        <select id="comExperience">
+          <option value="">Select...</option>
+          <option>First commercial investment</option>
+          <option>I've completed 1–2 commercial deals</option>
+          <option>I've completed 3–5 commercial deals</option>
+          <option>Experienced — 6+ commercial deals</option>
+          <option>Institutional / professional investor</option>
+        </select>
+      </div>
+
+      <hr class="divider">
+      <div class="consent-block">
+        <div class="consent-item">
+          <input type="checkbox" id="consent1_com" required>
+          <span class="consent-text">By checking this box, I consent to receive non-marketing text messages from <strong>Vettd</strong> about real estate agent matching and follow-up communications. Message frequency varies. Message & data rates may apply. Text HELP for assistance, reply STOP to opt out.</span>
+        </div>
+        <div class="consent-item">
+          <input type="checkbox" id="consent2_com">
+          <span class="consent-text">By checking this box, I consent to receive marketing and promotional messages from <strong>Vettd</strong> including market updates, tips, and special offers. Frequency may vary. Message & data rates may apply. Reply STOP to opt out.</span>
+        </div>
+      </div>
+
+      <button class="btn-next teal-btn" onclick="submitForm('invest_com')">Get My Vettd Match →</button>
+      <button class="btn-back" onclick="goBack()">← Back</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  let currentSituation = '';
+
+  // Situation selection
+  function selectSituation(type) {
+    currentSituation = type;
+    document.querySelectorAll('.sit-card').forEach(c => c.classList.remove('selected'));
+    event.currentTarget.classList.add('selected');
+  }
+
+  // Go to step 2 based on selection
+  function goToStep2() {
+    const required = ['firstName','lastName','phone','email'];
+    for (let id of required) {
+      if (!document.getElementById(id).value.trim()) {
+        document.getElementById(id).focus();
+        document.getElementById(id).style.borderColor = '#EF4444';
+        setTimeout(() => document.getElementById(id).style.borderColor = '', 2000);
+        return;
+      }
+    }
+    if (!currentSituation) {
+      alert('Please select what you are looking to do.');
+      return;
+    }
+
+    document.getElementById('step1').classList.remove('active');
+    document.getElementById('step2_' + currentSituation).classList.add('active');
+    updateProgress(2);
+    document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function goBack() {
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+    document.getElementById('step1').classList.add('active');
+    updateProgress(1);
+    document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function updateProgress(step) {
+    const fill = document.getElementById('progressFill');
+    const label = document.getElementById('progressLabel');
+    if (step === 1) { fill.style.width = '50%'; label.textContent = 'Step 1 of 2'; }
+    if (step === 2) { fill.style.width = '100%'; label.textContent = 'Step 2 of 2'; }
+  }
+
+  // Yes/No button selection
+  function selectYN(btn, hiddenId, value) {
+    const group = btn.parentElement;
+    group.querySelectorAll('.yn-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    document.getElementById(hiddenId).value = value;
+  }
+
+  // Multi-select chips
+  function toggleChip(chip) {
+    chip.classList.toggle('selected');
+  }
+
+  // Single-select chips
+  function toggleChipSingle(chip, hiddenId) {
+    const group = chip.parentElement;
+    group.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+    chip.classList.add('selected');
+    if (hiddenId) document.getElementById(hiddenId).value = chip.textContent.trim();
+  }
+
+  // Collect chip values
+  function getChipValues(containerId) {
+    const chips = document.querySelectorAll('#' + containerId + ' .chip.selected');
+    return Array.from(chips).map(c => c.textContent.trim()).join(', ');
+  }
+
+  // Submit form — sends to GHL webhook
+  function submitForm(type) {
+    // Validate consent
+    const consentId = 'consent1_' + type;
+    if (!document.getElementById(consentId).checked) {
+      alert('Please agree to receive communications from Vettd to continue.');
+      return;
+    }
+
+    // Build payload
+    const payload = {
+      firstName: document.getElementById('firstName').value,
+      lastName: document.getElementById('lastName').value,
+      phone: document.getElementById('phone').value,
+      email: document.getElementById('email').value,
+      situation: currentSituation,
+      marketingConsent: document.getElementById('consent2_' + type).checked,
+    };
+
+    // Add situation-specific fields
+    if (type === 'sell') {
+      payload.sellAddress = document.getElementById('sellAddress').value;
+      payload.sellTimeline = document.getElementById('sellTimeline').value;
+      payload.sellValue = document.getElementById('sellValue').value;
+      payload.sellCircumstances = getChipValues('sellCircumstances');
+      payload.sellHasAgent = document.getElementById('sellHasAgent').value;
+    }
+    if (type === 'buy') {
+      payload.buyArea = document.getElementById('buyArea').value;
+      payload.buyNeighborhood = document.getElementById('buyNeighborhood').value;
+      payload.buyBudget = document.getElementById('buyBudget').value;
+      payload.buyTimeline = document.getElementById('buyTimeline').value;
+      payload.buyPreApproved = document.getElementById('buyPreApproved').value;
+      payload.buyFirstTime = document.getElementById('buyFirstTime').value;
+    }
+    if (type === 'sellbuy') {
+      payload.sbSellAddress = document.getElementById('sbSellAddress').value;
+      payload.sbSellTimeline = document.getElementById('sbSellTimeline').value;
+      payload.sbSellValue = document.getElementById('sbSellValue').value;
+      payload.sbCircumstances = getChipValues('sbCircumstances');
+      payload.sbBuyArea = document.getElementById('sbBuyArea').value;
+      payload.sbBuyBudget = document.getElementById('sbBuyBudget').value;
+      payload.sbUrgency = document.getElementById('sbUrgency').value;
+      payload.sbPreApproved = document.getElementById('sbPreApproved').value;
+    }
+    if (type === 'invest_res') {
+      payload.resArea = document.getElementById('resArea').value;
+      payload.resPropertyType = document.getElementById('resPropertyType').value;
+      payload.resStrategy = document.getElementById('resStrategy').value;
+      payload.resBudget = document.getElementById('resBudget').value;
+      payload.resTimeline = document.getElementById('resTimeline').value;
+      payload.resExperience = document.getElementById('resExperience').value;
+    }
+    if (type === 'invest_com') {
+      payload.comArea = document.getElementById('comArea').value;
+      payload.comType = getChipValues('comType');
+      payload.comBudget = document.getElementById('comBudget').value;
+      payload.comTimeline = document.getElementById('comTimeline').value;
+      payload.comExperience = document.getElementById('comExperience').value;
+    }
+
+    // POST to GHL webhook — replace YOUR_WEBHOOK_URL with your actual GHL webhook
+    fetch('YOUR_GHL_WEBHOOK_URL', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).catch(() => {});
+
+    // Redirect to thank you page
+    window.location.href = '/thankyou.html';
+  }
+</script>
+</body>
+</html>
