@@ -920,15 +920,16 @@
       payload.comExperience = document.getElementById('comExperience').value;
     }
 
-    // POST to GHL webhook — replace YOUR_WEBHOOK_URL with your actual GHL webhook
+    // POST to GHL webhook and redirect
+    // Redirect immediately — webhook fires in background
+    window.location.href = '/thankyou.html';
+
     fetch('https://services.leadconnectorhq.com/hooks/jjhAnvhKt04UIczAU9PN/webhook-trigger/8227679e-3f83-4e6a-819c-5e06ec9a064c', {
       method: 'POST',
+      mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     }).catch(() => {});
-
-    // Redirect to thank you page
-    window.location.href = '/thankyou.html';
   }
 </script>
 </body>
