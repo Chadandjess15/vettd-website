@@ -688,11 +688,11 @@
       <hr class="divider">
       <div class="consent-block">
         <div class="consent-item">
-          <input type="checkbox" id="consent1_res" required>
+          <input type="checkbox" id="consent1_invest_res" required>
           <span class="consent-text">By checking this box, I consent to receive non-marketing text messages from <strong>Vettd</strong> about real estate agent matching and follow-up communications. Message frequency varies. Message & data rates may apply. Text HELP for assistance, reply STOP to opt out.</span>
         </div>
         <div class="consent-item">
-          <input type="checkbox" id="consent2_res">
+          <input type="checkbox" id="consent2_invest_res">
           <span class="consent-text">By checking this box, I consent to receive marketing and promotional messages from <strong>Vettd</strong> including market updates, tips, and special offers. Frequency may vary. Message & data rates may apply. Reply STOP to opt out.</span>
         </div>
       </div>
@@ -770,11 +770,11 @@
       <hr class="divider">
       <div class="consent-block">
         <div class="consent-item">
-          <input type="checkbox" id="consent1_com" required>
+          <input type="checkbox" id="consent1_invest_com" required>
           <span class="consent-text">By checking this box, I consent to receive non-marketing text messages from <strong>Vettd</strong> about real estate agent matching and follow-up communications. Message frequency varies. Message & data rates may apply. Text HELP for assistance, reply STOP to opt out.</span>
         </div>
         <div class="consent-item">
-          <input type="checkbox" id="consent2_com">
+          <input type="checkbox" id="consent2_invest_com">
           <span class="consent-text">By checking this box, I consent to receive marketing and promotional messages from <strong>Vettd</strong> including market updates, tips, and special offers. Frequency may vary. Message & data rates may apply. Reply STOP to opt out.</span>
         </div>
       </div>
@@ -861,9 +861,10 @@
 
   // Submit form — sends to GHL webhook
   function submitForm(type) {
-    // Validate consent
+    // Validate consent — handle both short and long type names
     const consentId = 'consent1_' + type;
-    if (!document.getElementById(consentId).checked) {
+    const consentEl = document.getElementById(consentId);
+    if (!consentEl || !consentEl.checked) {
       alert('Please agree to receive communications from Vettd to continue.');
       return;
     }
@@ -875,7 +876,7 @@
       phone: document.getElementById('phone').value,
       email: document.getElementById('email').value,
       situation: currentSituation,
-      marketingConsent: document.getElementById('consent2_' + type).checked,
+      marketingConsent: document.getElementById('consent2_' + type) ? document.getElementById('consent2_' + type).checked : false,
     };
 
     // Add situation-specific fields
