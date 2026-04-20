@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vettd — Privacy Policy</title>
+<meta name="description" content="How Vettd collects, uses, and protects your information.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #111827;
+    --slate: #1E2D3D;
+    --teal: #0F766E;
+    --teal-light: #14B8A8;
+    --teal-glow: rgba(15,118,110,0.1);
+    --cream: #F9F7F4;
+    --white: #FFFFFF;
+    --muted: #6B7280;
+    --border: #E8E3DC;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+  }
+
+  /* NAV */
+  nav {
+    background: var(--ink);
+    padding: 18px 56px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem; font-weight: 700;
+    color: var(--white); letter-spacing: 0.04em;
+    text-decoration: none;
+  }
+  .logo span { color: var(--teal-light); }
+  .nav-right { display: flex; align-items: center; gap: 24px; }
+  .nav-link {
+    color: rgba(255,255,255,0.55); font-size: 0.88rem;
+    text-decoration: none; transition: color 0.2s;
+  }
+  .nav-link:hover { color: var(--white); }
+  .nav-cta {
+    background: var(--teal); color: var(--white);
+    font-weight: 600; font-size: 0.85rem;
+    padding: 10px 24px; border-radius: 6px;
+    text-decoration: none;
+    border: 1px solid rgba(20,184,166,0.3);
+    transition: all 0.2s;
+  }
+  .nav-cta:hover { background: var(--teal-light); transform: translateY(-1px); }
+
+  /* HEADER */
+  .page-header {
+    background: var(--ink);
+    padding: 80px 56px 100px;
+    position: relative; overflow: hidden;
+  }
+  .page-header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(15,118,110,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(15,118,110,0.06) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .page-header::after {
+    content: '';
+    position: absolute;
+    width: 500px; height: 500px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(15,118,110,0.15) 0%, transparent 70%);
+    top: -100px; right: -100px;
+    pointer-events: none;
+  }
+  .header-inner {
+    max-width: 860px; margin: 0 auto;
+    position: relative; z-index: 2;
+  }
+  .page-eyebrow {
+    font-size: 0.72rem; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--teal-light); margin-bottom: 16px;
+  }
+  .page-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.8rem, 5vw, 4rem);
+    font-weight: 700; line-height: 1.1;
+    color: var(--white); margin-bottom: 18px;
+    letter-spacing: -0.01em;
+  }
+  .page-sub {
+    font-size: 1.02rem; color: rgba(255,255,255,0.6);
+    font-weight: 300; line-height: 1.7; max-width: 620px;
+  }
+  .page-meta {
+    margin-top: 28px;
+    font-size: 0.8rem; color: rgba(255,255,255,0.4);
+    letter-spacing: 0.05em;
+  }
+
+  /* CONTENT */
+  .content-wrap {
+    max-width: 860px; margin: 0 auto;
+    padding: 72px 56px 100px;
+  }
+  .toc {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin-bottom: 56px;
+  }
+  .toc-label {
+    font-size: 0.68rem; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--teal); margin-bottom: 14px;
+  }
+  .toc ol {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 32px;
+    counter-reset: toc-counter;
+  }
+  .toc li {
+    counter-increment: toc-counter;
+    font-size: 0.88rem;
+  }
+  .toc li::before {
+    content: counter(toc-counter, decimal-leading-zero);
+    color: var(--teal);
+    font-weight: 600;
+    margin-right: 10px;
+    font-variant-numeric: tabular-nums;
+  }
+  .toc a {
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .toc a:hover { color: var(--teal); }
+
+  .section {
+    margin-bottom: 52px;
+    scroll-margin-top: 40px;
+  }
+  .section-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.95rem; font-weight: 700;
+    color: var(--teal);
+    letter-spacing: 0.1em;
+    margin-bottom: 6px;
+  }
+  .section h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.9rem; font-weight: 700;
+    color: var(--ink); line-height: 1.2;
+    margin-bottom: 20px;
+  }
+  .section h3 {
+    font-size: 1rem; font-weight: 600;
+    color: var(--ink); margin-top: 24px; margin-bottom: 10px;
+  }
+  .section p {
+    font-size: 0.95rem; line-height: 1.75;
+    color: var(--ink); font-weight: 300;
+    margin-bottom: 16px;
+  }
+  .section ul {
+    margin-bottom: 16px; padding-left: 0;
+    list-style: none;
+  }
+  .section ul li {
+    font-size: 0.95rem; line-height: 1.75;
+    color: var(--ink); font-weight: 300;
+    padding-left: 24px; position: relative;
+    margin-bottom: 6px;
+  }
+  .section ul li::before {
+    content: '→';
+    color: var(--teal);
+    position: absolute; left: 0;
+    font-weight: 600;
+  }
+  .section a {
+    color: var(--teal);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(15,118,110,0.3);
+    transition: border-color 0.2s;
+  }
+  .section a:hover { border-color: var(--teal); }
+  .section strong { font-weight: 600; }
+
+  /* SMS CALLOUT — A2P specifically */
+  .sms-callout {
+    background: linear-gradient(135deg, rgba(15,118,110,0.08) 0%, rgba(15,118,110,0.02) 100%);
+    border: 1px solid rgba(15,118,110,0.2);
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin: 20px 0;
+  }
+  .sms-callout-label {
+    font-size: 0.68rem; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--teal); margin-bottom: 10px;
+  }
+  .sms-callout p {
+    font-size: 0.9rem; line-height: 1.7;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+  .sms-callout p:last-child { margin-bottom: 0; }
+
+  /* CONTACT BOX */
+  .contact-box {
+    background: var(--ink);
+    border-radius: 12px;
+    padding: 36px 40px;
+    margin-top: 72px;
+    position: relative; overflow: hidden;
+  }
+  .contact-box::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(15,118,110,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(15,118,110,0.06) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .contact-inner { position: relative; z-index: 1; }
+  .contact-label {
+    font-size: 0.68rem; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--teal-light); margin-bottom: 12px;
+  }
+  .contact-box h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem; font-weight: 700;
+    color: var(--white); margin-bottom: 20px;
+  }
+  .contact-box p {
+    font-size: 0.92rem;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.7; font-weight: 300;
+    margin-bottom: 8px;
+  }
+  .contact-box a {
+    color: var(--teal-light);
+    text-decoration: none;
+  }
+  .contact-box a:hover { text-decoration: underline; }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    padding: 44px 56px 32px;
+  }
+  .footer-top {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 2fr 1fr 1fr;
+    gap: 48px; padding-bottom: 32px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .footer-brand .logo { font-size: 1.4rem; display: inline-block; margin-bottom: 12px; }
+  .footer-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.95rem; font-style: italic;
+    color: rgba(255,255,255,0.5); margin-bottom: 20px;
+  }
+  .footer-tagline em { color: var(--teal-light); font-style: italic; }
+  .footer-entity {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.7; font-weight: 300;
+  }
+  .footer-col h4 {
+    font-size: 0.7rem; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--teal-light); margin-bottom: 16px;
+  }
+  .footer-col a, .footer-col span {
+    display: block;
+    font-size: 0.82rem; color: rgba(255,255,255,0.5);
+    text-decoration: none; margin-bottom: 8px;
+    transition: color 0.2s;
+  }
+  .footer-col a:hover { color: var(--white); }
+  .footer-bottom {
+    max-width: 1200px; margin: 0 auto;
+    padding-top: 28px;
+    display: flex; justify-content: space-between;
+    align-items: center; flex-wrap: wrap; gap: 12px;
+  }
+  .footer-bottom p, .footer-bottom a {
+    font-size: 0.74rem; color: rgba(255,255,255,0.3);
+  }
+  .footer-bottom a { text-decoration: none; margin-left: 20px; }
+  .footer-bottom a:hover { color: rgba(255,255,255,0.7); }
+
+  @media (max-width: 768px) {
+    nav { padding: 14px 24px; }
+    .nav-right { gap: 14px; }
+    .nav-link:not(.nav-cta) { display: none; }
+    .page-header { padding: 56px 24px 72px; }
+    .content-wrap { padding: 48px 24px 72px; }
+    .toc ol { grid-template-columns: 1fr; }
+    .contact-box { padding: 28px 24px; }
+    footer { padding: 36px 24px 28px; }
+    .footer-top { grid-template-columns: 1fr; gap: 32px; }
+    .footer-bottom { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">Vett<span>d</span></a>
+  <div class="nav-right">
+    <a href="/#how" class="nav-link">How It Works</a>
+    <a href="/#why" class="nav-link">Why Vettd</a>
+    <a href="/form.html" class="nav-cta">Get Matched Free</a>
+  </div>
+</nav>
+
+<header class="page-header">
+  <div class="header-inner">
+    <p class="page-eyebrow">Privacy Policy</p>
+    <h1 class="page-title">How we handle your information.</h1>
+    <p class="page-sub">We built Vettd on trust. This policy explains exactly what we collect, why we collect it, and how we protect it — in plain language, not lawyer-speak.</p>
+    <p class="page-meta">Last updated: April 19, 2026</p>
+  </div>
+</header>
+
+<main class="content-wrap">
+
+  <nav class="toc" aria-label="Table of contents">
+    <p class="toc-label">Contents</p>
+    <ol>
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#information">Information We Collect</a></li>
+      <li><a href="#use">How We Use Your Information</a></li>
+      <li><a href="#sms">SMS & Text Messaging</a></li>
+      <li><a href="#sharing">How We Share Information</a></li>
+      <li><a href="#cookies">Cookies & Tracking</a></li>
+      <li><a href="#retention">Data Retention</a></li>
+      <li><a href="#rights">Your Rights & Choices</a></li>
+      <li><a href="#security">Security</a></li>
+      <li><a href="#changes">Changes to This Policy</a></li>
+      <li><a href="#contact">Contact Us</a></li>
+    </ol>
+  </nav>
+
+  <section class="section" id="overview">
+    <p class="section-num">01</p>
+    <h2>Overview</h2>
+    <p>Vettd is a real estate agent matching service operated by <strong>Link Re LLC</strong>, a Texas limited liability company doing business as Vettd ("Vettd," "we," "us," or "our"). We connect homeowners, buyers, and investors with screened, licensed real estate agents based on each person's specific situation, location, and goals.</p>
+    <p>This Privacy Policy describes how we collect, use, and share information when you visit <a href="https://www.vettdagents.com">www.vettdagents.com</a>, submit our match request form, communicate with us by phone, email, or text message, or otherwise interact with our services (together, the "Services").</p>
+    <p>By using our Services, you agree to the practices described in this policy. If you do not agree, please do not use the Services.</p>
+  </section>
+
+  <section class="section" id="information">
+    <p class="section-num">02</p>
+    <h2>Information We Collect</h2>
+
+    <h3>Information you provide directly</h3>
+    <p>When you complete our match request form or communicate with us, we collect information you voluntarily provide, including:</p>
+    <ul>
+      <li>Name (first and last)</li>
+      <li>Email address</li>
+      <li>Phone number</li>
+      <li>Your real estate situation — whether you are looking to sell, buy, sell and buy, or invest</li>
+      <li>Property details you share, such as address, neighborhood, timeline, estimated value, budget, experience level, and current circumstances</li>
+      <li>Whether you have previously spoken with or engaged another agent</li>
+      <li>Your consent preferences for non-marketing and marketing communications</li>
+      <li>Any additional information you share with us in reply to our text messages, emails, or calls</li>
+    </ul>
+
+    <h3>Information collected automatically</h3>
+    <p>When you visit our website, we automatically collect limited technical information, including your device type, browser type, operating system, IP address, pages visited, referring source, and the approximate time and date of your visit. This information is used to operate and improve the site and is not used to identify you personally.</p>
+  </section>
+
+  <section class="section" id="use">
+    <p class="section-num">03</p>
+    <h2>How We Use Your Information</h2>
+    <p>We use the information you provide to:</p>
+    <ul>
+      <li>Match you with a vetted real estate agent in our network based on your situation, market, and goals</li>
+      <li>Contact you by phone, email, or text message to confirm your submission and coordinate your introduction</li>
+      <li>Introduce you directly to a matched agent and provide that agent with the information necessary to assist you</li>
+      <li>Respond to questions, requests, or follow-up communications</li>
+      <li>Send you transactional and service messages related to your match</li>
+      <li>Send you optional marketing communications if you have opted in</li>
+      <li>Improve our Services and internal operations</li>
+      <li>Comply with legal obligations and enforce our Terms of Service</li>
+    </ul>
+  </section>
+
+  <section class="section" id="sms">
+    <p class="section-num">04</p>
+    <h2>SMS & Text Messaging</h2>
+    <p>When you submit our match request form and affirmatively check the non-marketing consent box, you consent to receive text messages from Vettd at the phone number you provided, including follow-up communications related to your agent match.</p>
+
+    <div class="sms-callout">
+      <p class="sms-callout-label">Key SMS Disclosures</p>
+      <p><strong>Message frequency:</strong> Varies based on your situation and engagement. Typical volume is 1–10 messages per month.</p>
+      <p><strong>Message & data rates:</strong> Standard message and data rates from your mobile carrier may apply.</p>
+      <p><strong>Opt out at any time:</strong> Reply <strong>STOP</strong> to any message to unsubscribe. You will receive a confirmation reply and no further messages.</p>
+      <p><strong>Help:</strong> Reply <strong>HELP</strong> to any message for assistance, or contact us at the information below.</p>
+      <p><strong>No sharing of mobile data for marketing:</strong> We do not share, sell, or transfer your mobile phone number or SMS consent information to third parties or affiliates for the purpose of marketing, promotions, or lead generation. This information is used solely to deliver the Services you requested.</p>
+    </div>
+
+    <p>If you also opt in to marketing communications by checking the optional marketing consent box, you may receive occasional market updates, tips, and promotional messages. You can opt out of marketing messages at any time by replying STOP, while still receiving essential service messages related to your match.</p>
+  </section>
+
+  <section class="section" id="sharing">
+    <p class="section-num">05</p>
+    <h2>How We Share Information</h2>
+    <p>We share your information only in the following limited circumstances:</p>
+
+    <h3>With matched real estate agents</h3>
+    <p>Once we identify a suitable agent for your situation, we share the information you provided (name, contact details, and situation-specific information) with that agent so they can follow up with you. Matched agents are independently licensed real estate professionals who have agreed to our referral terms.</p>
+
+    <h3>With service providers</h3>
+    <p>We use trusted third-party service providers to operate our business, including customer relationship management (GoHighLevel), automation (Zapier), voice and text communications (Bland.ai, Twilio, and similar providers), website hosting (Vercel), and email delivery. These providers process information on our behalf and are contractually bound to protect it.</p>
+
+    <h3>For legal reasons</h3>
+    <p>We may disclose information if required by law, subpoena, court order, or governmental request, or if we reasonably believe disclosure is necessary to protect our rights, enforce our Terms, or protect the safety of any person.</p>
+
+    <h3>In connection with a business transfer</h3>
+    <p>If Vettd is involved in a merger, acquisition, financing, or sale of assets, information may be transferred as part of that transaction, subject to the terms of this policy.</p>
+
+    <p><strong>We do not sell your personal information.</strong> We do not share your mobile phone number or SMS consent information with third parties or affiliates for marketing purposes under any circumstances.</p>
+  </section>
+
+  <section class="section" id="cookies">
+    <p class="section-num">06</p>
+    <h2>Cookies & Tracking</h2>
+    <p>Our website uses a small number of cookies and similar technologies to operate the site, remember your preferences, and understand how visitors use the site. We may also use analytics providers (such as Google Analytics) and advertising pixels (such as the Meta/Facebook pixel) to measure the performance of our marketing.</p>
+    <p>Most web browsers let you control cookies through their settings. Disabling cookies may affect the functionality of some parts of our Services.</p>
+  </section>
+
+  <section class="section" id="retention">
+    <p class="section-num">07</p>
+    <h2>Data Retention</h2>
+    <p>We retain information you submit for as long as necessary to provide the Services, follow up on your match, comply with legal obligations, resolve disputes, and enforce our agreements. Inactive lead records are typically retained for up to seven years for business and tax purposes, after which they are archived or deleted.</p>
+    <p>You may request deletion of your information at any time using the contact details below.</p>
+  </section>
+
+  <section class="section" id="rights">
+    <p class="section-num">08</p>
+    <h2>Your Rights & Choices</h2>
+    <p>Depending on where you live, you may have rights under applicable privacy laws, including:</p>
+    <ul>
+      <li>The right to know what personal information we hold about you</li>
+      <li>The right to request correction of inaccurate information</li>
+      <li>The right to request deletion of your personal information</li>
+      <li>The right to opt out of marketing communications at any time</li>
+      <li>The right to opt out of the sale of personal information (we do not sell personal information)</li>
+    </ul>
+    <p>To exercise any of these rights, contact us at <a href="mailto:hello@vettdagents.com">hello@vettdagents.com</a>. We will respond within a reasonable period and may need to verify your identity before fulfilling your request.</p>
+  </section>
+
+  <section class="section" id="security">
+    <p class="section-num">09</p>
+    <h2>Security</h2>
+    <p>We take reasonable administrative, technical, and physical measures to protect the information you provide, including encrypted data transmission and access controls with our service providers. However, no method of transmission or storage is 100% secure, and we cannot guarantee absolute security.</p>
+  </section>
+
+  <section class="section" id="changes">
+    <p class="section-num">10</p>
+    <h2>Changes to This Policy</h2>
+    <p>We may update this Privacy Policy from time to time. If we make material changes, we will update the "Last updated" date at the top of this page and, where appropriate, notify you through the Services or by email. Your continued use of the Services after changes take effect constitutes acceptance of the updated policy.</p>
+  </section>
+
+  <section class="section" id="contact">
+    <p class="section-num">11</p>
+    <h2>Contact Us</h2>
+    <p>If you have questions about this Privacy Policy or how we handle your information, please reach out:</p>
+  </section>
+
+  <div class="contact-box">
+    <div class="contact-inner">
+      <p class="contact-label">Contact Vettd</p>
+      <h3>We're here to answer any questions.</h3>
+      <p><strong style="color: rgba(255,255,255,0.9);">Email:</strong> <a href="mailto:hello@vettdagents.com">hello@vettdagents.com</a></p>
+      <p><strong style="color: rgba(255,255,255,0.9);">Phone:</strong> <a href="tel:8889720788">888-972-0788</a></p>
+      <p><strong style="color: rgba(255,255,255,0.9);">Mailing address:</strong> <!-- ADDRESS PLACEHOLDER: replace with virtual business address once obtained --><span style="color: rgba(255,255,255,0.4);">Available upon request</span></p>
+      <p style="margin-top: 16px;">Vettd is a service of Link Re LLC, a Texas limited liability company.</p>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="/" class="logo">Vett<span>d</span></a>
+      <p class="footer-tagline">Not just any agent. The <em>right</em> agent.</p>
+      <p class="footer-entity">
+        Vettd is a service of Link Re LLC,<br>
+        a Texas limited liability company.<br>
+        Licensed Real Estate Referral &amp; Matching Service.
+      </p>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="/#how">How It Works</a>
+      <a href="/#why">Why Vettd</a>
+      <a href="/form.html">Get Matched</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="mailto:hello@vettdagents.com">hello@vettdagents.com</a>
+      <a href="tel:8889720788">888-972-0788</a>
+      <a href="/privacy.html">Privacy Policy</a>
+      <a href="/terms.html">Terms of Service</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Link Re LLC dba Vettd. All rights reserved.</p>
+    <div>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

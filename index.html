@@ -479,15 +479,50 @@
   /* ── FOOTER ── */
   footer {
     background: var(--ink);
-    padding: 44px 56px;
-    display: flex; align-items: center;
-    justify-content: space-between; flex-wrap: wrap; gap: 16px;
+    padding: 56px 56px 32px;
   }
-  footer .logo { font-size: 1.4rem; }
-  footer p { font-size: 0.78rem; color: rgba(255,255,255,0.3); }
+  .footer-top {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 2fr 1fr 1fr;
+    gap: 48px; padding-bottom: 32px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .footer-brand .logo { font-size: 1.4rem; display: inline-block; margin-bottom: 12px; }
+  .footer-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.95rem; font-style: italic;
+    color: rgba(255,255,255,0.5); margin-bottom: 20px;
+  }
+  .footer-tagline em { color: var(--teal-light); font-style: italic; }
+  .footer-entity {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.7; font-weight: 300;
+  }
+  .footer-col h4 {
+    font-size: 0.7rem; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--teal-light); margin-bottom: 16px;
+  }
+  .footer-col a, .footer-col span {
+    display: block;
+    font-size: 0.82rem; color: rgba(255,255,255,0.5);
+    text-decoration: none; margin-bottom: 8px;
+    transition: color 0.2s;
+  }
+  .footer-col a:hover { color: var(--white); }
+  .footer-bottom {
+    max-width: 1200px; margin: 0 auto;
+    padding-top: 28px;
+    display: flex; justify-content: space-between;
+    align-items: center; flex-wrap: wrap; gap: 12px;
+  }
+  .footer-bottom p {
+    font-size: 0.74rem; color: rgba(255,255,255,0.3);
+  }
   .footer-links { display: flex; gap: 24px; }
   .footer-links a {
-    font-size: 0.78rem; color: rgba(255,255,255,0.3);
+    font-size: 0.74rem; color: rgba(255,255,255,0.3);
     text-decoration: none; transition: color 0.2s;
   }
   .footer-links a:hover { color: rgba(255,255,255,0.7); }
@@ -509,7 +544,9 @@
     .trust-bar { padding: 20px 24px; }
     .trust-inner { gap: 20px; }
     .badge-section, .cta-section { padding: 70px 24px; }
-    footer { padding: 32px 24px; flex-direction: column; text-align: center; }
+    footer { padding: 40px 24px 28px; }
+    .footer-top { grid-template-columns: 1fr; gap: 32px; }
+    .footer-bottom { flex-direction: column; text-align: center; }
     .footer-links { justify-content: center; }
   }
 </style>
@@ -743,12 +780,36 @@
 
 <!-- FOOTER -->
 <footer>
-  <span class="logo">Vett<span style="color:var(--teal-light)">d</span></span>
-  <p>© 2025 Vettd. Licensed Real Estate Referral & Matching Service. All rights reserved.</p>
-  <div class="footer-links">
-    <a href="#">Privacy</a>
-    <a href="#">Terms</a>
-    <a href="#">Contact</a>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="/" class="logo">Vett<span style="color:var(--teal-light)">d</span></a>
+      <p class="footer-tagline">Not just any agent. The <em>right</em> agent.</p>
+      <p class="footer-entity">
+        Vettd is a service of Link Re LLC,<br>
+        a Texas limited liability company.<br>
+        Licensed Real Estate Referral &amp; Matching Service.
+      </p>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="#how">How It Works</a>
+      <a href="#why">Why Vettd</a>
+      <a href="/form.html">Get Matched</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="mailto:hello@vettdagents.com">hello@vettdagents.com</a>
+      <a href="tel:8889720788">888-972-0788</a>
+      <a href="/privacy.html">Privacy Policy</a>
+      <a href="/terms.html">Terms of Service</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Link Re LLC dba Vettd. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
+    </div>
   </div>
 </footer>
 

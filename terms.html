@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vettd — Terms of Service</title>
+<meta name="description" content="The terms that govern your use of Vettd's agent matching services.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #111827;
+    --slate: #1E2D3D;
+    --teal: #0F766E;
+    --teal-light: #14B8A8;
+    --teal-glow: rgba(15,118,110,0.1);
+    --cream: #F9F7F4;
+    --white: #FFFFFF;
+    --muted: #6B7280;
+    --border: #E8E3DC;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+  }
+
+  /* NAV */
+  nav {
+    background: var(--ink);
+    padding: 18px 56px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem; font-weight: 700;
+    color: var(--white); letter-spacing: 0.04em;
+    text-decoration: none;
+  }
+  .logo span { color: var(--teal-light); }
+  .nav-right { display: flex; align-items: center; gap: 24px; }
+  .nav-link {
+    color: rgba(255,255,255,0.55); font-size: 0.88rem;
+    text-decoration: none; transition: color 0.2s;
+  }
+  .nav-link:hover { color: var(--white); }
+  .nav-cta {
+    background: var(--teal); color: var(--white);
+    font-weight: 600; font-size: 0.85rem;
+    padding: 10px 24px; border-radius: 6px;
+    text-decoration: none;
+    border: 1px solid rgba(20,184,166,0.3);
+    transition: all 0.2s;
+  }
+  .nav-cta:hover { background: var(--teal-light); transform: translateY(-1px); }
+
+  /* HEADER */
+  .page-header {
+    background: var(--ink);
+    padding: 80px 56px 100px;
+    position: relative; overflow: hidden;
+  }
+  .page-header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(15,118,110,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(15,118,110,0.06) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .page-header::after {
+    content: '';
+    position: absolute;
+    width: 500px; height: 500px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(15,118,110,0.15) 0%, transparent 70%);
+    top: -100px; right: -100px;
+    pointer-events: none;
+  }
+  .header-inner {
+    max-width: 860px; margin: 0 auto;
+    position: relative; z-index: 2;
+  }
+  .page-eyebrow {
+    font-size: 0.72rem; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--teal-light); margin-bottom: 16px;
+  }
+  .page-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.8rem, 5vw, 4rem);
+    font-weight: 700; line-height: 1.1;
+    color: var(--white); margin-bottom: 18px;
+    letter-spacing: -0.01em;
+  }
+  .page-sub {
+    font-size: 1.02rem; color: rgba(255,255,255,0.6);
+    font-weight: 300; line-height: 1.7; max-width: 620px;
+  }
+  .page-meta {
+    margin-top: 28px;
+    font-size: 0.8rem; color: rgba(255,255,255,0.4);
+    letter-spacing: 0.05em;
+  }
+
+  /* CONTENT */
+  .content-wrap {
+    max-width: 860px; margin: 0 auto;
+    padding: 72px 56px 100px;
+  }
+  .toc {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin-bottom: 56px;
+  }
+  .toc-label {
+    font-size: 0.68rem; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--teal); margin-bottom: 14px;
+  }
+  .toc ol {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 32px;
+    counter-reset: toc-counter;
+  }
+  .toc li {
+    counter-increment: toc-counter;
+    font-size: 0.88rem;
+  }
+  .toc li::before {
+    content: counter(toc-counter, decimal-leading-zero);
+    color: var(--teal);
+    font-weight: 600;
+    margin-right: 10px;
+    font-variant-numeric: tabular-nums;
+  }
+  .toc a {
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .toc a:hover { color: var(--teal); }
+
+  .section {
+    margin-bottom: 52px;
+    scroll-margin-top: 40px;
+  }
+  .section-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.95rem; font-weight: 700;
+    color: var(--teal);
+    letter-spacing: 0.1em;
+    margin-bottom: 6px;
+  }
+  .section h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.9rem; font-weight: 700;
+    color: var(--ink); line-height: 1.2;
+    margin-bottom: 20px;
+  }
+  .section h3 {
+    font-size: 1rem; font-weight: 600;
+    color: var(--ink); margin-top: 24px; margin-bottom: 10px;
+  }
+  .section p {
+    font-size: 0.95rem; line-height: 1.75;
+    color: var(--ink); font-weight: 300;
+    margin-bottom: 16px;
+  }
+  .section ul {
+    margin-bottom: 16px; padding-left: 0;
+    list-style: none;
+  }
+  .section ul li {
+    font-size: 0.95rem; line-height: 1.75;
+    color: var(--ink); font-weight: 300;
+    padding-left: 24px; position: relative;
+    margin-bottom: 6px;
+  }
+  .section ul li::before {
+    content: '→';
+    color: var(--teal);
+    position: absolute; left: 0;
+    font-weight: 600;
+  }
+  .section a {
+    color: var(--teal);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(15,118,110,0.3);
+    transition: border-color 0.2s;
+  }
+  .section a:hover { border-color: var(--teal); }
+  .section strong { font-weight: 600; }
+
+  .disclaimer {
+    background: linear-gradient(135deg, rgba(15,118,110,0.08) 0%, rgba(15,118,110,0.02) 100%);
+    border: 1px solid rgba(15,118,110,0.2);
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin: 20px 0;
+  }
+  .disclaimer-label {
+    font-size: 0.68rem; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--teal); margin-bottom: 10px;
+  }
+  .disclaimer p {
+    font-size: 0.9rem; line-height: 1.7;
+    color: var(--ink); margin-bottom: 10px;
+  }
+  .disclaimer p:last-child { margin-bottom: 0; }
+
+  .allcaps {
+    text-transform: uppercase;
+    font-size: 0.88rem;
+    letter-spacing: 0.02em;
+    font-weight: 500;
+  }
+
+  /* CONTACT BOX */
+  .contact-box {
+    background: var(--ink);
+    border-radius: 12px;
+    padding: 36px 40px;
+    margin-top: 72px;
+    position: relative; overflow: hidden;
+  }
+  .contact-box::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(15,118,110,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(15,118,110,0.06) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .contact-inner { position: relative; z-index: 1; }
+  .contact-label {
+    font-size: 0.68rem; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--teal-light); margin-bottom: 12px;
+  }
+  .contact-box h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem; font-weight: 700;
+    color: var(--white); margin-bottom: 20px;
+  }
+  .contact-box p {
+    font-size: 0.92rem;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.7; font-weight: 300;
+    margin-bottom: 8px;
+  }
+  .contact-box a {
+    color: var(--teal-light);
+    text-decoration: none;
+  }
+  .contact-box a:hover { text-decoration: underline; }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    padding: 44px 56px 32px;
+  }
+  .footer-top {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 2fr 1fr 1fr;
+    gap: 48px; padding-bottom: 32px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .footer-brand .logo { font-size: 1.4rem; display: inline-block; margin-bottom: 12px; }
+  .footer-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.95rem; font-style: italic;
+    color: rgba(255,255,255,0.5); margin-bottom: 20px;
+  }
+  .footer-tagline em { color: var(--teal-light); font-style: italic; }
+  .footer-entity {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.7; font-weight: 300;
+  }
+  .footer-col h4 {
+    font-size: 0.7rem; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--teal-light); margin-bottom: 16px;
+  }
+  .footer-col a, .footer-col span {
+    display: block;
+    font-size: 0.82rem; color: rgba(255,255,255,0.5);
+    text-decoration: none; margin-bottom: 8px;
+    transition: color 0.2s;
+  }
+  .footer-col a:hover { color: var(--white); }
+  .footer-bottom {
+    max-width: 1200px; margin: 0 auto;
+    padding-top: 28px;
+    display: flex; justify-content: space-between;
+    align-items: center; flex-wrap: wrap; gap: 12px;
+  }
+  .footer-bottom p, .footer-bottom a {
+    font-size: 0.74rem; color: rgba(255,255,255,0.3);
+  }
+  .footer-bottom a { text-decoration: none; margin-left: 20px; }
+  .footer-bottom a:hover { color: rgba(255,255,255,0.7); }
+
+  @media (max-width: 768px) {
+    nav { padding: 14px 24px; }
+    .nav-right { gap: 14px; }
+    .nav-link:not(.nav-cta) { display: none; }
+    .page-header { padding: 56px 24px 72px; }
+    .content-wrap { padding: 48px 24px 72px; }
+    .toc ol { grid-template-columns: 1fr; }
+    .contact-box { padding: 28px 24px; }
+    footer { padding: 36px 24px 28px; }
+    .footer-top { grid-template-columns: 1fr; gap: 32px; }
+    .footer-bottom { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">Vett<span>d</span></a>
+  <div class="nav-right">
+    <a href="/#how" class="nav-link">How It Works</a>
+    <a href="/#why" class="nav-link">Why Vettd</a>
+    <a href="/form.html" class="nav-cta">Get Matched Free</a>
+  </div>
+</nav>
+
+<header class="page-header">
+  <div class="header-inner">
+    <p class="page-eyebrow">Terms of Service</p>
+    <h1 class="page-title">The rules that govern our relationship.</h1>
+    <p class="page-sub">These Terms explain what Vettd does, what we don't do, and the understandings between us when you use our services. Please read them carefully.</p>
+    <p class="page-meta">Last updated: April 19, 2026</p>
+  </div>
+</header>
+
+<main class="content-wrap">
+
+  <nav class="toc" aria-label="Table of contents">
+    <p class="toc-label">Contents</p>
+    <ol>
+      <li><a href="#acceptance">Acceptance of Terms</a></li>
+      <li><a href="#service">About the Service</a></li>
+      <li><a href="#relationship">Our Role &amp; Your Relationship with the Agent</a></li>
+      <li><a href="#cost">Cost &amp; Compensation</a></li>
+      <li><a href="#eligibility">Eligibility &amp; Your Obligations</a></li>
+      <li><a href="#communications">Communications &amp; Consent</a></li>
+      <li><a href="#no-guarantees">No Guarantees of Outcome</a></li>
+      <li><a href="#disclaimers">Disclaimers</a></li>
+      <li><a href="#liability">Limitation of Liability</a></li>
+      <li><a href="#indemnification">Indemnification</a></li>
+      <li><a href="#ip">Intellectual Property</a></li>
+      <li><a href="#termination">Termination</a></li>
+      <li><a href="#disputes">Dispute Resolution &amp; Governing Law</a></li>
+      <li><a href="#changes">Changes to These Terms</a></li>
+      <li><a href="#contact">Contact Us</a></li>
+    </ol>
+  </nav>
+
+  <section class="section" id="acceptance">
+    <p class="section-num">01</p>
+    <h2>Acceptance of Terms</h2>
+    <p>These Terms of Service ("Terms") form a binding agreement between you and <strong>Link Re LLC</strong>, a Texas limited liability company doing business as Vettd ("Vettd," "we," "us," or "our"). The Terms govern your access to and use of <a href="https://www.vettdagents.com">www.vettdagents.com</a>, our match request form, our phone, email, and text communications, and any related services (together, the "Services").</p>
+    <p>By accessing or using the Services, you agree to these Terms and our <a href="/privacy.html">Privacy Policy</a>. If you do not agree, please do not use the Services.</p>
+  </section>
+
+  <section class="section" id="service">
+    <p class="section-num">02</p>
+    <h2>About the Service</h2>
+    <p>Vettd is a licensed real estate referral and matching service. We connect homeowners, buyers, and investors ("you," "your," "users," or "consumers") with independently licensed real estate agents ("matched agents") based on your situation, market, and goals.</p>
+    <p>Our process involves reviewing the information you share with us, identifying one or more agents in our network whose track record and expertise fit your needs, and introducing you to that agent. We only include agents in our network who have met our screening standards for licensure, track record, and local market knowledge.</p>
+  </section>
+
+  <section class="section" id="relationship">
+    <p class="section-num">03</p>
+    <h2>Our Role &amp; Your Relationship with the Agent</h2>
+    <p>Vettd is not your real estate broker or agent for the purpose of buying, selling, or investing in property. Vettd's role is limited to referring and matching you with a licensed real estate professional. Once we introduce you to a matched agent:</p>
+    <ul>
+      <li>Any brokerage relationship — and any agreement to represent you in a real estate transaction — is formed directly between you and the matched agent or their brokerage, not Vettd</li>
+      <li>The matched agent, not Vettd, is responsible for representing your interests, providing advice, showing properties, negotiating contracts, and advising on pricing, disclosures, inspections, and closings</li>
+      <li>You are under no obligation to work with any agent we introduce to you, and you may end that relationship at any time according to whatever agreement you enter into with the agent or their brokerage</li>
+    </ul>
+    <p>We may hold an active real estate license in Texas, which allows us to lawfully operate as a referral source and receive referral fees. We do not act as a transactional broker for consumers using our matching Services.</p>
+  </section>
+
+  <section class="section" id="cost">
+    <p class="section-num">04</p>
+    <h2>Cost &amp; Compensation</h2>
+    <p>The Services are provided to you at <strong>no cost</strong>. We do not charge consumers fees for using our match request form, receiving a referral, or being introduced to a matched agent.</p>
+    <p>Vettd is compensated by our matched agents. When a transaction closes with an agent we referred, the agent's brokerage pays Vettd a referral fee out of the commission they earn. This arrangement is standard in the real estate industry and does not affect the commission you would pay in the transaction.</p>
+    <p>You are never obligated to close a transaction, and no referral fee is owed by you under any circumstances.</p>
+  </section>
+
+  <section class="section" id="eligibility">
+    <p class="section-num">05</p>
+    <h2>Eligibility &amp; Your Obligations</h2>
+    <p>To use the Services, you must:</p>
+    <ul>
+      <li>Be at least 18 years of age</li>
+      <li>Be legally able to enter into binding agreements under the laws of your jurisdiction</li>
+      <li>Provide accurate, current, and complete information when you submit our match request form</li>
+      <li>Use the Services only for your own legitimate real estate needs and not for any unlawful purpose</li>
+      <li>Not attempt to interfere with, reverse-engineer, or disrupt the Services</li>
+    </ul>
+    <p>You are responsible for the accuracy of the information you provide. If the information is materially inaccurate, we may not be able to match you with an appropriate agent.</p>
+  </section>
+
+  <section class="section" id="communications">
+    <p class="section-num">06</p>
+    <h2>Communications &amp; Consent</h2>
+    <p>When you submit our match request form and check the required non-marketing consent box, you agree that Vettd may contact you by phone, email, and text message to confirm your submission, coordinate your introduction to a matched agent, and follow up on your request.</p>
+    <p>If you also opt in to marketing communications by checking the optional marketing consent box, you agree to receive occasional market updates, tips, and promotional messages from Vettd.</p>
+    <p>Message and data rates from your mobile carrier may apply. You may opt out of text messages at any time by replying <strong>STOP</strong> to any message, and you may opt out of marketing emails by using the unsubscribe link in any email. Additional details about our communications practices are in our <a href="/privacy.html">Privacy Policy</a>.</p>
+  </section>
+
+  <section class="section" id="no-guarantees">
+    <p class="section-num">07</p>
+    <h2>No Guarantees of Outcome</h2>
+    <p>Real estate transactions depend on many variables outside of Vettd's control, including market conditions, property condition, pricing, financing, buyer and seller behavior, and the performance of third parties.</p>
+    <p>Vettd does not guarantee:</p>
+    <ul>
+      <li>That you will buy, sell, close, or complete any real estate transaction</li>
+      <li>Any specific sale price, purchase price, timeline, or financial outcome</li>
+      <li>The availability, responsiveness, or performance of any matched agent</li>
+      <li>That any information we provide — including general market information, testimonials, or statistics — will apply to your specific situation</li>
+    </ul>
+    <p>Any statistics, testimonials, or examples presented on our website or in our communications are illustrative and do not represent a promise or guarantee of your results.</p>
+  </section>
+
+  <section class="section" id="disclaimers">
+    <p class="section-num">08</p>
+    <h2>Disclaimers</h2>
+    <div class="disclaimer">
+      <p class="disclaimer-label">Please read carefully</p>
+      <p class="allcaps">The services are provided "as is" and "as available" without warranties of any kind, either express or implied, including, but not limited to, implied warranties of merchantability, fitness for a particular purpose, non-infringement, or course of performance.</p>
+      <p class="allcaps">Vettd does not warrant that the services will be uninterrupted, timely, secure, or error-free, or that the information we provide will be accurate, complete, or current.</p>
+      <p class="allcaps">Vettd is not responsible for the acts or omissions of any matched agent, brokerage, third-party service provider, or other person you engage with through the services.</p>
+    </div>
+  </section>
+
+  <section class="section" id="liability">
+    <p class="section-num">09</p>
+    <h2>Limitation of Liability</h2>
+    <p class="allcaps">To the fullest extent permitted by law, in no event will Vettd, Link Re LLC, or any of its members, managers, employees, contractors, or service providers be liable for any indirect, incidental, special, consequential, exemplary, or punitive damages — including, but not limited to, damages for lost profits, lost data, lost opportunities, loss of goodwill, or diminished property value — arising out of or related to your use of the services, your interactions with a matched agent, or any real estate transaction, even if we have been advised of the possibility of such damages.</p>
+    <p class="allcaps">Our total aggregate liability to you for any and all claims arising out of or related to these Terms or the services will not exceed one hundred U.S. dollars ($100).</p>
+    <p>Some jurisdictions do not allow the exclusion or limitation of certain damages, so some of the above limitations may not apply to you. In those jurisdictions, our liability will be limited to the maximum extent permitted by applicable law.</p>
+  </section>
+
+  <section class="section" id="indemnification">
+    <p class="section-num">10</p>
+    <h2>Indemnification</h2>
+    <p>You agree to indemnify, defend, and hold harmless Vettd, Link Re LLC, and their respective members, managers, employees, and service providers from any claims, damages, losses, liabilities, costs, and expenses (including reasonable attorneys' fees) arising out of or related to: (a) your use of the Services; (b) your breach of these Terms; (c) your violation of any law or the rights of a third party; or (d) any transaction you enter into with a matched agent, brokerage, or other third party.</p>
+  </section>
+
+  <section class="section" id="ip">
+    <p class="section-num">11</p>
+    <h2>Intellectual Property</h2>
+    <p>The Vettd name, logo, tagline ("Not just any agent. The right agent."), website content, design, and all related trademarks and materials are owned by Link Re LLC and protected by copyright, trademark, and other intellectual property laws. You may not use, copy, reproduce, modify, distribute, or create derivative works from our content without our prior written permission, except as permitted by law or expressly allowed in these Terms.</p>
+  </section>
+
+  <section class="section" id="termination">
+    <p class="section-num">12</p>
+    <h2>Termination</h2>
+    <p>We may suspend or terminate your access to the Services at any time, with or without notice, for any reason, including if we believe you have violated these Terms. You may stop using the Services at any time. Provisions that by their nature should survive termination — including disclaimers, limitations of liability, indemnification, intellectual property, and dispute resolution — will survive.</p>
+  </section>
+
+  <section class="section" id="disputes">
+    <p class="section-num">13</p>
+    <h2>Dispute Resolution &amp; Governing Law</h2>
+    <p>These Terms are governed by the laws of the State of Texas, without regard to its conflict of laws principles.</p>
+    <p>Any dispute, claim, or controversy arising out of or relating to these Terms or the Services will first be addressed through good-faith informal resolution. Either party may begin informal resolution by sending written notice to the other describing the dispute. If the dispute is not resolved within thirty (30) days after that notice, either party may bring a claim in accordance with this section.</p>
+    <p>To the extent permitted by law, you and Vettd agree that any formal dispute will be resolved exclusively in the state or federal courts located in Tarrant County or Denton County, Texas, and you consent to the personal jurisdiction of those courts. You and Vettd each waive any right to a jury trial and any right to participate in a class action or class arbitration against the other.</p>
+    <p>Nothing in these Terms prevents either party from seeking injunctive or equitable relief to protect its intellectual property or confidential information in any court of competent jurisdiction.</p>
+  </section>
+
+  <section class="section" id="changes">
+    <p class="section-num">14</p>
+    <h2>Changes to These Terms</h2>
+    <p>We may update these Terms from time to time. If we make material changes, we will update the "Last updated" date at the top of this page and, where appropriate, notify you through the Services. Your continued use of the Services after changes take effect constitutes acceptance of the updated Terms.</p>
+  </section>
+
+  <section class="section" id="contact">
+    <p class="section-num">15</p>
+    <h2>Contact Us</h2>
+    <p>Questions about these Terms or the Services can be directed to us using the contact information below.</p>
+  </section>
+
+  <div class="contact-box">
+    <div class="contact-inner">
+      <p class="contact-label">Contact Vettd</p>
+      <h3>Reach out anytime.</h3>
+      <p><strong style="color: rgba(255,255,255,0.9);">Email:</strong> <a href="mailto:hello@vettdagents.com">hello@vettdagents.com</a></p>
+      <p><strong style="color: rgba(255,255,255,0.9);">Phone:</strong> <a href="tel:8889720788">888-972-0788</a></p>
+      <p><strong style="color: rgba(255,255,255,0.9);">Mailing address:</strong> <!-- ADDRESS PLACEHOLDER: replace with virtual business address once obtained --><span style="color: rgba(255,255,255,0.4);">Available upon request</span></p>
+      <p style="margin-top: 16px;">Vettd is a service of Link Re LLC, a Texas limited liability company.</p>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="/" class="logo">Vett<span>d</span></a>
+      <p class="footer-tagline">Not just any agent. The <em>right</em> agent.</p>
+      <p class="footer-entity">
+        Vettd is a service of Link Re LLC,<br>
+        a Texas limited liability company.<br>
+        Licensed Real Estate Referral &amp; Matching Service.
+      </p>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="/#how">How It Works</a>
+      <a href="/#why">Why Vettd</a>
+      <a href="/form.html">Get Matched</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="mailto:hello@vettdagents.com">hello@vettdagents.com</a>
+      <a href="tel:8889720788">888-972-0788</a>
+      <a href="/privacy.html">Privacy Policy</a>
+      <a href="/terms.html">Terms of Service</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Link Re LLC dba Vettd. All rights reserved.</p>
+    <div>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

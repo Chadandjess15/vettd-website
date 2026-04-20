@@ -25,9 +25,14 @@
     background: var(--ink);
     color: var(--ink);
     min-height: 100vh;
-    display: flex; align-items: center; justify-content: center;
-    padding: 40px 20px;
+    display: flex; flex-direction: column;
+    padding: 40px 20px 0;
     position: relative; overflow-x: hidden;
+  }
+  .form-wrap {
+    flex: 1;
+    display: flex; align-items: center; justify-content: center;
+    width: 100%;
   }
 
   .bg-grid {
@@ -255,10 +260,47 @@
     color: var(--teal); margin-bottom: 12px; margin-top: 20px;
   }
 
+  /* FOOTER — compact, sits below centered form card */
+  .form-footer {
+    position: relative; z-index: 2;
+    width: 100%; max-width: 780px;
+    margin: 48px auto 0;
+    padding: 28px 24px 32px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex; flex-wrap: wrap;
+    justify-content: space-between; align-items: center;
+    gap: 16px;
+  }
+  .form-footer-left {
+    font-size: 0.76rem; color: rgba(255,255,255,0.35);
+    font-weight: 300; line-height: 1.6;
+  }
+  .form-footer-left strong {
+    color: rgba(255,255,255,0.55);
+    font-weight: 500;
+  }
+  .form-footer-links {
+    display: flex; gap: 20px; flex-wrap: wrap;
+    align-items: center;
+  }
+  .form-footer-links a {
+    font-size: 0.76rem;
+    color: rgba(255,255,255,0.45);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .form-footer-links a:hover { color: var(--teal-light); }
+  .form-footer-sep {
+    width: 3px; height: 3px; border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+  }
+
   @media (max-width: 520px) {
     .card-inner { padding: 32px 24px; }
     .field-row { grid-template-columns: 1fr; }
     .situation-grid { grid-template-columns: 1fr; }
+    .form-footer { flex-direction: column; text-align: center; margin-top: 32px; }
+    .form-footer-left { text-align: center; }
   }
 </style>
 </head>
@@ -267,6 +309,7 @@
 <div class="bg-grid"></div>
 <div class="bg-glow"></div>
 
+<div class="form-wrap">
 <div class="form-card">
   <div class="card-top-bar"></div>
   <div class="card-inner">
@@ -785,6 +828,23 @@
 
   </div>
 </div>
+</div><!-- /.form-wrap -->
+
+<footer class="form-footer">
+  <div class="form-footer-left">
+    <strong>Vettd</strong> is a service of Link Re LLC, a Texas limited liability company.<br>
+    © 2026 Link Re LLC dba Vettd. All rights reserved.
+  </div>
+  <div class="form-footer-links">
+    <a href="mailto:hello@vettdagents.com">hello@vettdagents.com</a>
+    <span class="form-footer-sep"></span>
+    <a href="tel:8889720788">888-972-0788</a>
+    <span class="form-footer-sep"></span>
+    <a href="/privacy.html">Privacy</a>
+    <span class="form-footer-sep"></span>
+    <a href="/terms.html">Terms</a>
+  </div>
+</footer>
 
 <script>
   let currentSituation = '';
