@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vettd — Agent Application</title>
+<meta name="description" content="Apply to join the Vettd Certified Agent Network.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,700;1,700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #111827;
+    --slate: #1E2D3D;
+    --teal: #0F766E;
+    --teal-light: #14B8A8;
+    --teal-glow: rgba(15,118,110,0.12);
+    --cream: #F9F7F4;
+    --white: #FFFFFF;
+    --muted: #6B7280;
+    --border: #E8E3DC;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--ink);
+    color: var(--ink);
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    padding: 40px 20px 0;
+    position: relative; overflow-x: hidden;
+  }
+  .form-wrap {
+    flex: 1;
+    display: flex; align-items: center; justify-content: center;
+    width: 100%;
+  }
+
+  .bg-grid {
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(rgba(15,118,110,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(15,118,110,0.06) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+  .bg-glow {
+    position: fixed; width: 600px; height: 600px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(15,118,110,0.15) 0%, transparent 70%);
+    top: -100px; right: -100px; pointer-events: none;
+  }
+  .bg-glow-2 {
+    position: fixed; width: 500px; height: 500px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(15,118,110,0.08) 0%, transparent 70%);
+    bottom: -100px; left: -50px; pointer-events: none;
+  }
+
+  /* LOGO BAR */
+  .top-bar {
+    position: relative; z-index: 3;
+    display: flex; justify-content: space-between; align-items: center;
+    max-width: 780px; width: 100%; margin: 0 auto 32px;
+    padding: 0 8px;
+  }
+  .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem; font-weight: 700;
+    color: var(--white); letter-spacing: 0.04em;
+    text-decoration: none;
+  }
+  .logo span { color: var(--teal-light); }
+  .back-to-info {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.45);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .back-to-info:hover { color: var(--white); }
+
+  /* CARD */
+  .form-card {
+    background: var(--white);
+    border-radius: 20px; width: 100%; max-width: 620px;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+    position: relative; z-index: 2;
+    overflow: hidden;
+  }
+  .card-top-bar {
+    height: 4px;
+    background: linear-gradient(90deg, var(--teal), var(--teal-light));
+  }
+  .card-inner { padding: 44px 48px; }
+
+  /* HEADER */
+  .card-eyebrow {
+    font-size: 0.68rem; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--teal); margin-bottom: 10px;
+  }
+  .card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.9rem; font-weight: 700;
+    color: var(--ink); margin-bottom: 8px; line-height: 1.15;
+  }
+  .card-title em { color: var(--teal); font-style: italic; }
+  .card-sub {
+    font-size: 0.9rem; color: var(--muted);
+    margin-bottom: 32px; line-height: 1.65; font-weight: 300;
+  }
+
+  /* PROGRESS */
+  .progress-wrap {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 28px;
+  }
+  .progress-bar {
+    flex: 1; height: 3px; background: #EDE8E0;
+    border-radius: 2px; margin-right: 12px; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; background: var(--teal);
+    border-radius: 2px; transition: width 0.4s ease;
+    width: 33%;
+  }
+  .progress-label {
+    font-size: 0.7rem; font-weight: 500;
+    color: var(--muted); white-space: nowrap;
+    letter-spacing: 0.04em;
+  }
+
+  /* SECTION HEADER INSIDE FORM */
+  .section-heading {
+    margin-top: 12px; margin-bottom: 18px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-heading:first-child { margin-top: 0; }
+  .section-heading .section-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.9rem; font-weight: 700;
+    color: var(--teal); letter-spacing: 0.08em;
+  }
+  .section-heading h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem; font-weight: 700;
+    color: var(--ink); margin-top: 2px; line-height: 1.25;
+  }
+  .section-heading p {
+    font-size: 0.78rem; color: var(--muted);
+    margin-top: 4px; font-weight: 300;
+  }
+
+  /* FIELDS */
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+  .field-group { margin-bottom: 14px; }
+  .field-group label {
+    display: block; font-size: 0.7rem; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--ink); margin-bottom: 6px; opacity: 0.75;
+  }
+  .field-group label .optional {
+    color: var(--muted); font-weight: 400;
+    letter-spacing: 0.04em; text-transform: none;
+    margin-left: 6px;
+  }
+  .field-help {
+    font-size: 0.75rem; color: var(--muted);
+    line-height: 1.55; font-weight: 300;
+    margin-top: 6px; padding-left: 2px;
+  }
+  .field-help strong { color: var(--ink); font-weight: 500; }
+  .field-group input,
+  .field-group select,
+  .field-group textarea {
+    width: 100%; padding: 12px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px; font-size: 0.92rem;
+    font-family: 'Outfit', sans-serif;
+    color: var(--ink); background: var(--cream);
+    transition: all 0.2s; outline: none;
+    -webkit-appearance: none; appearance: none;
+  }
+  .field-group textarea {
+    resize: vertical; min-height: 80px; line-height: 1.5;
+  }
+  .field-group input:focus,
+  .field-group select:focus,
+  .field-group textarea:focus {
+    border-color: var(--teal);
+    background: var(--white);
+    box-shadow: 0 0 0 3px rgba(15,118,110,0.08);
+  }
+
+  /* MULTI-SELECT CHIPS */
+  .chips-group { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    padding: 8px 14px; border-radius: 20px;
+    border: 1.5px solid var(--border);
+    background: var(--cream); color: var(--muted);
+    font-family: 'Outfit', sans-serif; font-size: 0.82rem;
+    font-weight: 500; cursor: pointer; transition: all 0.2s;
+  }
+  .chip:hover { border-color: var(--teal); color: var(--teal); }
+  .chip.selected {
+    background: var(--teal-glow); border-color: var(--teal);
+    color: var(--teal); font-weight: 600;
+  }
+
+  /* CONSENT */
+  .consent-block { margin-top: 8px; }
+  .consent-item {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 12px 0; border-top: 1px solid var(--border);
+  }
+  .consent-item:last-child { border-bottom: 1px solid var(--border); }
+  .consent-item input[type="checkbox"] {
+    width: 16px; height: 16px; flex-shrink: 0;
+    margin-top: 2px; accent-color: var(--teal);
+    cursor: pointer;
+  }
+  .consent-text {
+    font-size: 0.78rem; color: var(--muted);
+    line-height: 1.6; font-weight: 300;
+  }
+  .consent-text strong { font-weight: 600; color: var(--ink); }
+
+  .divider {
+    border: none; height: 1px; background: var(--border);
+    margin: 24px 0 20px;
+  }
+
+  /* SUBMIT */
+  .btn-submit {
+    width: 100%; padding: 15px;
+    background: var(--teal); color: var(--white);
+    border: none; border-radius: 8px;
+    font-size: 0.95rem; font-weight: 600;
+    font-family: 'Outfit', sans-serif;
+    cursor: pointer; margin-top: 14px;
+    transition: all 0.2s; letter-spacing: 0.01em;
+    box-shadow: 0 4px 20px rgba(15,118,110,0.2);
+  }
+  .btn-submit:hover {
+    background: var(--teal-light);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 28px rgba(15,118,110,0.35);
+  }
+  .btn-submit:disabled {
+    opacity: 0.5; cursor: not-allowed; transform: none;
+  }
+  .submit-note {
+    text-align: center; margin-top: 12px;
+    font-size: 0.75rem; color: var(--muted);
+    font-weight: 300;
+  }
+
+  /* SUCCESS STATE */
+  .success-state {
+    display: none;
+    text-align: center;
+    padding: 20px 0 10px;
+  }
+  .success-state.active { display: block; }
+  .form-content.hidden { display: none; }
+  .success-check {
+    width: 72px; height: 72px; border-radius: 50%;
+    background: rgba(15,118,110,0.12);
+    border: 2px solid rgba(20,184,166,0.4);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 24px;
+    font-size: 1.8rem; color: var(--teal);
+    animation: popIn 0.5s ease 0.1s both;
+  }
+  @keyframes popIn {
+    from { opacity: 0; transform: scale(0.5); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  .success-state h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem; font-weight: 700;
+    color: var(--ink); margin-bottom: 12px;
+    line-height: 1.2;
+  }
+  .success-state h3 em { color: var(--teal); font-style: italic; }
+  .success-state p {
+    font-size: 0.92rem; color: var(--muted);
+    line-height: 1.7; font-weight: 300;
+    margin-bottom: 12px;
+  }
+  .success-next {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin: 28px 0 20px;
+    text-align: left;
+  }
+  .success-next-label {
+    font-size: 0.68rem; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--teal); margin-bottom: 12px;
+  }
+  .success-next-item {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 6px 0; font-size: 0.85rem;
+    color: var(--ink); line-height: 1.6;
+    font-weight: 300;
+  }
+  .success-next-num {
+    color: var(--teal); font-weight: 700;
+    flex-shrink: 0;
+  }
+  .back-home {
+    display: inline-block;
+    font-size: 0.85rem; color: var(--muted);
+    text-decoration: none; margin-top: 8px;
+    transition: color 0.2s;
+  }
+  .back-home:hover { color: var(--teal); }
+
+  /* FOOTER */
+  .form-footer {
+    position: relative; z-index: 2;
+    width: 100%; max-width: 780px;
+    margin: 48px auto 0;
+    padding: 28px 24px 32px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex; flex-wrap: wrap;
+    justify-content: space-between; align-items: center;
+    gap: 16px;
+  }
+  .form-footer-left {
+    font-size: 0.76rem; color: rgba(255,255,255,0.35);
+    font-weight: 300; line-height: 1.6;
+  }
+  .form-footer-left strong {
+    color: rgba(255,255,255,0.55);
+    font-weight: 500;
+  }
+  .form-footer-links {
+    display: flex; gap: 20px; flex-wrap: wrap;
+    align-items: center;
+  }
+  .form-footer-links a {
+    font-size: 0.76rem;
+    color: rgba(255,255,255,0.45);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .form-footer-links a:hover { color: var(--teal-light); }
+  .form-footer-sep {
+    width: 3px; height: 3px; border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+  }
+
+  @media (max-width: 560px) {
+    .card-inner { padding: 32px 24px; }
+    .field-row { grid-template-columns: 1fr; }
+    .form-footer { flex-direction: column; text-align: center; margin-top: 32px; }
+    .form-footer-left { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-glow"></div>
+<div class="bg-glow-2"></div>
+
+<div class="form-wrap">
+
+<div style="width: 100%; max-width: 620px;">
+
+  <!-- TOP BAR: logo + back link -->
+  <div class="top-bar">
+    <a href="/" class="logo">Vett<span>d</span></a>
+    <a href="/agents.html" class="back-to-info">← Back to agent info</a>
+  </div>
+
+  <div class="form-card">
+    <div class="card-top-bar"></div>
+    <div class="card-inner">
+
+      <!-- ── APPLICATION (visible on load) ── -->
+      <div class="form-content" id="formContent">
+
+        <p class="card-eyebrow">Agent Application</p>
+        <h1 class="card-title">Apply to the Vettd <em>Network</em></h1>
+        <p class="card-sub">Takes about three minutes. We review every application personally and respond within two business days.</p>
+
+        <div class="progress-wrap">
+          <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+          <span class="progress-label" id="progressLabel">Application</span>
+        </div>
+
+        <!-- SECTION 1: ABOUT YOU -->
+        <div class="section-heading">
+          <p class="section-num">01</p>
+          <h3>About you</h3>
+          <p>Quick contact info and your brokerage.</p>
+        </div>
+
+        <div class="field-row">
+          <div class="field-group">
+            <label>First Name</label>
+            <input type="text" id="firstName" placeholder="Jessica" required>
+          </div>
+          <div class="field-group">
+            <label>Last Name</label>
+            <input type="text" id="lastName" placeholder="Harrison" required>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field-group">
+            <label>Phone</label>
+            <input type="tel" id="phone" placeholder="(555) 123-4567" required>
+          </div>
+          <div class="field-group">
+            <label>Email</label>
+            <input type="email" id="email" placeholder="you@brokerage.com" required>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label>Brokerage Name</label>
+          <input type="text" id="brokerage" placeholder="e.g. Compass, Keller Williams, Independent" required>
+        </div>
+
+        <div class="field-row">
+          <div class="field-group">
+            <label>License State</label>
+            <select id="licenseState" required>
+              <option value="">Select state...</option>
+              <option>Texas</option>
+              <option>California</option>
+              <option>Florida</option>
+              <option>New York</option>
+              <option>Arizona</option>
+              <option>Colorado</option>
+              <option>Georgia</option>
+              <option>North Carolina</option>
+              <option>Nevada</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label>License Number</label>
+            <input type="text" id="licenseNumber" placeholder="Your RE license #" required>
+          </div>
+        </div>
+
+        <!-- SECTION 2: EXPERIENCE -->
+        <div class="section-heading">
+          <p class="section-num">02</p>
+          <h3>Your experience</h3>
+          <p>Helps us match the right leads to you.</p>
+        </div>
+
+        <div class="field-row">
+          <div class="field-group">
+            <label>Years Licensed</label>
+            <select id="yearsLicensed" required>
+              <option value="">Select...</option>
+              <option>Less than 2 years</option>
+              <option>2–5 years</option>
+              <option>5–10 years</option>
+              <option>10–20 years</option>
+              <option>20+ years</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label>Closed Transactions (last 24 mo.)</label>
+            <select id="closedTransactions" required>
+              <option value="">Select...</option>
+              <option>Under 10</option>
+              <option>10–25</option>
+              <option>25–50</option>
+              <option>50–100</option>
+              <option>100+</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label>Annual Production Volume <span class="optional">(last year)</span></label>
+          <select id="productionVolume">
+            <option value="">Select range...</option>
+            <option>Under $2M</option>
+            <option>$2M – $5M</option>
+            <option>$5M – $10M</option>
+            <option>$10M – $25M</option>
+            <option>$25M – $50M</option>
+            <option>$50M+</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <label>Target ZIP Codes <span class="optional">(up to 3, comma-separated)</span></label>
+          <input type="text" id="targetZips" placeholder="e.g. 76262, 76092, 75034" required>
+          <p class="field-help">Please only list ZIP codes where you have <strong>closed a minimum of 5 deals in the last 24 months.</strong> Maximum of 3 ZIP codes — we want you to own the areas you truly know, not everywhere you'd like to work.</p>
+        </div>
+
+        <!-- SECTION 3: SPECIALTIES & FIT -->
+        <div class="section-heading">
+          <p class="section-num">03</p>
+          <h3>Specialties &amp; fit</h3>
+          <p>Select every area you have genuine expertise in.</p>
+        </div>
+
+        <div class="field-group">
+          <label>Specialties (Select all that apply)</label>
+          <div class="chips-group" id="specialties">
+            <div class="chip" onclick="toggleChip(this)">First-Time Buyer</div>
+            <div class="chip" onclick="toggleChip(this)">VA Buyer Specialist</div>
+            <div class="chip" onclick="toggleChip(this)">Luxury ($1M+)</div>
+            <div class="chip" onclick="toggleChip(this)">Investor / Portfolio</div>
+            <div class="chip" onclick="toggleChip(this)">Condo / Townhomes</div>
+            <div class="chip" onclick="toggleChip(this)">New Construction</div>
+            <div class="chip" onclick="toggleChip(this)">Relocation</div>
+            <div class="chip" onclick="toggleChip(this)">Listing Specialist</div>
+            <div class="chip" onclick="toggleChip(this)">Buyer's Agent</div>
+            <div class="chip" onclick="toggleChip(this)">Waterfront / Ranch</div>
+            <div class="chip" onclick="toggleChip(this)">55+ / Active Adult</div>
+            <div class="chip" onclick="toggleChip(this)">Commercial</div>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label>Primary Client Review Link <span class="optional">(Zillow, Google, brokerage profile)</span></label>
+          <input type="url" id="reviewLink" placeholder="https://...">
+        </div>
+
+        <div class="field-group">
+          <label>Why are you a fit for Vettd? <span class="optional">(optional but helpful)</span></label>
+          <textarea id="whyFit" placeholder="A few sentences about what makes you different — your process, niche, or approach."></textarea>
+        </div>
+
+        <hr class="divider">
+
+        <div class="consent-block">
+          <div class="consent-item">
+            <input type="checkbox" id="consentAccurate" required>
+            <span class="consent-text">I confirm the information above is <strong>accurate and verifiable</strong>, including my active license status and transaction history.</span>
+          </div>
+          <div class="consent-item">
+            <input type="checkbox" id="consentContact" required>
+            <span class="consent-text">I consent to receive communications from <strong>Vettd</strong> about my application and the partner network, including phone, email, and text. Message &amp; data rates may apply. Reply STOP to opt out of texts.</span>
+          </div>
+        </div>
+
+        <button class="btn-submit" onclick="submitApplication()">Submit Application →</button>
+        <p class="submit-note">Every application is reviewed personally. We'll be in touch within two business days.</p>
+
+      </div>
+
+      <!-- ── SUCCESS STATE (hidden until submit) ── -->
+      <div class="success-state" id="successState">
+        <div class="success-check">✓</div>
+        <h3>Application <em>received.</em></h3>
+        <p>Thanks for applying to the Vettd Certified Agent Network. We review every application personally — you'll hear back from us within two business days.</p>
+
+        <div class="success-next">
+          <p class="success-next-label">What happens next</p>
+          <div class="success-next-item">
+            <span class="success-next-num">01</span>
+            <span>We personally review your license, production history, reviews, and specialties.</span>
+          </div>
+          <div class="success-next-item">
+            <span class="success-next-num">02</span>
+            <span>You'll hear back from us by email within two business days with a decision — and if we need anything else, we'll reach out directly.</span>
+          </div>
+          <div class="success-next-item">
+            <span class="success-next-num">03</span>
+            <span>Once approved, your territory and specialties are locked in. When we identify a matching lead, we send you a referral agreement and make the introduction.</span>
+          </div>
+        </div>
+
+        <a href="/" class="back-home">← Back to vettdagents.com</a>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+</div><!-- /.form-wrap -->
+
+<footer class="form-footer">
+  <div class="form-footer-left">
+    <strong>Vettd</strong> is a service of Link Re LLC, a Texas limited liability company.<br>
+    © 2026 Link Re LLC dba Vettd. All rights reserved.
+  </div>
+  <div class="form-footer-links">
+    <a href="mailto:hello@vettdagents.com">hello@vettdagents.com</a>
+    <span class="form-footer-sep"></span>
+    <a href="tel:8889720788">888-972-0788</a>
+    <span class="form-footer-sep"></span>
+    <a href="/privacy.html">Privacy</a>
+    <span class="form-footer-sep"></span>
+    <a href="/terms.html">Terms</a>
+  </div>
+</footer>
+
+<script>
+  // Multi-select chips
+  function toggleChip(chip) {
+    chip.classList.toggle('selected');
+  }
+
+  function getChipValues(containerId) {
+    const chips = document.querySelectorAll('#' + containerId + ' .chip.selected');
+    return Array.from(chips).map(c => c.textContent.trim()).join(', ');
+  }
+
+  function submitApplication() {
+    // Required fields
+    const required = [
+      'firstName', 'lastName', 'phone', 'email',
+      'brokerage', 'licenseState', 'licenseNumber',
+      'yearsLicensed', 'closedTransactions', 'targetZips'
+    ];
+
+    for (let id of required) {
+      const el = document.getElementById(id);
+      if (!el.value.trim()) {
+        el.focus();
+        el.style.borderColor = '#EF4444';
+        setTimeout(() => el.style.borderColor = '', 2000);
+        return;
+      }
+    }
+
+    // ZIP code validation — max 3, each must be 5 digits
+    const zipEl = document.getElementById('targetZips');
+    const zipArray = zipEl.value.split(',').map(z => z.trim()).filter(z => z.length > 0);
+    if (zipArray.length > 3) {
+      zipEl.focus();
+      zipEl.style.borderColor = '#EF4444';
+      alert('Please enter a maximum of 3 ZIP codes — those where you\'ve closed at least 5 deals in the last 24 months.');
+      setTimeout(() => zipEl.style.borderColor = '', 2000);
+      return;
+    }
+    const invalidZip = zipArray.find(z => !/^\d{5}$/.test(z));
+    if (invalidZip) {
+      zipEl.focus();
+      zipEl.style.borderColor = '#EF4444';
+      alert('Please enter valid 5-digit ZIP codes separated by commas (e.g. 76262, 76092, 75034).');
+      setTimeout(() => zipEl.style.borderColor = '', 2000);
+      return;
+    }
+
+    // Consents required
+    const consentAccurate = document.getElementById('consentAccurate');
+    const consentContact = document.getElementById('consentContact');
+    if (!consentAccurate.checked || !consentContact.checked) {
+      alert('Please check both boxes confirming accuracy and consenting to communications.');
+      return;
+    }
+
+    // Build payload
+    const payload = {
+      // Flag to differentiate from consumer leads in GHL
+      submissionType: 'agent_application',
+      leadType: 'Agent',
+
+      // Contact
+      firstName: document.getElementById('firstName').value,
+      lastName: document.getElementById('lastName').value,
+      phone: document.getElementById('phone').value,
+      email: document.getElementById('email').value,
+
+      // Brokerage & license
+      brokerage: document.getElementById('brokerage').value,
+      licenseState: document.getElementById('licenseState').value,
+      licenseNumber: document.getElementById('licenseNumber').value,
+
+      // Experience
+      yearsLicensed: document.getElementById('yearsLicensed').value,
+      closedTransactions: document.getElementById('closedTransactions').value,
+      productionVolume: document.getElementById('productionVolume').value,
+      targetZips: document.getElementById('targetZips').value,
+
+      // Fit
+      specialties: getChipValues('specialties'),
+      reviewLink: document.getElementById('reviewLink').value,
+      whyFit: document.getElementById('whyFit').value,
+
+      // Consent records
+      consentAccurate: consentAccurate.checked,
+      consentContact: consentContact.checked,
+      submittedAt: new Date().toISOString()
+    };
+
+    // Show success state immediately (good UX — don't make them wait on the webhook)
+    document.getElementById('formContent').classList.add('hidden');
+    document.getElementById('successState').classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Fire webhook in background
+    fetch('https://hooks.zapier.com/hooks/catch/27278954/uj50ba6/', {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).catch(() => {});
+  }
+</script>
+
+</body>
+</html>
