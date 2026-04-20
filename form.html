@@ -530,6 +530,20 @@
         <input type="hidden" id="buyFirstTime">
       </div>
 
+      <div class="field-group">
+        <label>Specialties Needed (Select all that apply)</label>
+        <div class="chips-group" id="buySpecialties">
+          <div class="chip" onclick="toggleChip(this)">First-Time Buyer</div>
+          <div class="chip" onclick="toggleChip(this)">VA Buyer Specialist</div>
+          <div class="chip" onclick="toggleChip(this)">Luxury Home</div>
+          <div class="chip" onclick="toggleChip(this)">Investor</div>
+          <div class="chip" onclick="toggleChip(this)">Condo / Townhomes</div>
+          <div class="chip" onclick="toggleChip(this)">New Construction</div>
+          <div class="chip" onclick="toggleChip(this)">Relocation / New to Area</div>
+          <div class="chip" onclick="toggleChip(this)">None of the Above</div>
+        </div>
+      </div>
+
       <hr class="divider">
       <div class="consent-block">
         <div class="consent-item">
@@ -637,6 +651,20 @@
           <button class="yn-btn" onclick="selectYN(this, 'sbPreApproved', 'No')">No</button>
         </div>
         <input type="hidden" id="sbPreApproved">
+      </div>
+
+      <div class="field-group">
+        <label>Specialties Needed for Your Purchase (Select all that apply)</label>
+        <div class="chips-group" id="sbSpecialties">
+          <div class="chip" onclick="toggleChip(this)">First-Time Buyer</div>
+          <div class="chip" onclick="toggleChip(this)">VA Buyer Specialist</div>
+          <div class="chip" onclick="toggleChip(this)">Luxury Home</div>
+          <div class="chip" onclick="toggleChip(this)">Investor</div>
+          <div class="chip" onclick="toggleChip(this)">Condo / Townhomes</div>
+          <div class="chip" onclick="toggleChip(this)">New Construction</div>
+          <div class="chip" onclick="toggleChip(this)">Relocation / New to Area</div>
+          <div class="chip" onclick="toggleChip(this)">None of the Above</div>
+        </div>
       </div>
 
       <hr class="divider">
@@ -954,6 +982,7 @@
       payload.buyTimeline = document.getElementById('buyTimeline').value;
       payload.buyPreApproved = document.getElementById('buyPreApproved').value;
       payload.buyFirstTime = document.getElementById('buyFirstTime').value;
+      payload.buySpecialties = getChipValues('buySpecialties');
     }
     if (type === 'sellbuy') {
       payload.sbSellAddress = document.getElementById('sbSellAddress').value;
@@ -964,6 +993,7 @@
       payload.sbBuyBudget = document.getElementById('sbBuyBudget').value;
       payload.sbUrgency = document.getElementById('sbUrgency').value;
       payload.sbPreApproved = document.getElementById('sbPreApproved').value;
+      payload.sbSpecialties = getChipValues('sbSpecialties');
     }
     if (type === 'invest_res') {
       payload.resArea = document.getElementById('resArea').value;
