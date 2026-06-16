@@ -379,6 +379,20 @@
         </div>
       </div>
 
+      <!-- SMS + marketing consent — on Step 1 with the phone field for carrier compliance.
+           Positioned below the situation cards, right above the Continue button.
+           Both are OPTIONAL — submission is not blocked if unchecked. -->
+      <div class="consent-block" style="margin-bottom: 18px;">
+        <div class="consent-item">
+          <input type="checkbox" id="smsConsent">
+          <span class="consent-text"><em>(Optional)</em> By checking this box, I consent to receive SMS text messages from <strong>Vettd</strong> (operated by Link Re LLC) regarding my real estate agent matching request at the phone number I provided above. Message frequency varies. Message and data rates may apply. Reply HELP for help or STOP to unsubscribe. See our <a href="/privacy.html" target="_blank">Privacy Policy</a> and <a href="/terms.html" target="_blank">Terms of Service</a>. <strong>Consent to receive SMS is not required to use our matching service.</strong></span>
+        </div>
+        <div class="consent-item">
+          <input type="checkbox" id="marketingConsent">
+          <span class="consent-text">I'd also like to receive occasional marketing messages from <strong>Vettd</strong> — market updates, tips, and relevant offers. Frequency varies. Message and data rates may apply. Reply STOP to opt out at any time. <em>(Optional)</em></span>
+        </div>
+      </div>
+
       <button class="btn-next" onclick="goToStep2()">Continue →</button>
       <p class="form-trust">
         🔒 Free &amp; confidential
@@ -450,18 +464,6 @@
           <button class="yn-btn" onclick="selectYN(this, 'sellHasAgent', 'No')">No</button>
         </div>
         <input type="hidden" id="sellHasAgent">
-      </div>
-
-      <hr class="divider">
-      <div class="consent-block">
-        <div class="consent-item">
-          <input type="checkbox" id="consent1_sell" required>
-          <span class="consent-text">By checking this box, I consent to receive SMS text messages from <strong>Vettd</strong> (operated by Link Re LLC) regarding my real estate agent matching request at the phone number I provided. Message frequency varies. Message and data rates may apply. Reply HELP for help or STOP to unsubscribe. See our <a href="/privacy.html" target="_blank">Privacy Policy</a> and <a href="/terms.html" target="_blank">Terms of Service</a>.</span>
-        </div>
-        <div class="consent-item">
-          <input type="checkbox" id="consent2_sell">
-          <span class="consent-text">I'd also like to receive occasional marketing messages from <strong>Vettd</strong> — market updates, tips, and relevant offers. Frequency varies. Message and data rates may apply. Reply STOP to opt out at any time. <em>(Optional)</em></span>
-        </div>
       </div>
 
       <button class="btn-next teal-btn" onclick="submitForm('sell')">Get My Vettd Match →</button>
@@ -541,18 +543,6 @@
           <div class="chip" onclick="toggleChip(this)">New Construction</div>
           <div class="chip" onclick="toggleChip(this)">Relocation / New to Area</div>
           <div class="chip" onclick="toggleChip(this)">None of the Above</div>
-        </div>
-      </div>
-
-      <hr class="divider">
-      <div class="consent-block">
-        <div class="consent-item">
-          <input type="checkbox" id="consent1_buy" required>
-          <span class="consent-text">By checking this box, I consent to receive SMS text messages from <strong>Vettd</strong> (operated by Link Re LLC) regarding my real estate agent matching request at the phone number I provided. Message frequency varies. Message and data rates may apply. Reply HELP for help or STOP to unsubscribe. See our <a href="/privacy.html" target="_blank">Privacy Policy</a> and <a href="/terms.html" target="_blank">Terms of Service</a>.</span>
-        </div>
-        <div class="consent-item">
-          <input type="checkbox" id="consent2_buy">
-          <span class="consent-text">I'd also like to receive occasional marketing messages from <strong>Vettd</strong> — market updates, tips, and relevant offers. Frequency varies. Message and data rates may apply. Reply STOP to opt out at any time. <em>(Optional)</em></span>
         </div>
       </div>
 
@@ -667,18 +657,6 @@
         </div>
       </div>
 
-      <hr class="divider">
-      <div class="consent-block">
-        <div class="consent-item">
-          <input type="checkbox" id="consent1_sellbuy" required>
-          <span class="consent-text">By checking this box, I consent to receive SMS text messages from <strong>Vettd</strong> (operated by Link Re LLC) regarding my real estate agent matching request at the phone number I provided. Message frequency varies. Message and data rates may apply. Reply HELP for help or STOP to unsubscribe. See our <a href="/privacy.html" target="_blank">Privacy Policy</a> and <a href="/terms.html" target="_blank">Terms of Service</a>.</span>
-        </div>
-        <div class="consent-item">
-          <input type="checkbox" id="consent2_sellbuy">
-          <span class="consent-text">I'd also like to receive occasional marketing messages from <strong>Vettd</strong> — market updates, tips, and relevant offers. Frequency varies. Message and data rates may apply. Reply STOP to opt out at any time. <em>(Optional)</em></span>
-        </div>
-      </div>
-
       <button class="btn-next teal-btn" onclick="submitForm('sellbuy')">Get My Vettd Match →</button>
       <button class="btn-back" onclick="goBack()">← Back</button>
     </div>
@@ -756,18 +734,6 @@
         </select>
       </div>
 
-      <hr class="divider">
-      <div class="consent-block">
-        <div class="consent-item">
-          <input type="checkbox" id="consent1_invest_res" required>
-          <span class="consent-text">By checking this box, I consent to receive SMS text messages from <strong>Vettd</strong> (operated by Link Re LLC) regarding my real estate agent matching request at the phone number I provided. Message frequency varies. Message and data rates may apply. Reply HELP for help or STOP to unsubscribe. See our <a href="/privacy.html" target="_blank">Privacy Policy</a> and <a href="/terms.html" target="_blank">Terms of Service</a>.</span>
-        </div>
-        <div class="consent-item">
-          <input type="checkbox" id="consent2_invest_res">
-          <span class="consent-text">I'd also like to receive occasional marketing messages from <strong>Vettd</strong> — market updates, tips, and relevant offers. Frequency varies. Message and data rates may apply. Reply STOP to opt out at any time. <em>(Optional)</em></span>
-        </div>
-      </div>
-
       <button class="btn-next teal-btn" onclick="submitForm('invest_res')">Get My Vettd Match →</button>
       <button class="btn-back" onclick="goBack()">← Back</button>
     </div>
@@ -836,18 +802,6 @@
           <option>Experienced — 6+ commercial deals</option>
           <option>Institutional / professional investor</option>
         </select>
-      </div>
-
-      <hr class="divider">
-      <div class="consent-block">
-        <div class="consent-item">
-          <input type="checkbox" id="consent1_invest_com" required>
-          <span class="consent-text">By checking this box, I consent to receive SMS text messages from <strong>Vettd</strong> (operated by Link Re LLC) regarding my real estate agent matching request at the phone number I provided. Message frequency varies. Message and data rates may apply. Reply HELP for help or STOP to unsubscribe. See our <a href="/privacy.html" target="_blank">Privacy Policy</a> and <a href="/terms.html" target="_blank">Terms of Service</a>.</span>
-        </div>
-        <div class="consent-item">
-          <input type="checkbox" id="consent2_invest_com">
-          <span class="consent-text">I'd also like to receive occasional marketing messages from <strong>Vettd</strong> — market updates, tips, and relevant offers. Frequency varies. Message and data rates may apply. Reply STOP to opt out at any time. <em>(Optional)</em></span>
-        </div>
       </div>
 
       <button class="btn-next teal-btn" onclick="submitForm('invest_com')">Get My Vettd Match →</button>
@@ -949,13 +903,14 @@
 
   // Submit form — sends to GHL webhook
   function submitForm(type) {
-    // Validate consent — handle both short and long type names
-    const consentId = 'consent1_' + type;
-    const consentEl = document.getElementById(consentId);
-    if (!consentEl || !consentEl.checked) {
-      alert('Please agree to receive communications from Vettd to continue.');
-      return;
-    }
+    // Capture SMS + marketing consent state from Step 1 (single instance, not per-path).
+    // Both are OPTIONAL and do NOT block submission.
+    // Carrier compliance: SMS consent cannot be required to use the service,
+    // and the consent checkbox must be on the same view as the phone field.
+    const smsConsentEl = document.getElementById('smsConsent');
+    const smsConsent = !!(smsConsentEl && smsConsentEl.checked);
+    const marketingConsentEl = document.getElementById('marketingConsent');
+    const marketingConsent = !!(marketingConsentEl && marketingConsentEl.checked);
 
     // Build payload
     const payload = {
@@ -964,7 +919,8 @@
       phone: document.getElementById('phone').value,
       email: document.getElementById('email').value,
       situation: currentSituation,
-      marketingConsent: document.getElementById('consent2_' + type) ? document.getElementById('consent2_' + type).checked : false,
+      smsConsent: smsConsent,
+      marketingConsent: marketingConsent,
     };
 
     // Add situation-specific fields

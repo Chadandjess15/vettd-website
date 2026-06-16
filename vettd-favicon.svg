@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <style type="text/css"><![CDATA[
+      @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&display=swap');
+      .d-mark { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 700; font-size: 60px; }
+      .cream { fill: #F9F7F4; }
+    ]]></style>
+  </defs>
+  <rect width="64" height="64" rx="12" fill="#0F766E"/>
+  <text class="d-mark cream" x="32" y="52" text-anchor="middle">d</text>
+</svg>
