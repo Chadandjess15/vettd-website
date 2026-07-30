@@ -103,12 +103,45 @@
 
   /* ── HERO ── */
   .hero {
-    min-height: 100vh;
+    min-height: auto;
     background: var(--ink);
-    display: flex; align-items: flex-start;
+    display: flex; align-items: center;
     position: relative; overflow: hidden;
-    padding: 130px 56px 100px;
+    padding: 130px 56px 50px;
   }
+
+  /* OPTION 1 — Photo background with dark gradient fade */
+  .hero-photo-bg {
+    position: absolute; inset: 0;
+    background-image: url('hero-home.png');
+    background-position: left center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: 0.65;
+    z-index: 0;
+  }
+  .hero-photo-fade {
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg,
+      rgba(17,24,39,0.35) 0%,
+      rgba(17,24,39,0.55) 30%,
+      rgba(17,24,39,0.95) 60%,
+      rgba(17,24,39,1) 100%
+    );
+    z-index: 1;
+  }
+  @media (max-width: 900px) {
+    .hero-photo-bg { background-position: center top; background-size: cover; opacity: 0.45; }
+    .hero-photo-fade {
+      background: linear-gradient(180deg,
+        rgba(17,24,39,0.35) 0%,
+        rgba(17,24,39,0.6) 30%,
+        rgba(17,24,39,0.95) 60%,
+        rgba(17,24,39,1) 85%
+      );
+    }
+  }
+
 
   /* Animated background grid */
   .hero-grid-bg {
@@ -148,7 +181,7 @@
     position: relative; z-index: 2;
   }
 
-  .hero-content { animation: fadeUp 0.8s ease both; }
+  .hero-content { animation: fadeUp 0.8s ease both; padding-top: 60px; }
 
   .hero-stamp {
     display: inline-flex; align-items: center; gap: 8px;
@@ -174,14 +207,18 @@
 
   .hero h1 {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(3rem, 5.5vw, 5rem);
-    font-weight: 700; line-height: 1.0;
-    color: var(--white); margin-bottom: 24px;
+    font-size: clamp(2.5rem, 4.5vw, 4rem);
+    font-weight: 700; line-height: 1.05;
+    color: var(--white); margin-bottom: 20px;
     letter-spacing: -0.01em;
   }
   .hero h1 em {
     color: var(--teal-light);
     font-style: italic;
+  }
+  .hero h1 .hero-h1-teal {
+    color: var(--teal-light);
+    font-style: normal;
   }
   .hero h1 .line-break { display: block; }
 
@@ -326,7 +363,18 @@
   }
 
   /* ── HOW IT WORKS ── */
-  .how-bg { background: var(--cream); }
+  .how-bg { background: var(--ink); }
+  .how-bg .section-tag { color: var(--teal-light); }
+  .how-bg .section-title { color: var(--white); }
+  .how-bg .section-sub { color: rgba(255,255,255,0.7); }
+  .how-bg .step {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  }
+  .how-bg .step h3 { color: var(--ink); }
+  .how-bg .step p { color: var(--slate); }
+  .how-bg .step-number { color: var(--teal); opacity: 1; }
   .steps {
     display: grid; grid-template-columns: repeat(3, 1fr);
     gap: 2px; background: var(--border);
@@ -352,8 +400,10 @@
     background: var(--teal-glow);
     border-radius: 10px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 1.2rem; margin-bottom: 18px;
+    margin-bottom: 18px;
+    color: var(--teal);
   }
+  .step-icon svg { width: 22px; height: 22px; display: block; }
   .step h3 {
     font-family: 'Cormorant Garamond', serif;
     font-size: 1.3rem; font-weight: 700;
@@ -608,7 +658,7 @@ src="https://www.facebook.com/tr?id=27601178092896851&ev=PageView&noscript=1"
     <a href="#how" class="nav-link">How It Works</a>
     <a href="#why" class="nav-link">Why Vettd</a>
     <a href="/agents.html" class="nav-link">For Agents</a>
-    <a href="/form.html" class="nav-cta">Get Matched Free</a>
+    <a href="#match" class="nav-cta">Get Matched Free</a>
   </div>
 </nav>
 
@@ -617,53 +667,668 @@ src="https://www.facebook.com/tr?id=27601178092896851&ev=PageView&noscript=1"
   <div class="hero-grid-bg"></div>
   <div class="hero-glow"></div>
   <div class="hero-glow-2"></div>
+
+  <!-- Photo background — modern home with dark gradient fade -->
+  <div class="hero-photo-bg"></div>
+  <div class="hero-photo-fade"></div>
   <div class="hero-inner">
     <div class="hero-content">
-      <div class="hero-stamp">
-        <div class="stamp-dot"></div>
-        <span class="stamp-text">Licensed · Verified · Matched</span>
-      </div>
       <h1>
-        <span class="line-break">Not just any agent.</span>
-        The <em>right</em> agent.
+        Get <em>personally</em> matched with the <em>right</em> agent for your situation. <span class="hero-h1-teal">Free.</span>
       </h1>
-      <p class="hero-sub">Vettd matches homeowners, buyers, and investors with rigorously screened real estate professionals — based on your specific situation, market, and goals. Free. Fast. No pressure.</p>
-      <div class="hero-actions">
-        <a href="/form.html" class="btn-primary">Get My Free Match →</a>
-        <a href="#how" class="btn-ghost">See how it works ↓</a>
-      </div>
+      <p class="hero-sub">Answer a few questions. We'll take it from there — personally matching you with a rigorously screened real estate professional based on your specific situation, market, and goals. Free. Fast. No pressure.</p>
     </div>
 
-    <div class="hero-card" id="match">
-      <p class="card-eyebrow">Free Agent Match</p>
-      <p class="card-headline">Let us find your perfect match.</p>
-      <p class="card-sub">Share your situation and we'll take it from there — personally matching you with a vetted agent who specializes in exactly what you need.</p>
-      <div style="margin-bottom:24px;">
-        <div style="display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--border);">
-          <span style="color:var(--teal);font-size:1rem;">→</span>
-          <span style="font-size:0.88rem;color:var(--muted);">Tell us your situation — sell, buy, or invest</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--border);">
-          <span style="color:var(--teal);font-size:1rem;">→</span>
-          <span style="font-size:0.88rem;color:var(--muted);">We review your specific needs and goals</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--border);">
-          <span style="color:var(--teal);font-size:1rem;">→</span>
-          <span style="font-size:0.88rem;color:var(--muted);">We personally introduce you to your Vettd agent</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:12px;padding:14px 0;">
-          <span style="color:var(--teal);font-size:1rem;">→</span>
-          <span style="font-size:0.88rem;color:var(--muted);">100% free to you — always. We're paid by the agent, only if your transaction closes</span>
+    <!-- ═══════════════════════════
+         RIGHT COLUMN: callout + progressive form
+    ═══════════════════════════ -->
+    <div class="hero-right-col">
+      <p class="hero-callout">
+        <span class="hero-callout-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="26" height="26"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg></span>
+        Takes less than 2 minutes
+      </p>
+    <div class="hero-card fw-card" id="match">
+      <!-- Progress indicator -->
+      <div class="fw-progress-track" id="fwProgressTrack"></div>
+      <p class="fw-step-count" id="fwStepCount">Question 1 of 5</p>
+
+      <!-- ─────────────────────────
+           SCREEN 1: WHAT TO DO
+      ───────────────────────── -->
+      <div class="fw-screen active" data-screen="situation">
+        <p class="fw-eyebrow">Start here</p>
+        <h2 class="fw-title">What are you looking to do?</h2>
+        <div class="fw-choices">
+          <button class="fw-choice" onclick="fwChoose('situation','buy')">
+            <span class="fw-choice-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12L12 4l9 8"/><path d="M5 10v10a1 1 0 0 0 1 1h4v-7h4v7h4a1 1 0 0 0 1-1V10"/></svg></span>
+            <span class="fw-choice-label">Buy</span>
+          </button>
+          <button class="fw-choice" onclick="fwChoose('situation','sell')">
+            <span class="fw-choice-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="6.5" cy="12" r="4"/><line x1="10.5" y1="12" x2="22" y2="12"/><line x1="18" y1="12" x2="18" y2="15.5"/><line x1="21" y1="12" x2="21" y2="16"/></svg></span>
+            <span class="fw-choice-label">Sell</span>
+          </button>
+          <button class="fw-choice" onclick="fwChoose('situation','both')">
+            <span class="fw-choice-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3l4 4-4 4"/><path d="M21 7H8a4 4 0 0 0-4 4v0"/><path d="M7 21l-4-4 4-4"/><path d="M3 17h13a4 4 0 0 0 4-4v0"/></svg></span>
+            <span class="fw-choice-label">Both Buy and Sell</span>
+          </button>
         </div>
       </div>
-      <a href="/form.html" style="display:block;width:100%;padding:15px;background:var(--ink);color:var(--white);text-align:center;border-radius:8px;font-size:0.95rem;font-weight:600;text-decoration:none;font-family:'Outfit',sans-serif;transition:all 0.2s;" onmouseover="this.style.background='#1a2f45'" onmouseout="this.style.background='var(--ink)'">Get My Free Match →</a>
-      <p class="form-trust" style="margin-top:14px">
-        🔒 Free &amp; confidential
-        <span>·</span>
-        <span class="teal">We'll be in touch soon</span>
-        <span>·</span>
-        No obligation
-      </p>
+
+      <!-- ─────────────────────────
+           SCREEN 2A: BUY — Personal or Investment
+      ───────────────────────── -->
+      <div class="fw-screen" data-screen="purpose_buy">
+        <p class="fw-eyebrow">Purpose</p>
+        <h2 class="fw-title">Is this for a personal home or an investment?</h2>
+        <div class="fw-choices">
+          <button class="fw-choice" onclick="fwChoose('purpose','personal')">
+            <span class="fw-choice-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v10a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1V11z"/></svg></span>
+            <span class="fw-choice-label">Personal home</span>
+          </button>
+          <button class="fw-choice" onclick="fwChoose('purpose','investment')">
+            <span class="fw-choice-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="15 7 21 7 21 13"/></svg></span>
+            <span class="fw-choice-label">Investment property</span>
+          </button>
+        </div>
+        <button class="fw-back" onclick="fwBack()">← Back</button>
+      </div>
+
+      <!-- ─────────────────────────
+           SCREEN 2B: SELL — Personal or Investment
+      ───────────────────────── -->
+      <div class="fw-screen" data-screen="purpose_sell">
+        <p class="fw-eyebrow">Purpose</p>
+        <h2 class="fw-title">Is this a personal home or an investment property?</h2>
+        <div class="fw-choices">
+          <button class="fw-choice" onclick="fwChoose('purpose','personal')">
+            <span class="fw-choice-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v10a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1V11z"/></svg></span>
+            <span class="fw-choice-label">Personal home</span>
+          </button>
+          <button class="fw-choice" onclick="fwChoose('purpose','investment')">
+            <span class="fw-choice-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="15 7 21 7 21 13"/></svg></span>
+            <span class="fw-choice-label">Investment property</span>
+          </button>
+        </div>
+        <button class="fw-back" onclick="fwBack()">← Back</button>
+      </div>
+
+      <!-- ─────────────────────────
+           SCREEN 3: INVESTMENT TYPE
+      ───────────────────────── -->
+      <div class="fw-screen" data-screen="investType">
+        <p class="fw-eyebrow">Investment type</p>
+        <h2 class="fw-title">Residential or Commercial?</h2>
+        <div class="fw-choices">
+          <button class="fw-choice" onclick="fwChoose('investType','res')">
+            <span class="fw-choice-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2 21V11l5-4 5 4v10"/><path d="M12 21V9l5-4 5 4v12"/><line x1="2" y1="21" x2="22" y2="21"/></svg></span>
+            <span class="fw-choice-label">Residential (1–4 units)</span>
+          </button>
+          <button class="fw-choice" onclick="fwChoose('investType','com')">
+            <span class="fw-choice-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M8 7h2M14 7h2M8 11h2M14 11h2M8 15h2M14 15h2"/><path d="M10 21v-3h4v3"/></svg></span>
+            <span class="fw-choice-label">Commercial (5+ units, retail, office, industrial)</span>
+          </button>
+        </div>
+        <button class="fw-back" onclick="fwBack()">← Back</button>
+      </div>
+
+      <!-- ─────────────────────────
+           SCREEN 4A-1: BUYER PERSONAL — Typing / dropdowns
+      ───────────────────────── -->
+      <div class="fw-screen" data-screen="details_buy_personal">
+        <p class="fw-eyebrow">Your search</p>
+        <h2 class="fw-title">Tell us where and when</h2>
+        <div class="fw-field">
+          <label>City or area</label>
+          <input type="text" id="buyArea" placeholder="e.g. Dallas, Southlake, Frisco...">
+        </div>
+        <div class="fw-field">
+          <label>Neighborhood or school district (optional)</label>
+          <input type="text" id="buyNeighborhood" placeholder="e.g. Carroll ISD, Highland Park...">
+        </div>
+        <div class="fw-field">
+          <label>Budget range</label>
+          <select id="buyBudget">
+            <option value="">Select...</option>
+            <option>Under $200,000</option><option>$200,000 – $350,000</option>
+            <option>$350,000 – $500,000</option><option>$500,000 – $750,000</option>
+            <option>$750,000 – $1,000,000</option><option>$1,000,000 – $1,500,000</option>
+            <option>$1,500,000+</option>
+          </select>
+        </div>
+        <div class="fw-field">
+          <label>Timeline to buy</label>
+          <select id="buyTimeline">
+            <option value="">Select...</option>
+            <option>ASAP — actively searching</option><option>Within 1–3 months</option>
+            <option>Within 3–6 months</option><option>6–12 months</option>
+            <option>Just exploring for now</option>
+          </select>
+        </div>
+        <button class="fw-next" onclick="fwGoTo('contact')">Continue →</button>
+        <button class="fw-back" onclick="fwBack()">← Back</button>
+      </div>
+
+      <!-- ─────────────────────────
+           SCREEN 4A-2: BUYER PERSONAL — Tap questions (now shown first)
+      ───────────────────────── -->
+      <div class="fw-screen" data-screen="details_buy_personal_b">
+        <p class="fw-eyebrow">A few quick taps</p>
+        <h2 class="fw-title">A few more details</h2>
+        <div class="fw-field">
+          <label>Pre-approved by a lender?</label>
+          <div class="fw-yn">
+            <button type="button" class="fw-yn-btn" onclick="fwYN(this,'buyPreApproved','Yes')">Yes</button>
+            <button type="button" class="fw-yn-btn" onclick="fwYN(this,'buyPreApproved','No — connect me with a Vettd lender')">Connect me</button>
+            <button type="button" class="fw-yn-btn" onclick="fwYN(this,'buyPreApproved','No — not yet')">Not yet</button>
+          </div>
+          <input type="hidden" id="buyPreApproved">
+        </div>
+        <div class="fw-field">
+          <label>First home purchase?</label>
+          <div class="fw-yn">
+            <button type="button" class="fw-yn-btn" onclick="fwYN(this,'buyFirstTime','Yes')">Yes</button>
+            <button type="button" class="fw-yn-btn" onclick="fwYN(this,'buyFirstTime','No')">No</button>
+          </div>
+          <input type="hidden" id="buyFirstTime">
+        </div>
+        <div class="fw-field">
+          <label>Any specialty needs? (select all that apply)</label>
+          <div class="fw-chips" id="buySpecialties">
+            <div class="fw-chip" onclick="fwChip(this)">First-Time Buyer</div>
+            <div class="fw-chip" onclick="fwChip(this)">VA Buyer Specialist</div>
+            <div class="fw-chip" onclick="fwChip(this)">Luxury Home</div>
+            <div class="fw-chip" onclick="fwChip(this)">Condo / Townhome</div>
+            <div class="fw-chip" onclick="fwChip(this)">New Construction</div>
+            <div class="fw-chip" onclick="fwChip(this)">Relocation / New to Area</div>
+            <div class="fw-chip" onclick="fwChip(this)">None of the Above</div>
+          </div>
+        </div>
+        <button class="fw-next" onclick="fwGoTo('details_buy_personal')">Continue →</button>
+        <button class="fw-back" onclick="fwBack()">← Back</button>
+      </div>
+
+      <!-- ─────────────────────────
+           SCREEN 4B-1: RES INVESTOR — Typing / dropdowns
+      ───────────────────────── -->
+      <div class="fw-screen" data-screen="details_buy_invest_res">
+        <p class="fw-eyebrow">Residential investor</p>
+        <h2 class="fw-title">Tell us where and when</h2>
+        <div class="fw-field">
+          <label>Target area</label>
+          <input type="text" id="resArea" placeholder="e.g. Dallas-Fort Worth, Austin...">
+        </div>
+        <div class="fw-field">
+          <label>Budget</label>
+          <select id="resBudget">
+            <option value="">Select...</option>
+            <option>Under $100,000</option><option>$100,000 – $200,000</option>
+            <option>$200,000 – $350,000</option><option>$350,000 – $500,000</option>
+            <option>$500,000 – $750,000</option><option>$750,000+</option>
+          </select>
+        </div>
+        <div class="fw-field">
+          <label>Timeline</label>
+          <select id="resTimeline">
+            <option value="">Select...</option>
+            <option>Actively looking now</option><option>Within 1–3 months</option>
+            <option>Within 3–6 months</option><option>6–12 months</option>
+            <option>Just researching</option>
+          </select>
+        </div>
+        <div class="fw-field">
+          <label>Investment experience</label>
+          <select id="resExperience">
+            <option value="">Select...</option>
+            <option>First-time investor</option>
+            <option>I own 1 investment property</option>
+            <option>I own 2–5 investment properties</option>
+            <option>I own 6–10 investment properties</option>
+            <option>I own 10+ investment properties</option>
+          </select>
+        </div>
+        <button class="fw-next" onclick="fwGoTo('contact')">Continue →</button>
+        <button class="fw-back" onclick="fwBack()">← Back</button>
+      </div>
+
+      <!-- ─────────────────────────
+           SCREEN 4B-2: RES INVESTOR — Tap questions (now shown first)
+      ───────────────────────── -->
+      <div class="fw-screen" data-screen="details_buy_invest_res_b">
+        <p class="fw-eyebrow">A few quick taps</p>
+        <h2 class="fw-title">Property + strategy</h2>
+        <div class="fw-field">
+          <label>Property type</label>
+          <div class="fw-yn">
+            <button type="button" class="fw-yn-btn" onclick="fwYN(this,'resPropertyType','Single Family')">Single Family</button>
+            <button type="button" class="fw-yn-btn" onclick="fwYN(this,'resPropertyType','Small Multi-Family (2–4 units)')">2–4 units</button>
+            <button type="button" class="fw-yn-btn" onclick="fwYN(this,'resPropertyType','Both')">Both</button>
+          </div>
+          <input type="hidden" id="resPropertyType">
+        </div>
+        <div class="fw-field">
+          <label>Investment strategy</label>
+          <div class="fw-chips single" id="resStrategyChips">
+            <div class="fw-chip" onclick="fwChipSingle(this,'resStrategy')">Long-term rental</div>
+            <div class="fw-chip" onclick="fwChipSingle(this,'resStrategy')">Short-term rental (Airbnb)</div>
+            <div class="fw-chip" onclick="fwChipSingle(this,'resStrategy')">Fix &amp; flip</div>
+            <div class="fw-chip" onclick="fwChipSingle(this,'resStrategy')">BRRRR</div>
+            <div class="fw-chip" onclick="fwChipSingle(this,'resStrategy')">Not sure yet</div>
+          </div>
+          <input type="hidden" id="resStrategy">
+        </div>
+        <button class="fw-next" onclick="fwGoTo('details_buy_invest_res')">Continue →</button>
+        <button class="fw-back" onclick="fwBack()">← Back</button>
+      </div>
+
+      <!-- ─────────────────────────
+           SCREEN 4C-1: COM INVESTOR — Typing / dropdowns
+      ───────────────────────── -->
+      <div class="fw-screen" data-screen="details_buy_invest_com">
+        <p class="fw-eyebrow">Commercial investor</p>
+        <h2 class="fw-title">Tell us where and when</h2>
+        <div class="fw-field">
+          <label>Target market / area</label>
+          <input type="text" id="comArea" placeholder="e.g. Dallas-Fort Worth, Houston...">
+        </div>
+        <div class="fw-field">
+          <label>Target purchase price</label>
+          <select id="comBudget">
+            <option value="">Select...</option>
+            <option>Under $500,000</option><option>$500,000 – $1,000,000</option>
+            <option>$1,000,000 – $2,500,000</option><option>$2,500,000 – $5,000,000</option>
+            <option>$5,000,000 – $10,000,000</option><option>$10,000,000+</option>
+          </select>
+        </div>
+        <div class="fw-field">
+          <label>Timeline</label>
+          <select id="comTimeline">
+            <option value="">Select...</option>
+            <option>Actively under contract / searching</option>
+            <option>Within 1–3 months</option><option>Within 3–6 months</option>
+            <option>Within 6–12 months</option><option>1–2 years out</option>
+            <option>Just researching</option>
+          </select>
+        </div>
+        <div class="fw-field">
+          <label>Commercial experience</label>
+          <select id="comExperience">
+            <option value="">Select...</option>
+            <option>First commercial investment</option>
+            <option>1–2 commercial deals</option>
+            <option>3–5 commercial deals</option>
+            <option>Experienced — 6+ deals</option>
+            <option>Institutional / professional investor</option>
+          </select>
+        </div>
+        <button class="fw-next" onclick="fwGoTo('contact')">Continue →</button>
+        <button class="fw-back" onclick="fwBack()">← Back</button>
+      </div>
+
+      <!-- ─────────────────────────
+           SCREEN 4C-2: COM INVESTOR — Tap questions (now shown first)
+      ───────────────────────── -->
+      <div class="fw-screen" data-screen="details_buy_invest_com_b">
+        <p class="fw-eyebrow">A few quick taps</p>
+        <h2 class="fw-title">Asset type</h2>
+        <div class="fw-field">
+          <label>Investment type (select all that apply)</label>
+          <div class="fw-chips" id="comType">
+            <div class="fw-chip" onclick="fwChip(this)">Multifamily (5+ units)</div>
+            <div class="fw-chip" onclick="fwChip(this)">Retail / NNN Lease</div>
+            <div class="fw-chip" onclick="fwChip(this)">Industrial</div>
+            <div class="fw-chip" onclick="fwChip(this)">Office</div>
+            <div class="fw-chip" onclick="fwChip(this)">Mixed Use</div>
+            <div class="fw-chip" onclick="fwChip(this)">Self Storage</div>
+            <div class="fw-chip" onclick="fwChip(this)">Mobile Home Park</div>
+            <div class="fw-chip" onclick="fwChip(this)">Other</div>
+          </div>
+        </div>
+        <button class="fw-next" onclick="fwGoTo('details_buy_invest_com')">Continue →</button>
+        <button class="fw-back" onclick="fwBack()">← Back</button>
+      </div>
+
+      <!-- ─────────────────────────
+           SCREEN 4D-1: SELL PERSONAL — Typing / dropdowns
+      ───────────────────────── -->
+      <div class="fw-screen" data-screen="details_sell_personal">
+        <p class="fw-eyebrow">Your home</p>
+        <h2 class="fw-title">Tell us about your home</h2>
+        <div class="fw-field">
+          <label>Property address</label>
+          <input type="text" id="sellAddress" placeholder="123 Main St, City, TX">
+        </div>
+        <div class="fw-field">
+          <label>Timeline to sell</label>
+          <select id="sellTimeline">
+            <option value="">Select...</option>
+            <option>ASAP — I need to move quickly</option><option>Within 1–3 months</option>
+            <option>Within 3–6 months</option><option>6–12 months</option>
+            <option>Just exploring for now</option>
+          </select>
+        </div>
+        <div class="fw-field">
+          <label>Estimated home value</label>
+          <select id="sellValue">
+            <option value="">Select...</option>
+            <option>Under $200,000</option><option>$200,000 – $350,000</option>
+            <option>$350,000 – $500,000</option><option>$500,000 – $750,000</option>
+            <option>$750,000 – $1,000,000</option><option>$1,000,000 – $1,500,000</option>
+            <option>$1,500,000+</option>
+          </select>
+        </div>
+        <button class="fw-next" onclick="fwGoTo('contact')">Continue →</button>
+        <button class="fw-back" onclick="fwBack()">← Back</button>
+      </div>
+
+      <!-- ─────────────────────────
+           SCREEN 4D-2: SELL PERSONAL — Tap questions (now shown first)
+      ───────────────────────── -->
+      <div class="fw-screen" data-screen="details_sell_personal_b">
+        <p class="fw-eyebrow">A few quick taps</p>
+        <h2 class="fw-title">A few more details</h2>
+        <div class="fw-field">
+          <label>Any special circumstances? (select all that apply)</label>
+          <div class="fw-chips" id="sellCircumstances">
+            <div class="fw-chip" onclick="fwChip(this)">None</div>
+            <div class="fw-chip" onclick="fwChip(this)">Needs repairs</div>
+            <div class="fw-chip" onclick="fwChip(this)">Need to sell quickly</div>
+            <div class="fw-chip" onclick="fwChip(this)">Probate / Estate sale</div>
+            <div class="fw-chip" onclick="fwChip(this)">Divorce</div>
+            <div class="fw-chip" onclick="fwChip(this)">Behind on payments</div>
+            <div class="fw-chip" onclick="fwChip(this)">Tenant occupied</div>
+            <div class="fw-chip" onclick="fwChip(this)">New construction / Builder</div>
+          </div>
+        </div>
+        <div class="fw-field">
+          <label>Have you already spoken with an agent?</label>
+          <div class="fw-yn">
+            <button type="button" class="fw-yn-btn" onclick="fwYN(this,'sellHasAgent','Yes')">Yes</button>
+            <button type="button" class="fw-yn-btn" onclick="fwYN(this,'sellHasAgent','No')">No</button>
+          </div>
+          <input type="hidden" id="sellHasAgent">
+        </div>
+        <button class="fw-next" onclick="fwGoTo('details_sell_personal')">Continue →</button>
+        <button class="fw-back" onclick="fwBack()">← Back</button>
+      </div>
+
+      <!-- ─────────────────────────
+           SCREEN 4E-1: SELL INVESTMENT — Typing / dropdowns (now shown second)
+      ───────────────────────── -->
+      <div class="fw-screen" data-screen="details_sell_investment">
+        <p class="fw-eyebrow">Your investment property</p>
+        <h2 class="fw-title">Property details</h2>
+        <div class="fw-field">
+          <label>Property address</label>
+          <input type="text" id="sellAddress2" placeholder="123 Main St, City, TX">
+        </div>
+        <div class="fw-field">
+          <label>Timeline to sell</label>
+          <select id="sellTimeline2">
+            <option value="">Select...</option>
+            <option>ASAP — I need to move quickly</option><option>Within 1–3 months</option>
+            <option>Within 3–6 months</option><option>6–12 months</option>
+            <option>Just exploring for now</option>
+          </select>
+        </div>
+        <div class="fw-field">
+          <label>Estimated value</label>
+          <select id="sellValue2">
+            <option value="">Select...</option>
+            <option>Under $200,000</option><option>$200,000 – $500,000</option>
+            <option>$500,000 – $1,000,000</option><option>$1,000,000 – $2,500,000</option>
+            <option>$2,500,000 – $5,000,000</option><option>$5,000,000+</option>
+          </select>
+        </div>
+        <button class="fw-next" onclick="fwNextAfterSellInvestment()">Continue →</button>
+        <button class="fw-back" onclick="fwBack()">← Back</button>
+      </div>
+
+      <!-- ─────────────────────────
+           SCREEN 4E-2: SELL INVESTMENT — Tap questions (shown first)
+      ───────────────────────── -->
+      <div class="fw-screen" data-screen="details_sell_investment_b">
+        <p class="fw-eyebrow">A few quick taps</p>
+        <h2 class="fw-title">Property specifics</h2>
+        <div class="fw-field">
+          <label>Which apply to this property? (select all that apply)</label>
+          <div class="fw-chips" id="sellCircumstances2">
+            <div class="fw-chip" onclick="fwChip(this)">Currently tenant-occupied</div>
+            <div class="fw-chip" onclick="fwChip(this)">Vacant</div>
+            <div class="fw-chip" onclick="fwChip(this)">1031 exchange planned</div>
+            <div class="fw-chip" onclick="fwChip(this)">Needs repairs</div>
+            <div class="fw-chip" onclick="fwChip(this)">Portfolio sale (multiple properties)</div>
+            <div class="fw-chip" onclick="fwChip(this)">Other</div>
+          </div>
+        </div>
+        <button class="fw-next" onclick="fwGoTo('details_sell_investment')">Continue →</button>
+        <button class="fw-back" onclick="fwBack()">← Back</button>
+      </div>
+
+      <!-- ─────────────────────────
+           SCREEN 2C: BOTH — Personal or Investment
+      ───────────────────────── -->
+      <div class="fw-screen" data-screen="purpose_both">
+        <p class="fw-eyebrow">Purpose</p>
+        <h2 class="fw-title">Is this for a personal home or investment property?</h2>
+        <div class="fw-choices">
+          <button class="fw-choice" onclick="fwChoose('purpose','personal')">
+            <span class="fw-choice-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v10a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1V11z"/></svg></span>
+            <span class="fw-choice-label">Personal home</span>
+          </button>
+          <button class="fw-choice" onclick="fwChoose('purpose','investment')">
+            <span class="fw-choice-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="15 7 21 7 21 13"/></svg></span>
+            <span class="fw-choice-label">Investment property</span>
+          </button>
+        </div>
+        <button class="fw-back" onclick="fwBack()">← Back</button>
+      </div>
+
+      <!-- ─────────────────────────
+           SCREEN 4F-1: BOTH — Sell tap questions
+      ───────────────────────── -->
+      <div class="fw-screen" data-screen="details_both_sell_tap">
+        <p class="fw-eyebrow">First, the sale</p>
+        <h2 class="fw-title" id="both-sell-tap-title">First, tell us about the home you need to sell</h2>
+        <div class="fw-field">
+          <label>Any special circumstances? (select all that apply)</label>
+          <div class="fw-chips" id="sbCircumstances">
+            <div class="fw-chip" onclick="fwChip(this)">None</div>
+            <div class="fw-chip" onclick="fwChip(this)">Needs repairs</div>
+            <div class="fw-chip" onclick="fwChip(this)">Need to sell quickly</div>
+            <div class="fw-chip" onclick="fwChip(this)">Currently tenant-occupied</div>
+            <div class="fw-chip" onclick="fwChip(this)">1031 exchange planned</div>
+            <div class="fw-chip" onclick="fwChip(this)">Probate / Estate sale</div>
+            <div class="fw-chip" onclick="fwChip(this)">Divorce</div>
+            <div class="fw-chip" onclick="fwChip(this)">Other</div>
+          </div>
+        </div>
+        <button class="fw-next" onclick="fwGoTo('details_both_sell_typing')">Continue →</button>
+        <button class="fw-back" onclick="fwBack()">← Back</button>
+      </div>
+
+      <!-- ─────────────────────────
+           SCREEN 4F-2: BOTH — Sell typing / dropdowns
+      ───────────────────────── -->
+      <div class="fw-screen" data-screen="details_both_sell_typing">
+        <p class="fw-eyebrow">First, the sale</p>
+        <h2 class="fw-title">Property details</h2>
+        <div class="fw-field">
+          <label>Property address</label>
+          <input type="text" id="sbSellAddress" placeholder="123 Main St, City, TX">
+        </div>
+        <div class="fw-field">
+          <label>Estimated value</label>
+          <select id="sbSellValue">
+            <option value="">Select...</option>
+            <option>Under $200,000</option><option>$200,000 – $350,000</option>
+            <option>$350,000 – $500,000</option><option>$500,000 – $750,000</option>
+            <option>$750,000 – $1,000,000</option><option>$1,000,000+</option>
+          </select>
+        </div>
+        <div class="fw-field">
+          <label>Timeline to sell</label>
+          <select id="sbSellTimeline">
+            <option value="">Select...</option>
+            <option>ASAP</option><option>Within 1–3 months</option>
+            <option>Within 3–6 months</option><option>6–12 months</option>
+          </select>
+        </div>
+        <button class="fw-next" onclick="fwGoTo('details_both_buy_tap')">Continue →</button>
+        <button class="fw-back" onclick="fwBack()">← Back</button>
+      </div>
+
+      <!-- ─────────────────────────
+           SCREEN 4F-3: BOTH — Buy tap questions
+      ───────────────────────── -->
+      <div class="fw-screen" data-screen="details_both_buy_tap">
+        <p class="fw-eyebrow">Now, the purchase</p>
+        <h2 class="fw-title" id="both-buy-tap-title">Now tell us about the purchase</h2>
+        <div class="fw-field">
+          <label>Pre-approved by a lender?</label>
+          <div class="fw-yn">
+            <button type="button" class="fw-yn-btn" onclick="fwYN(this,'sbPreApproved','Yes')">Yes</button>
+            <button type="button" class="fw-yn-btn" onclick="fwYN(this,'sbPreApproved','No — connect me with a Vettd lender')">Connect me</button>
+            <button type="button" class="fw-yn-btn" onclick="fwYN(this,'sbPreApproved','No')">No</button>
+          </div>
+          <input type="hidden" id="sbPreApproved">
+        </div>
+        <div class="fw-field">
+          <label>Specialties needed for your purchase (select all that apply)</label>
+          <div class="fw-chips" id="sbSpecialties">
+            <div class="fw-chip" onclick="fwChip(this)">First-Time Buyer</div>
+            <div class="fw-chip" onclick="fwChip(this)">VA Buyer Specialist</div>
+            <div class="fw-chip" onclick="fwChip(this)">Luxury Home</div>
+            <div class="fw-chip" onclick="fwChip(this)">Condo / Townhome</div>
+            <div class="fw-chip" onclick="fwChip(this)">New Construction</div>
+            <div class="fw-chip" onclick="fwChip(this)">Relocation / New to Area</div>
+            <div class="fw-chip" onclick="fwChip(this)">None of the Above</div>
+          </div>
+        </div>
+        <button class="fw-next" onclick="fwGoTo('details_both_buy_typing')">Continue →</button>
+        <button class="fw-back" onclick="fwBack()">← Back</button>
+      </div>
+
+      <!-- ─────────────────────────
+           SCREEN 4F-4: BOTH — Buy typing / dropdowns
+      ───────────────────────── -->
+      <div class="fw-screen" data-screen="details_both_buy_typing">
+        <p class="fw-eyebrow">Now, the purchase</p>
+        <h2 class="fw-title">Where and when</h2>
+        <div class="fw-field">
+          <label>Area you're buying in</label>
+          <input type="text" id="sbBuyArea" placeholder="e.g. Dallas, Southlake, Frisco...">
+        </div>
+        <div class="fw-field">
+          <label>Buying budget</label>
+          <select id="sbBuyBudget">
+            <option value="">Select...</option>
+            <option>Under $200,000</option><option>$200,000 – $350,000</option>
+            <option>$350,000 – $500,000</option><option>$500,000 – $750,000</option>
+            <option>$750,000 – $1,000,000</option><option>$1,000,000+</option>
+          </select>
+        </div>
+        <div class="fw-field">
+          <label>Which is more urgent?</label>
+          <select id="sbUrgency">
+            <option value="">Select...</option>
+            <option>Sell first, then buy</option>
+            <option>Buy first, then sell</option>
+            <option>Both at the same time</option>
+            <option>Not sure yet</option>
+          </select>
+        </div>
+        <button class="fw-next" onclick="fwGoTo('contact')">Continue →</button>
+        <button class="fw-back" onclick="fwBack()">← Back</button>
+      </div>
+
+      <!-- ─────────────────────────
+           SCREEN 5: CONTACT — always last
+      ───────────────────────── -->
+      <div class="fw-screen" data-screen="contact">
+        <p class="fw-eyebrow">Almost done</p>
+        <h2 class="fw-title">Where should we send your match introduction?</h2>
+        <p class="fw-title-sub">We will get to work right away on finding the most qualified agent for your situation.</p>
+        <div class="fw-field-row">
+          <div class="fw-field">
+            <label>First name</label>
+            <input type="text" id="firstName" placeholder="Jane" required>
+          </div>
+          <div class="fw-field">
+            <label>Last name</label>
+            <input type="text" id="lastName" placeholder="Doe" required>
+          </div>
+        </div>
+        <div class="fw-field">
+          <label>Phone</label>
+          <input type="tel" id="phone" placeholder="(555) 123-4567" required>
+        </div>
+        <div class="fw-field">
+          <label>Email</label>
+          <input type="email" id="email" placeholder="jane@example.com" required>
+        </div>
+        <div class="fw-consent">
+          <label class="fw-consent-item">
+            <input type="checkbox" id="smsConsent">
+            <span>By checking, I consent to receive SMS from <strong>Vettd</strong> (operated by Link Re LLC) about my agent matching request. Msg &amp; data rates may apply. Reply HELP for help or STOP to unsubscribe. See our <a href="/privacy.html" target="_blank">Privacy Policy</a>. <strong>SMS consent is not required to use our service.</strong> <em>(Optional)</em></span>
+          </label>
+          <label class="fw-consent-item">
+            <input type="checkbox" id="marketingConsent">
+            <span>I'd like occasional market updates and tips from Vettd. <em>(Optional)</em></span>
+          </label>
+        </div>
+        <button class="fw-submit" onclick="fwSubmit()">Get My Vettd Match →</button>
+        <p class="fw-trust">🔒 Free &amp; confidential · No obligation</p>
+        <button class="fw-back" onclick="fwBack()">← Back</button>
+      </div>
+    </div>
+    </div><!-- /hero-right-col -->
+  </div>
+</section>
+
+<!-- HERE'S WHAT HAPPENS NEXT -->
+<section class="hwhn-section">
+  <div class="hwhn-inner">
+    <p class="hwhn-tag">HERE'S WHAT HAPPENS NEXT</p>
+    <div class="hwhn-steps">
+      <div class="hwhn-step">
+        <div class="hwhn-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="26" height="26"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M9 14l2 2 4-4"/></svg>
+        </div>
+        <div class="hwhn-number">1</div>
+        <p class="hwhn-desc">You answer a few questions.</p>
+      </div>
+      <div class="hwhn-connector"></div>
+      <div class="hwhn-step">
+        <div class="hwhn-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="26" height="26"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
+        <div class="hwhn-number">2</div>
+        <p class="hwhn-desc">We review your situation.</p>
+      </div>
+      <div class="hwhn-connector"></div>
+      <div class="hwhn-step">
+        <div class="hwhn-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="26" height="26"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="hwhn-number">3</div>
+        <p class="hwhn-desc">We research the right fit.</p>
+      </div>
+      <div class="hwhn-connector"></div>
+      <div class="hwhn-step">
+        <div class="hwhn-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="26" height="26"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        </div>
+        <div class="hwhn-number">4</div>
+        <p class="hwhn-desc">We keep you informed.</p>
+      </div>
+      <div class="hwhn-connector"></div>
+      <div class="hwhn-step">
+        <div class="hwhn-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="26" height="26"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><polyline points="17 11 19 13 23 9"/></svg>
+        </div>
+        <div class="hwhn-number">5</div>
+        <p class="hwhn-desc">You're matched with the right professional.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -683,24 +1348,24 @@ src="https://www.facebook.com/tr?id=27601178092896851&ev=PageView&noscript=1"
 <section class="section how-bg" id="how">
   <div class="section-inner">
     <p class="section-tag">The Process</p>
-    <h2 class="section-title">Three steps to your<br>Vettd match</h2>
+    <h2 class="section-title">Three steps to your<br>Vett<span style="color: var(--teal-light);">d</span> match</h2>
     <p class="section-sub">We've built a process that removes the guesswork from one of the most important decisions in your transaction.</p>
     <div class="steps">
       <div class="step">
         <span class="step-number">01</span>
-        <div class="step-icon">📋</div>
+        <div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M9 14l2 2 4-4"/></svg></div>
         <h3>Tell Us Your Situation</h3>
         <p>Answer a few quick questions about your property, timeline, and goals. Takes less than 60 seconds — no account needed.</p>
       </div>
       <div class="step">
         <span class="step-number">02</span>
-        <div class="step-icon">🔍</div>
+        <div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
         <h3>We Vet & Match</h3>
         <p>Our licensed team identifies agents with the verified track record, local expertise, and proven strategy for your exact situation — not just whoever's available.</p>
       </div>
       <div class="step">
         <span class="step-number">03</span>
-        <div class="step-icon">🤝</div>
+        <div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><polyline points="17 11 19 13 23 9"/></svg></div>
         <h3>Connect With Confidence</h3>
         <p>We make a direct introduction. You know exactly who you're talking to, what they've done, and why they're the right fit for you.</p>
       </div>
@@ -712,7 +1377,7 @@ src="https://www.facebook.com/tr?id=27601178092896851&ev=PageView&noscript=1"
 <section class="section proof-section">
   <div class="section-inner">
     <p class="section-tag">Real Results</p>
-    <h2 class="section-title" style="color:white">What people say after being<br>matched with a Vettd agent</h2>
+    <h2 class="section-title" style="color:white">What people say after being<br>matched with a Vett<span style="color: var(--teal-light);">d</span> agent</h2>
     <p class="section-sub">The proof is in the outcomes.</p>
     <div class="testimonials">
       <div class="testimonial">
@@ -756,7 +1421,7 @@ src="https://www.facebook.com/tr?id=27601178092896851&ev=PageView&noscript=1"
           <li class="why-item">
             <div class="why-icon-wrap">✅</div>
             <div class="why-text">
-              <h4>Every Agent is Truly Vettd</h4>
+              <h4>Every Agent is Truly Vett<span style="color: var(--teal);">d</span></h4>
               <p>Track record verified. Local expertise confirmed. No rookies, no random referrals.</p>
             </div>
           </li>
@@ -764,7 +1429,7 @@ src="https://www.facebook.com/tr?id=27601178092896851&ev=PageView&noscript=1"
             <div class="why-icon-wrap">⚖️</div>
             <div class="why-text">
               <h4>Licensed Professional Oversight</h4>
-              <p>Every match is reviewed by a licensed real estate professional who knows your market inside out.</p>
+              <p>Every match is reviewed by a licensed real estate professional who knows what to look for in a great agent.</p>
             </div>
           </li>
           <li class="why-item">
@@ -806,7 +1471,7 @@ src="https://www.facebook.com/tr?id=27601178092896851&ev=PageView&noscript=1"
   </div>
   <h2>Only the agents who earn it<br>make it into our network.</h2>
   <p>We don't accept every agent who applies. Our screening process evaluates track record, local market knowledge, client reviews, and transaction history — so you only meet agents who've already proven themselves.</p>
-  <a href="/form.html" class="btn-primary" style="display:inline-block">See If There's a Vettd Agent In Your Area →</a>
+  <a href="#match" class="btn-primary" style="display:inline-block">See If There's a Vettd Agent In Your Area →</a>
 </div>
 
 <!-- CTA -->
@@ -814,10 +1479,10 @@ src="https://www.facebook.com/tr?id=27601178092896851&ev=PageView&noscript=1"
   <div class="section-inner">
     <div class="cta-inner">
       <p class="section-tag" style="text-align:center">Get Started</p>
-      <h2 class="section-title">Don't guess.<br>Get Vettd.</h2>
+      <h2 class="section-title">Don't guess.<br>Let Vett<span style="color: var(--teal);">d</span> match you with the <em style="color: var(--teal);">right</em> agent.</h2>
       <p>It's free, it takes 60 seconds, and it could be the single most important step you take before your next real estate transaction.</p>
       <div class="cta-actions">
-        <a href="/form.html" class="btn-dark">Get My Free Match →</a>
+        <a href="#match" class="btn-dark">Get My Free Match →</a>
         <a href="#how" class="btn-outline">Learn How It Works</a>
       </div>
     </div>
@@ -833,14 +1498,14 @@ src="https://www.facebook.com/tr?id=27601178092896851&ev=PageView&noscript=1"
       <p class="footer-entity">
         Vettd is a service of Link Re LLC,<br>
         a Texas limited liability company.<br>
-        Licensed Real Estate Referral &amp; Matching Service.
+        Real Estate Referral &amp; Matching Service.
       </p>
     </div>
     <div class="footer-col">
       <h4>Company</h4>
       <a href="#how">How It Works</a>
       <a href="#why">Why Vettd</a>
-      <a href="/form.html">Get Matched</a>
+      <a href="#match">Get Matched</a>
       <a href="/agents.html">For Agents</a>
     </div>
     <div class="footer-col">
@@ -860,6 +1525,509 @@ src="https://www.facebook.com/tr?id=27601178092896851&ev=PageView&noscript=1"
   </div>
 </footer>
 
-<script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="69e5664806d5d5bbf0598537"></script>
+<!-- Chatbot removed for conversion focus -->
+
+<!-- ═══════════════════════════════════════════════════
+     PROGRESSIVE FORM WIDGET — styles + logic
+═══════════════════════════════════════════════════ -->
+<style>
+.fw-card { padding: 32px 28px; display: flex; flex-direction: column; }
+
+/* Circle + connector progress indicator */
+.fw-progress-track { display: flex; align-items: center; padding: 4px 0 8px; gap: 0; }
+.fw-step-circle {
+  width: 26px; height: 26px; border-radius: 50%;
+  border: 2px solid var(--border); background: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--white); font-size: 14px; font-weight: 700;
+  transition: all 0.35s ease;
+  flex-shrink: 0; position: relative;
+}
+.fw-step-circle.done {
+  background: var(--teal); border-color: var(--teal);
+}
+.fw-step-circle.current {
+  border-color: var(--teal); border-width: 2.5px; background: var(--white);
+}
+.fw-step-circle.current::before {
+  content: ''; width: 10px; height: 10px; border-radius: 50%;
+  background: var(--teal); animation: fwPulse 1.5s ease-in-out infinite;
+}
+@keyframes fwPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.75; }
+}
+.fw-progress-connector {
+  flex: 1; height: 2.5px; background: var(--border);
+  transition: background 0.4s ease; min-width: 8px;
+}
+.fw-progress-connector.done { background: var(--teal); }
+@media (max-width: 900px) {
+  .fw-step-circle { width: 22px; height: 22px; font-size: 12px; }
+  .fw-step-circle.current::before { width: 8px; height: 8px; }
+  .fw-progress-connector { height: 2px; }
+}
+.fw-step-count { font-family: 'Outfit', sans-serif; font-size: 0.72rem; color: var(--muted); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 24px; }
+.fw-screen { display: none; animation: fwFadeIn 0.3s ease; }
+.fw-screen.active { display: block; }
+@keyframes fwFadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.fw-eyebrow { font-family: 'Outfit', sans-serif; font-size: 0.72rem; color: var(--teal); letter-spacing: 0.24em; text-transform: uppercase; font-weight: 600; margin-bottom: 8px; }
+.fw-title { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 1.75rem; color: var(--ink); line-height: 1.15; margin-bottom: 8px; }
+.fw-title-sub { font-family: 'Outfit', sans-serif; font-size: 0.9rem; color: var(--muted); margin-bottom: 20px; }
+.fw-section-label { font-family: 'Outfit', sans-serif; font-size: 0.72rem; color: var(--teal); letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600; margin-top: 18px; margin-bottom: 12px; }
+.fw-choices { display: flex; flex-direction: column; gap: 12px; margin-top: 18px; margin-bottom: 12px; }
+.fw-choice { display: flex; align-items: center; gap: 14px; padding: 18px 20px; background: var(--white); border: 2px solid var(--border); border-radius: 10px; cursor: pointer; text-align: left; font-family: 'Outfit', sans-serif; font-size: 1rem; color: var(--ink); transition: all 0.18s ease; width: 100%; }
+.fw-choice:hover { border-color: var(--teal); background: var(--teal-glow); transform: translateY(-1px); }
+.fw-choice-icon { flex-shrink: 0; color: var(--teal); display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; }
+.fw-choice-icon svg { width: 24px; height: 24px; display: block; }
+.fw-choice-label { font-weight: 500; }
+.fw-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+.fw-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+.fw-field-row .fw-field { margin-bottom: 0; }
+.fw-field label { font-family: 'Outfit', sans-serif; font-size: 0.82rem; color: var(--ink); font-weight: 500; }
+.fw-field input[type="text"], .fw-field input[type="tel"], .fw-field input[type="email"], .fw-field select { font-family: 'Outfit', sans-serif; font-size: 0.95rem; padding: 12px 14px; border: 1.5px solid var(--border); border-radius: 8px; background: var(--white); color: var(--ink); transition: border-color 0.15s ease; }
+.fw-field input:focus, .fw-field select:focus { outline: none; border-color: var(--teal); }
+.fw-yn { display: flex; gap: 8px; flex-wrap: wrap; }
+.fw-yn-btn { flex: 1; min-width: 80px; padding: 10px 14px; background: var(--white); border: 1.5px solid var(--border); border-radius: 8px; cursor: pointer; font-family: 'Outfit', sans-serif; font-size: 0.88rem; color: var(--ink); transition: all 0.15s ease; }
+.fw-yn-btn:hover { border-color: var(--teal); }
+.fw-yn-btn.selected { background: var(--teal); color: var(--white); border-color: var(--teal); }
+.fw-chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.fw-chip { padding: 8px 14px; background: var(--white); border: 1.5px solid var(--border); border-radius: 999px; cursor: pointer; font-family: 'Outfit', sans-serif; font-size: 0.82rem; color: var(--ink); transition: all 0.15s ease; }
+.fw-chip:hover { border-color: var(--teal); }
+.fw-chip.selected { background: var(--teal); color: var(--white); border-color: var(--teal); }
+.fw-next, .fw-submit { width: 100%; padding: 15px; background: var(--teal); color: var(--white); border: none; border-radius: 10px; font-family: 'Outfit', sans-serif; font-size: 0.98rem; font-weight: 600; cursor: pointer; margin-top: 14px; transition: all 0.18s ease; }
+.fw-next:hover, .fw-submit:hover { background: var(--teal-dark, #0d5f58); transform: translateY(-1px); }
+.fw-back { width: 100%; padding: 10px; background: transparent; color: var(--muted); border: none; font-family: 'Outfit', sans-serif; font-size: 0.85rem; cursor: pointer; margin-top: 8px; }
+.fw-back:hover { color: var(--teal); }
+.fw-consent { display: flex; flex-direction: column; gap: 12px; margin: 16px 0; padding: 14px; background: var(--cream); border-radius: 8px; }
+.fw-consent-item { display: flex; gap: 10px; align-items: flex-start; cursor: pointer; }
+.fw-consent-item input[type="checkbox"] { width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px; accent-color: var(--teal); cursor: pointer; }
+.fw-consent-item span { font-family: 'Outfit', sans-serif; font-size: 0.75rem; color: var(--muted); line-height: 1.55; }
+.fw-consent-item strong { color: var(--ink); font-weight: 600; }
+.fw-consent-item a { color: var(--teal); text-decoration: underline; }
+.fw-trust { text-align: center; font-family: 'Outfit', sans-serif; font-size: 0.78rem; color: var(--muted); margin-top: 12px; }
+
+/* Right column: callout stacked above form card */
+.hero-right-col { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+
+/* Hero callout — time indicator with teal clock icon, white text */
+.hero-callout { font-family: 'Outfit', sans-serif; font-size: 1.05rem; font-weight: 500; color: var(--white); margin: 0; letter-spacing: 0.01em; display: inline-flex; align-items: center; gap: 10px; line-height: 1.2; text-align: center; }
+.hero-callout-icon { display: inline-flex; align-items: center; color: var(--teal-light); }
+.hero-callout-icon svg { width: 22px; height: 22px; display: block; }
+.hero-right-col .fw-card { width: 100%; }
+
+/* ─────────────────────────
+   ABOVE-THE-FOLD OPTIMIZATIONS
+────────────────────────── */
+
+/* Desktop: keep card compact so it fits in viewport */
+.fw-card {
+  padding: 26px 26px;
+  max-height: calc(100vh - 140px);
+  overflow-y: auto;
+}
+
+/* Screen 1 (situation picker) should always fit on any device */
+[data-screen="situation"] .fw-title { font-size: 1.6rem; }
+[data-screen="situation"] .fw-choice { padding: 15px 18px; }
+
+/* Mobile: text ON TOP, form BELOW — both above the fold */
+@media (max-width: 900px) {
+  .hero { padding: 90px 20px 40px; }  /* tighter top padding for above-the-fold */
+  .hero-inner { display: flex; flex-direction: column; gap: 14px; }
+  .hero-content { order: 1; text-align: center; }
+  .hero-right-col { order: 2; gap: 6px; align-items: center; }
+  .hero-callout { display: inline-flex; font-size: 0.92rem; margin: 0 0 4px 0; gap: 8px; }
+  .hero-callout-icon svg { width: 18px; height: 18px; }
+  .hero-stamp { justify-content: center; padding: 6px 14px; }
+  .hero-stamp .stamp-text { font-size: 0.68rem; letter-spacing: 0.24em; }
+  .hero-content h1 { font-size: 1.5rem; line-height: 1.15; margin-bottom: 8px; }
+  .hero-sub { font-size: 0.82rem; line-height: 1.45; margin-bottom: 4px; }
+  .fw-card { padding: 16px 16px; max-height: none; }
+  .fw-progress { margin-bottom: 6px; }
+  .fw-step-count { font-size: 0.62rem; margin-bottom: 10px; }
+  .fw-eyebrow { font-size: 0.66rem; margin-bottom: 4px; }
+  .fw-title { font-size: 1.2rem; margin-bottom: 4px; }
+  .fw-choice { padding: 11px 14px; font-size: 0.9rem; }
+  .fw-choice-icon { font-size: 1.2rem; }
+  .fw-choices { gap: 8px; margin-top: 10px; }
+}
+
+/* Very short viewports (landscape mobile, small laptops) */
+@media (max-height: 700px) {
+  .fw-card { padding: 20px 22px; }
+  .fw-title { font-size: 1.35rem; }
+  .fw-step-count { margin-bottom: 14px; }
+}
+
+/* ═══════════════════════════════════════════════════
+   HERE'S WHAT HAPPENS NEXT — horizontal timeline
+═══════════════════════════════════════════════════ */
+.hwhn-section {
+  background: var(--ink);
+  padding: 48px 56px 60px;
+  position: relative;
+  z-index: 2;
+}
+.hwhn-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.hwhn-tag {
+  color: var(--teal-light);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  text-align: center;
+  margin: 0 0 36px 0;
+  font-family: 'Outfit', sans-serif;
+  text-transform: uppercase;
+}
+.hwhn-steps {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.hwhn-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 0 0 auto;
+  width: 130px;
+  padding: 0 4px;
+}
+.hwhn-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  border: 2px solid var(--teal-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  background: transparent;
+  line-height: 1;
+  color: var(--teal-light);
+}
+.hwhn-icon svg { width: 26px; height: 26px; display: block; }
+@media (max-width: 900px) {
+  .hwhn-icon svg { width: 20px; height: 20px; }
+}
+.hwhn-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 4px;
+  line-height: 1;
+}
+.hwhn-desc {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.82rem;
+  line-height: 1.4;
+  margin: 0;
+  font-family: 'Outfit', sans-serif;
+}
+.hwhn-connector {
+  flex: 1;
+  border-top: 2px dotted rgba(20, 184, 168, 0.5);
+  margin-top: 28px;
+  min-width: 20px;
+}
+@media (max-width: 900px) {
+  .hwhn-section { padding: 32px 16px 40px; }
+  .hwhn-tag { font-size: 0.68rem; letter-spacing: 0.24em; margin-bottom: 24px; }
+  .hwhn-step { width: auto; flex: 1 1 0; padding: 0 2px; }
+  .hwhn-icon { width: 40px; height: 40px; font-size: 1.15rem; margin-bottom: 8px; }
+  .hwhn-number { font-size: 1.15rem; margin-bottom: 3px; }
+  .hwhn-desc { font-size: 0.66rem; line-height: 1.3; }
+  .hwhn-connector { margin-top: 19px; min-width: 6px; }
+}
+</style>
+
+<script>
+// ═══════════════════════════════════════════════════
+// PROGRESSIVE FORM STATE MACHINE
+// ═══════════════════════════════════════════════════
+const FW = {
+  history: ['situation'],
+  state: {},
+  totalScreens: 5,
+  currentIdx: 1,
+};
+
+function fwGoTo(screen) {
+  // Validate current screen if leaving a details screen
+  const current = FW.history[FW.history.length - 1];
+  if (current.startsWith('details_') && !fwValidateDetails(current)) return;
+  document.querySelectorAll('.fw-screen').forEach(s => s.classList.remove('active'));
+  const target = document.querySelector(`[data-screen="${screen}"]`);
+  if (target) target.classList.add('active');
+  FW.history.push(screen);
+  fwUpdateProgress();
+  // Scroll form into view on mobile
+  const card = document.querySelector('.fw-card');
+  if (card && window.innerWidth < 900) card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function fwBack() {
+  if (FW.history.length <= 1) return;
+  FW.history.pop();
+  const prev = FW.history[FW.history.length - 1];
+  document.querySelectorAll('.fw-screen').forEach(s => s.classList.remove('active'));
+  document.querySelector(`[data-screen="${prev}"]`).classList.add('active');
+  fwUpdateProgress();
+}
+
+function fwChoose(key, value) {
+  FW.state[key] = value;
+  // Route logic — TAP screens come first for momentum, then typing/dropdowns
+  if (key === 'situation') {
+    if (value === 'buy') fwGoTo('purpose_buy');
+    else if (value === 'sell') fwGoTo('purpose_sell');
+    else if (value === 'both') fwGoTo('purpose_both');
+  } else if (key === 'purpose') {
+    if (value === 'personal') {
+      // Go to appropriate TAP screen first based on situation
+      if (FW.state.situation === 'buy') fwGoTo('details_buy_personal_b');
+      else if (FW.state.situation === 'sell') fwGoTo('details_sell_personal_b');
+      else if (FW.state.situation === 'both') {
+        fwUpdateBothHeadlines('home');
+        fwGoTo('details_both_sell_tap');
+      }
+    } else if (value === 'investment') {
+      fwGoTo('investType');
+    }
+  } else if (key === 'investType') {
+    if (FW.state.situation === 'buy') {
+      if (value === 'res') fwGoTo('details_buy_invest_res_b');
+      else fwGoTo('details_buy_invest_com_b');
+    } else if (FW.state.situation === 'sell') {
+      // Sell + Investment (both res and com use same screens; propertyType submitted based on value)
+      // Tap screen first, then typing/dropdown screen
+      fwGoTo('details_sell_investment_b');
+    } else if (FW.state.situation === 'both') {
+      // Both + Investment: route through the individual investor sell + buy screens
+      // (matches the Sell Investment and Buy Investment paths for question parity)
+      fwGoTo('details_sell_investment_b');
+    }
+  }
+}
+
+// After the sell-investment typing screen, route based on flow:
+//  - Both flow: continue into the investor BUY screens (res or com)
+//  - Pure Sell flow: go straight to contact
+function fwNextAfterSellInvestment() {
+  if (FW.state.situation === 'both') {
+    if (FW.state.investType === 'res') fwGoTo('details_buy_invest_res_b');
+    else fwGoTo('details_buy_invest_com_b');
+  } else {
+    fwGoTo('contact');
+  }
+}
+
+function fwUpdateBothHeadlines(propertyWord) {
+  const sellTitle = document.getElementById('both-sell-tap-title');
+  const buyTitle = document.getElementById('both-buy-tap-title');
+  if (sellTitle) sellTitle.textContent = `First, tell us about the ${propertyWord} you need to sell`;
+  if (buyTitle) buyTitle.textContent = `Now tell us about the ${propertyWord} you want to buy`;
+}
+
+function fwYN(btn, key, val) {
+  // Clear siblings in this yn group
+  const group = btn.parentElement;
+  group.querySelectorAll('.fw-yn-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  document.getElementById(key).value = val;
+}
+
+function fwChip(el) {
+  el.classList.toggle('selected');
+}
+
+function fwChipSingle(el, hiddenId) {
+  el.parentElement.querySelectorAll('.fw-chip').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById(hiddenId).value = el.textContent.trim();
+}
+
+function fwGetChips(containerId) {
+  const chips = document.querySelectorAll(`#${containerId} .fw-chip.selected`);
+  return Array.from(chips).map(c => c.textContent.trim()).join(', ');
+}
+
+function fwValidateDetails(screen) {
+  // Light validation - just require the primary text field per screen. Kept minimal on purpose to reduce friction.
+  return true;
+}
+
+function fwGetMaxSteps() {
+  // Dynamic total based on path taken
+  if (FW.state.situation === 'both') {
+    // situation + purpose + (investType?) + 4 details + contact
+    return FW.state.purpose === 'investment' ? 8 : 7;
+  }
+  if (FW.state.situation === 'buy' || FW.state.situation === 'sell') {
+    // situation + purpose + (investType?) + 2 details + contact
+    return FW.state.purpose === 'investment' ? 6 : 5;
+  }
+  return 5;  // default before user picks
+}
+
+function fwRenderProgressTrack() {
+  const maxSteps = fwGetMaxSteps();
+  const currentStep = FW.history.length;
+  const track = document.getElementById('fwProgressTrack');
+  if (!track) return;
+  let html = '';
+  for (let i = 1; i <= maxSteps; i++) {
+    const isDone = i < currentStep;
+    const isCurrent = i === currentStep;
+    const cls = isDone ? 'done' : (isCurrent ? 'current' : '');
+    // Checkmark inside completed circles
+    html += `<div class="fw-step-circle ${cls}">${isDone ? '✓' : ''}</div>`;
+    if (i < maxSteps) {
+      const connectorCls = i < currentStep ? 'done' : '';
+      html += `<div class="fw-progress-connector ${connectorCls}"></div>`;
+    }
+  }
+  track.innerHTML = html;
+}
+
+function fwUpdateProgress() {
+  fwRenderProgressTrack();
+  const maxSteps = fwGetMaxSteps();
+  document.getElementById('fwStepCount').textContent = `Step ${Math.min(FW.history.length, maxSteps)} of ${maxSteps}`;
+}
+
+function fwSubmit() {
+  // Validate contact info
+  const firstName = document.getElementById('firstName').value.trim();
+  const lastName = document.getElementById('lastName').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const email = document.getElementById('email').value.trim();
+  if (!firstName || !lastName || !phone || !email) {
+    alert('Please fill out your name, phone, and email so we can send your match.');
+    return;
+  }
+  const submitBtn = document.querySelector('.fw-submit');
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Sending...';
+
+  // Determine situation value for the backend
+  let situation = FW.state.situation;
+  let propertyType = '';
+  if (FW.state.situation === 'buy') {
+    if (FW.state.purpose === 'personal') situation = 'buy';
+    else if (FW.state.investType === 'res') situation = 'invest_res';
+    else if (FW.state.investType === 'com') situation = 'invest_com';
+  } else if (FW.state.situation === 'sell') {
+    situation = 'sell';
+    if (FW.state.purpose === 'investment') {
+      propertyType = FW.state.investType === 'res' ? 'investment_residential' : 'investment_commercial';
+    }
+  } else if (FW.state.situation === 'both') {
+    situation = 'sellbuy';
+  }
+
+  const smsConsent = document.getElementById('smsConsent').checked;
+  const marketingConsent = document.getElementById('marketingConsent').checked;
+
+  const payload = {
+    firstName, lastName, phone, email,
+    situation,
+    propertyType,
+    smsConsent, marketingConsent,
+  };
+
+  // Situation-specific field collection
+  if (situation === 'buy') {
+    payload.buyArea = document.getElementById('buyArea').value;
+    payload.buyNeighborhood = document.getElementById('buyNeighborhood').value;
+    payload.buyBudget = document.getElementById('buyBudget').value;
+    payload.buyTimeline = document.getElementById('buyTimeline').value;
+    payload.buyPreApproved = document.getElementById('buyPreApproved').value;
+    payload.buyFirstTime = document.getElementById('buyFirstTime').value;
+    payload.buySpecialties = fwGetChips('buySpecialties');
+  } else if (situation === 'sell' && FW.state.purpose !== 'investment') {
+    payload.sellAddress = document.getElementById('sellAddress').value;
+    payload.sellTimeline = document.getElementById('sellTimeline').value;
+    payload.sellValue = document.getElementById('sellValue').value;
+    payload.sellCircumstances = fwGetChips('sellCircumstances');
+    payload.sellHasAgent = document.getElementById('sellHasAgent').value;
+  } else if (situation === 'sell' && FW.state.purpose === 'investment') {
+    payload.sellAddress = document.getElementById('sellAddress2').value;
+    payload.sellTimeline = document.getElementById('sellTimeline2').value;
+    payload.sellValue = document.getElementById('sellValue2').value;
+    payload.sellCircumstances = fwGetChips('sellCircumstances2');
+  } else if (situation === 'sellbuy') {
+    if (FW.state.purpose === 'investment') {
+      // Both + Investment — collected via the reused sell_investment + buy_invest_res/com screens
+      payload.sellCircumstances2 = fwGetChips('sellCircumstances2');
+      payload.sellAddress2 = document.getElementById('sellAddress2').value;
+      payload.sellTimeline2 = document.getElementById('sellTimeline2').value;
+      payload.sellValue2 = document.getElementById('sellValue2').value;
+      if (FW.state.investType === 'res') {
+        payload.resArea = document.getElementById('resArea').value;
+        payload.resPropertyType = document.getElementById('resPropertyType').value;
+        payload.resStrategy = document.getElementById('resStrategy').value;
+        payload.resBudget = document.getElementById('resBudget').value;
+        payload.resTimeline = document.getElementById('resTimeline').value;
+        payload.resExperience = document.getElementById('resExperience').value;
+        payload.propertyType = 'investment_residential';
+      } else {
+        payload.comArea = document.getElementById('comArea').value;
+        payload.comType = fwGetChips('comType');
+        payload.comBudget = document.getElementById('comBudget').value;
+        payload.comTimeline = document.getElementById('comTimeline').value;
+        payload.comExperience = document.getElementById('comExperience').value;
+        payload.propertyType = 'investment_commercial';
+      }
+    } else {
+      // Both + Personal — existing sb* fields
+      payload.sbCircumstances = fwGetChips('sbCircumstances');
+      payload.sbSellAddress = document.getElementById('sbSellAddress').value;
+      payload.sbSellValue = document.getElementById('sbSellValue').value;
+      payload.sbSellTimeline = document.getElementById('sbSellTimeline').value;
+      payload.sbBuyArea = document.getElementById('sbBuyArea').value;
+      payload.sbBuyBudget = document.getElementById('sbBuyBudget').value;
+      payload.sbUrgency = document.getElementById('sbUrgency').value;
+      payload.sbPreApproved = document.getElementById('sbPreApproved').value;
+      payload.sbSpecialties = fwGetChips('sbSpecialties');
+    }
+  } else if (situation === 'invest_res') {
+    payload.resArea = document.getElementById('resArea').value;
+    payload.resPropertyType = document.getElementById('resPropertyType').value;
+    payload.resStrategy = document.getElementById('resStrategy').value;
+    payload.resBudget = document.getElementById('resBudget').value;
+    payload.resTimeline = document.getElementById('resTimeline').value;
+    payload.resExperience = document.getElementById('resExperience').value;
+  } else if (situation === 'invest_com') {
+    payload.comArea = document.getElementById('comArea').value;
+    payload.comType = fwGetChips('comType');
+    payload.comBudget = document.getElementById('comBudget').value;
+    payload.comTimeline = document.getElementById('comTimeline').value;
+    payload.comExperience = document.getElementById('comExperience').value;
+  }
+
+  fetch('https://hooks.zapier.com/hooks/catch/27278954/uj50ba6/', {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  }).then(() => {
+    window.location.href = '/thankyou.html';
+  }).catch(() => {
+    window.location.href = '/thankyou.html';
+  });
+}
+
+// Init
+document.addEventListener('DOMContentLoaded', fwUpdateProgress);
+</script>
 </body>
 </html>
