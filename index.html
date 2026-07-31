@@ -699,7 +699,7 @@ src="https://www.facebook.com/tr?id=27601178092896851&ev=PageView&noscript=1"
   <div class="hero-inner">
     <div class="hero-content">
       <h1>
-        Get <em>personally</em> matched<br class="mobile-br"> with the <em>right</em> agent<br class="mobile-br"> for your situation.<br class="mobile-br"> <span class="hero-h1-teal">Free.</span>
+        Get <em>personally</em> matched<br class="mobile-br"> with the <em>right</em> agent<br class="mobile-br"> for your situation. <span class="hero-h1-teal">Free.</span>
       </h1>
       <p class="hero-sub">Answer a few questions. We'll take it from there — personally matching you with a rigorously screened real estate professional based on your specific situation, market, and goals. Free. Fast. No pressure.</p>
     </div>
@@ -1760,7 +1760,7 @@ src="https://www.facebook.com/tr?id=27601178092896851&ev=PageView&noscript=1"
 /* Mobile: text ON TOP, form BELOW — both above the fold */
 @media (max-width: 900px) {
   .hero { padding: 65px 20px 40px; }  /* tighter top padding — nav is shorter now (no CTA, smaller logo) */
-  .hero-inner { display: flex; flex-direction: column; gap: 14px; width: 100%; margin: 0 auto; }
+  .hero-inner { display: flex; flex-direction: column; gap: 8px; width: 100%; margin: 0 auto; }  /* tighter gap lifts the card up */
   /* display: contents lets h1 and hero-sub become direct flex children of hero-inner,
      so we can reorder them independently (h1 on top, sub below the form) */
   .hero-content { display: contents; }
@@ -1772,9 +1772,9 @@ src="https://www.facebook.com/tr?id=27601178092896851&ev=PageView&noscript=1"
   .hero-callout-icon svg { width: 18px; height: 18px; }
   .hero-stamp { justify-content: center; padding: 6px 14px; }
   .hero-stamp .stamp-text { font-size: 0.68rem; letter-spacing: 0.24em; }
-  .hero-content h1 { font-size: 1.75rem; line-height: 1.25; margin-bottom: 10px; padding-top: 6px; max-width: 340px; margin-left: auto; margin-right: auto; }
+  .hero-content h1 { font-size: 1.9rem; line-height: 1.22; margin-bottom: 4px; padding-top: 6px; max-width: 360px; margin-left: auto; margin-right: auto; }
   .mobile-br { display: inline; }  /* mobile-only line breaks for the hero headline */
-  .hero-sub { font-size: 0.78rem; line-height: 1.4; margin: 10px auto 0; max-width: 340px; padding: 0 8px; color: rgba(255,255,255,0.72); }  /* smaller, tighter — sits under the white card */
+  .hero-sub { font-size: 0.9rem; line-height: 1.45; margin: 8px auto 0; max-width: 360px; padding: 0 8px; color: rgba(255,255,255,0.95); font-weight: 400; }  /* brighter, bigger — sits under the white card */
   .fw-card { padding: 16px 16px; max-height: none; }
   .fw-progress { margin-bottom: 6px; }
   .fw-step-count { font-size: 0.62rem; margin-bottom: 10px; }
