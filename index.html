@@ -1761,8 +1761,12 @@ src="https://www.facebook.com/tr?id=27601178092896851&ev=PageView&noscript=1"
 @media (max-width: 900px) {
   .hero { padding: 65px 20px 40px; }  /* tighter top padding — nav is shorter now (no CTA, smaller logo) */
   .hero-inner { display: flex; flex-direction: column; gap: 14px; width: 100%; margin: 0 auto; }
-  .hero-content { order: 1; text-align: center; width: 100%; padding-top: 0; }  /* remove desktop 60px top padding on mobile */
+  /* display: contents lets h1 and hero-sub become direct flex children of hero-inner,
+     so we can reorder them independently (h1 on top, sub below the form) */
+  .hero-content { display: contents; }
+  .hero-content h1 { order: 1; text-align: center; }
   .hero-right-col { order: 2; gap: 6px; align-items: center; width: 100%; margin: 0 auto; }
+  .hero-content .hero-sub { order: 3; text-align: center; }  /* moved BELOW the white card */
   .hero-right-col .fw-card { width: 100%; max-width: 500px; margin: 0 auto; }
   .hero-callout { display: inline-flex; font-size: 0.92rem; margin: 0 0 4px 0; gap: 8px; }
   .hero-callout-icon svg { width: 18px; height: 18px; }
@@ -1770,7 +1774,7 @@ src="https://www.facebook.com/tr?id=27601178092896851&ev=PageView&noscript=1"
   .hero-stamp .stamp-text { font-size: 0.68rem; letter-spacing: 0.24em; }
   .hero-content h1 { font-size: 1.75rem; line-height: 1.25; margin-bottom: 10px; padding-top: 6px; max-width: 340px; margin-left: auto; margin-right: auto; }
   .mobile-br { display: inline; }  /* mobile-only line breaks for the hero headline */
-  .hero-sub { font-size: 0.82rem; line-height: 1.45; margin-bottom: 4px; }
+  .hero-sub { font-size: 0.78rem; line-height: 1.4; margin: 10px auto 0; max-width: 340px; padding: 0 8px; color: rgba(255,255,255,0.72); }  /* smaller, tighter — sits under the white card */
   .fw-card { padding: 16px 16px; max-height: none; }
   .fw-progress { margin-bottom: 6px; }
   .fw-step-count { font-size: 0.62rem; margin-bottom: 10px; }
