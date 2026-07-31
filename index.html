@@ -613,8 +613,12 @@
 
   /* ── RESPONSIVE ── */
   @media (max-width: 960px) {
-    nav { padding: 16px 24px; }
+    nav { padding: 14px 18px; }
     .nav-badge { display: none; }
+    .nav-cta { display: none; }              /* hide CTA button on mobile — form is right below the fold */
+    .logo { font-size: 1.5rem; }             /* smaller logo so nav fits on one line */
+    .nav-right { gap: 14px; }                /* tighter spacing between links */
+    .nav-link { font-size: 0.8rem; white-space: nowrap; }
     .hero { padding: 100px 24px 60px; }
     .hero-inner, .steps, .testimonials, .why-grid { grid-template-columns: 1fr; }
     .form-row { grid-template-columns: 1fr; }
@@ -691,6 +695,11 @@ src="https://www.facebook.com/tr?id=27601178092896851&ev=PageView&noscript=1"
       <!-- Progress indicator -->
       <div class="fw-progress-track" id="fwProgressTrack"></div>
       <p class="fw-step-count" id="fwStepCount">Question 1 of 5</p>
+
+      <!-- Section banner — only visible during Both flow to indicate SELL vs BUY -->
+      <div class="fw-section-banner" id="fwSectionBanner" style="display:none">
+        <span id="fwSectionBannerLabel"></span>
+      </div>
 
       <!-- ─────────────────────────
            SCREEN 1: WHAT TO DO
@@ -1528,6 +1537,63 @@ src="https://www.facebook.com/tr?id=27601178092896851&ev=PageView&noscript=1"
 <!-- Chatbot removed for conversion focus -->
 
 <!-- ═══════════════════════════════════════════════════
+     GOOGLE PLACES AUTOCOMPLETE — for all address fields
+═══════════════════════════════════════════════════ -->
+<script>
+  function initVettdAutocomplete() {
+    const addressFieldIds = ['sellAddress', 'sellAddress2', 'sbSellAddress'];
+    addressFieldIds.forEach(id => {
+      const input = document.getElementById(id);
+      if (!input) return;
+      const autocomplete = new google.maps.places.Autocomplete(input, {
+        types: ['address'],
+        componentRestrictions: { country: 'us' },
+        fields: ['formatted_address']
+      });
+      // When user picks a suggestion, replace input with the full formatted address
+      autocomplete.addListener('place_changed', () => {
+        const place = autocomplete.getPlace();
+        if (place && place.formatted_address) {
+          input.value = place.formatted_address;
+        }
+      });
+      // Prevent Enter key from submitting form when autocomplete dropdown is open
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          const pac = document.querySelector('.pac-container');
+          if (pac && pac.offsetHeight > 0) e.preventDefault();
+        }
+      });
+    });
+  }
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBzhu5D2UwUngKoA0Q-0uo3b9ixABz0o14&libraries=places&callback=initVettdAutocomplete&loading=async"></script>
+
+<style>
+  /* Google Places autocomplete dropdown — brand-aligned styling */
+  .pac-container {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    font-family: 'Outfit', sans-serif;
+    margin-top: 4px;
+  }
+  .pac-item {
+    padding: 10px 14px;
+    font-size: 0.88rem;
+    color: var(--ink);
+    border-top: 1px solid var(--border);
+    cursor: pointer;
+  }
+  .pac-item:first-child { border-top: none; }
+  .pac-item:hover { background: var(--teal-glow); }
+  .pac-item-selected, .pac-item-selected:hover { background: var(--teal-glow); }
+  .pac-icon { display: none; }
+  .pac-item-query { color: var(--ink); font-weight: 500; }
+  .pac-matched { font-weight: 700; color: var(--teal); }
+</style>
+
+<!-- ═══════════════════════════════════════════════════
      PROGRESSIVE FORM WIDGET — styles + logic
 ═══════════════════════════════════════════════════ -->
 <style>
@@ -1562,6 +1628,23 @@ src="https://www.facebook.com/tr?id=27601178092896851&ev=PageView&noscript=1"
   transition: background 0.4s ease; min-width: 8px;
 }
 .fw-progress-connector.done { background: var(--teal); }
+
+/* Section banner — shows during Both flow to indicate SELL side vs BUY side */
+.fw-section-banner {
+  background: var(--teal);
+  color: var(--white);
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 8px 0 20px;
+  display: inline-block;
+  align-self: center;
+}
 @media (max-width: 900px) {
   .fw-step-circle { width: 22px; height: 22px; font-size: 12px; }
   .fw-step-circle.current::before { width: 8px; height: 8px; }
@@ -1631,17 +1714,40 @@ src="https://www.facebook.com/tr?id=27601178092896851&ev=PageView&noscript=1"
 [data-screen="situation"] .fw-title { font-size: 1.6rem; }
 [data-screen="situation"] .fw-choice { padding: 15px 18px; }
 
+/* "Start Here" eyebrow — bigger, bolder, gently pulsing to draw the eye */
+[data-screen="situation"] .fw-eyebrow {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  color: var(--teal);
+  margin-bottom: 12px;
+  animation: startHerePulse 2.4s ease-in-out infinite;
+  display: inline-block;
+}
+@keyframes startHerePulse {
+  0%, 100% { opacity: 0.85; transform: translateY(0); }
+  50%      { opacity: 1;    transform: translateY(-2px); }
+}
+@media (max-width: 900px) {
+  [data-screen="situation"] .fw-eyebrow { font-size: 0.82rem; margin-bottom: 8px; }
+}
+/* Respect reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+  [data-screen="situation"] .fw-eyebrow { animation: none; }
+}
+
 /* Mobile: text ON TOP, form BELOW — both above the fold */
 @media (max-width: 900px) {
-  .hero { padding: 90px 20px 40px; }  /* tighter top padding for above-the-fold */
-  .hero-inner { display: flex; flex-direction: column; gap: 14px; }
-  .hero-content { order: 1; text-align: center; }
-  .hero-right-col { order: 2; gap: 6px; align-items: center; }
+  .hero { padding: 65px 20px 40px; }  /* tighter top padding — nav is shorter now (no CTA, smaller logo) */
+  .hero-inner { display: flex; flex-direction: column; gap: 14px; width: 100%; margin: 0 auto; }
+  .hero-content { order: 1; text-align: center; width: 100%; padding-top: 0; }  /* remove desktop 60px top padding on mobile */
+  .hero-right-col { order: 2; gap: 6px; align-items: center; width: 100%; margin: 0 auto; }
+  .hero-right-col .fw-card { width: 100%; max-width: 500px; margin: 0 auto; }
   .hero-callout { display: inline-flex; font-size: 0.92rem; margin: 0 0 4px 0; gap: 8px; }
   .hero-callout-icon svg { width: 18px; height: 18px; }
   .hero-stamp { justify-content: center; padding: 6px 14px; }
   .hero-stamp .stamp-text { font-size: 0.68rem; letter-spacing: 0.24em; }
-  .hero-content h1 { font-size: 1.5rem; line-height: 1.15; margin-bottom: 8px; }
+  .hero-content h1 { font-size: 1.5rem; line-height: 1.3; margin-bottom: 8px; padding-top: 6px; }
   .hero-sub { font-size: 0.82rem; line-height: 1.45; margin-bottom: 4px; }
   .fw-card { padding: 16px 16px; max-height: none; }
   .fw-progress { margin-bottom: 6px; }
@@ -1769,9 +1875,50 @@ function fwGoTo(screen) {
   if (target) target.classList.add('active');
   FW.history.push(screen);
   fwUpdateProgress();
+  fwUpdateSectionBanner(screen);
   // Scroll form into view on mobile
   const card = document.querySelector('.fw-card');
   if (card && window.innerWidth < 900) card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// Section banner — only shows during Both flow; swaps between SELLING and BUYING labels
+function fwUpdateSectionBanner(screen) {
+  const banner = document.getElementById('fwSectionBanner');
+  const label = document.getElementById('fwSectionBannerLabel');
+  if (!banner || !label) return;
+
+  // Only relevant when situation is Both (sellbuy)
+  if (FW.state.situation !== 'both') {
+    banner.style.display = 'none';
+    return;
+  }
+
+  // SELL side screens (Both flow uses either the Both-personal or the Sell Investment screens)
+  const sellScreens = [
+    'details_both_sell_tap',
+    'details_both_sell_typing',
+    'details_sell_investment_b',
+    'details_sell_investment',
+  ];
+  // BUY side screens
+  const buyScreens = [
+    'details_both_buy_tap',
+    'details_both_buy_typing',
+    'details_buy_invest_res_b',
+    'details_buy_invest_res',
+    'details_buy_invest_com_b',
+    'details_buy_invest_com',
+  ];
+
+  if (sellScreens.includes(screen)) {
+    label.textContent = 'First · The Sale';
+    banner.style.display = 'inline-block';
+  } else if (buyScreens.includes(screen)) {
+    label.textContent = 'Now · The Purchase';
+    banner.style.display = 'inline-block';
+  } else {
+    banner.style.display = 'none';
+  }
 }
 
 function fwBack() {
@@ -1781,6 +1928,7 @@ function fwBack() {
   document.querySelectorAll('.fw-screen').forEach(s => s.classList.remove('active'));
   document.querySelector(`[data-screen="${prev}"]`).classList.add('active');
   fwUpdateProgress();
+  fwUpdateSectionBanner(prev);
 }
 
 function fwChoose(key, value) {
