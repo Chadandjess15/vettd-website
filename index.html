@@ -623,8 +623,26 @@
     .hero-inner, .steps, .testimonials, .why-grid { grid-template-columns: 1fr; }
     .form-row { grid-template-columns: 1fr; }
     .section { padding: 70px 24px; }
-    .trust-bar { padding: 20px 24px; }
-    .trust-inner { gap: 20px; }
+    .trust-bar { padding: 24px 24px; }
+    .trust-inner {
+      flex-direction: column;
+      align-items: flex-start;      /* left-align so checkmarks line up */
+      gap: 12px;
+      max-width: 320px;             /* keeps the stack centered as a block */
+      margin: 0 auto;
+    }
+    .trust-item {
+      width: 100%;
+      align-items: flex-start;      /* aligns checkmark with first line of text */
+      gap: 12px;
+      font-size: 0.88rem;
+    }
+    .trust-icon {
+      flex-shrink: 0;               /* prevents checkmark from squishing */
+      font-size: 1rem;
+      line-height: 1.4;
+      min-width: 14px;              /* uniform icon column — every ✓ starts at same X */
+    }
     .badge-section, .cta-section { padding: 70px 24px; }
     footer { padding: 40px 24px 28px; }
     .footer-top { grid-template-columns: 1fr; gap: 32px; }
@@ -1876,9 +1894,8 @@ function fwGoTo(screen) {
   FW.history.push(screen);
   fwUpdateProgress();
   fwUpdateSectionBanner(screen);
-  // Scroll form into view on mobile
-  const card = document.querySelector('.fw-card');
-  if (card && window.innerWidth < 900) card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  // Card stays anchored — no auto-scroll — so "Takes less than 2 minutes"
+  // and the callout remain visible above the card between screens.
 }
 
 // Section banner — only shows during Both flow; swaps between SELLING and BUYING labels
