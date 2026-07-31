@@ -32,7 +32,8 @@
 <!-- ============ FAVICON ============ -->
 <link rel="icon" type="image/svg+xml" href="/vettd-favicon.svg">
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<!-- Self-hosted fonts — no Google Fonts round-trip. Files live in /fonts (run download-fonts.sh once). -->
+<link rel="stylesheet" href="/fonts.css">
 <style>
   :root {
     --ink: #111827;
@@ -113,7 +114,7 @@
   /* OPTION 1 — Photo background with dark gradient fade */
   .hero-photo-bg {
     position: absolute; inset: 0;
-    background-image: url('hero-home.png');
+    background-image: url('hero-home.jpeg');
     background-position: left center;
     background-size: cover;
     background-repeat: no-repeat;
