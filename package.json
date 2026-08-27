@@ -1,0 +1,19 @@
+{
+  "name": "vettd-website",
+  "version": "1.0.0",
+  "description": "Vettd - Real estate agent matching service website",
+  "private": true,
+  "scripts": {
+    "deploy": "vercel deploy"
+  },
+  "dependencies": {
+    "@vercel/speed-insights": "^1.0.0"
+  },
+  "devDependencies": {},
+  "keywords": [
+    "real-estate",
+    "vettd"
+  ],
+  "author": "",
+  "license": "UNLICENSED"
+}
