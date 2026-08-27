@@ -333,6 +333,10 @@ src="https://www.facebook.com/tr?id=27601178092896851&ev=PageView&noscript=1"
 <script>
   window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
 </script>
+<!-- Vercel Analytics Events -->
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
 </head>
 <body>
 
@@ -866,6 +870,7 @@ src="https://www.facebook.com/tr?id=27601178092896851&ev=PageView&noscript=1"
     currentSituation = type;
     document.querySelectorAll('.sit-card').forEach(c => c.classList.remove('selected'));
     event.currentTarget.classList.add('selected');
+    if (typeof window.va === 'function') window.va('event', { name: 'form_situation_selected', path: type });
   }
 
   // Go to step 2 based on selection
@@ -888,6 +893,7 @@ src="https://www.facebook.com/tr?id=27601178092896851&ev=PageView&noscript=1"
     document.getElementById('step2_' + currentSituation).classList.add('active');
     updateProgress(2);
     document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth' });
+    if (typeof window.va === 'function') window.va('event', { name: 'form_step1_complete', path: currentSituation });
   }
 
   function goBack() {
@@ -998,6 +1004,8 @@ src="https://www.facebook.com/tr?id=27601178092896851&ev=PageView&noscript=1"
     }
 
     // POST to GHL webhook and redirect
+    // Fire Vercel Analytics event before redirect
+    if (typeof window.va === 'function') window.va('event', { name: 'form_submitted', path: type });
     // Redirect immediately — webhook fires in background
     window.location.href = '/thankyou.html';
 
@@ -1008,6 +1016,30 @@ src="https://www.facebook.com/tr?id=27601178092896851&ev=PageView&noscript=1"
       body: JSON.stringify(payload)
     }).catch(() => {});
   }
+
+  // Track first focus into any personal info field (fires once per session)
+  let personalInfoStarted = false;
+  function trackPersonalInfoStart() {
+    if (personalInfoStarted) return;
+    personalInfoStarted = true;
+    if (typeof window.va === 'function') window.va('event', { name: 'form_typing_started' });
+  }
+  ['firstName', 'lastName', 'phone', 'email'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('focus', trackPersonalInfoStart);
+  });
+
+  // Track first interaction with any Step 2 field (fires once per session, per path)
+  let step2Engaged = false;
+  function trackStep2Engagement() {
+    if (step2Engaged) return;
+    step2Engaged = true;
+    if (typeof window.va === 'function') window.va('event', { name: 'form_step2_engaged', path: currentSituation });
+  }
+  document.querySelectorAll('[id^="step2_"] input, [id^="step2_"] select, [id^="step2_"] textarea, [id^="step2_"] .chip, [id^="step2_"] .yn-btn').forEach(el => {
+    el.addEventListener('focus', trackStep2Engagement);
+    el.addEventListener('click', trackStep2Engagement);
+  });
 </script>
 <!-- Vercel Analytics — page views, referrers, top pages -->
 <script defer src="/_vercel/insights/script.js"></script>
